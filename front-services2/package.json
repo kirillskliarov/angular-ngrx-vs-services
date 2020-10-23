@@ -1,9 +1,9 @@
 {
-  "name": "front-services",
+  "name": "front-services2",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port=5020",
+    "start": "ng serve --port=5030",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
