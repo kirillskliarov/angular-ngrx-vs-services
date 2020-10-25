@@ -1,1 +1,5 @@
-<app-header></app-header>
+<app-header [phones]="phones"
+            [activePhone]="activePhone"
+            (setActivePhone)="onSetActivePhone($event)"
+></app-header>
+<router-outlet></router-outlet>
