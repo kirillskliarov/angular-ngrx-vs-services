@@ -13,7 +13,7 @@ server.use(middlewares);
 const port = 5000;
 
 server.get("/", (req: Request, res: Response) => {
-  res.status(200).send("Hello World!");
+  res.status(200).send('Hello World!');
 });
 
 server.get("/user/phones/list", (request: Request, response: Response) => {
@@ -39,12 +39,12 @@ server.get("/user/tariff-modifiers", (request: Request, response: Response) => {
 });
 
 // http://localhost:5000/user/subscriptions?phone=%2B79280001133
-server.get("/user/tariff", (request: Request, response: Response) => {
+server.get("/user/subscriptions", (request: Request, response: Response) => {
   const phone = request.query.phone as string;
   const subscriptionList: string[] = (USER_DB.get(phone) as Account).subscriptionList;
   response.status(200).jsonp(subscriptionList);
 });
 
 server.listen(port, () => {
-  console.log(`Server Started at http://localhost:${port}/`)
+  console.log(`Server started at http://localhost:${port}/`)
 });
