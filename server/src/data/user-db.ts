@@ -4,7 +4,7 @@ import { TARIFF_LIST } from './tariff-list';
 import { TARIFF_MODIFIERS_LIST } from './tariff-modifiers-list';
 import { SUBSCRIPTION_LIST } from './subscription-list';
 
-export const USER_DB: Map<string, Account> = (new Map<string, Account>())
+export const USER_DB: ReadonlyMap<string, Account> = (new Map<string, Account>())
   .set(PHONES[0], {
     tariff: TARIFF_LIST[0].id,
     tariffModifierList: [],
@@ -27,3 +27,13 @@ export const USER_DB: Map<string, Account> = (new Map<string, Account>())
     ],
   })
 ;
+
+let defaultPhone = PHONES[0];
+
+export function getDefaultPhone(): string {
+  return defaultPhone;
+}
+
+export function setDefaultPhone(phone: string) {
+  defaultPhone = phone;
+}

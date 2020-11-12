@@ -1,7 +1,6 @@
 import { EntityStatus } from './entity-status';
 
-export interface EntityState<T> {
+export interface StateEntity<T> {
   status: EntityStatus;
   value: T;
-  error: any;
 }

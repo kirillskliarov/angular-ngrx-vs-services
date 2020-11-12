@@ -4,10 +4,12 @@ export const SUBSCRIPTION_LIST: ReadonlyArray<Subscription> = [
   {
     id: '0',
     label: 'Change Beep',
+    fee: 200,
   },
   {
     id: '1',
     label: 'Weather',
+    fee: 100,
   },
 ];
 

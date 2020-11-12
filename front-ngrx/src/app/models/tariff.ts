@@ -1,5 +1,6 @@
 export interface Tariff {
-  id: string;
-  label: string;
-  description: string;
+  readonly id: string;
+  readonly label: string;
+  readonly description: string;
+  readonly fee: number;
 }

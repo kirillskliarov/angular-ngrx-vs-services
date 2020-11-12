@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { UserFacadeService } from './services/user-facade.service';
+import { StateEntity } from './models/state-entity';
+import { Tariff } from './models/tariff';
+import { TariffModifier } from './models/tariff-modifier';
 
 @Component({
   selector: 'app-root',
@@ -6,14 +10,39 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  public phones: string[] = [
-    '+79001234567',
-    '+79105551122',
-  ];
-  public activePhone: string = this.phones[0];
+export class AppComponent implements OnInit {
+  public phonesState: StateEntity<string[]>;
+  public activePhoneState: StateEntity<string>;
+
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private userFacadeService: UserFacadeService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.userFacadeService.loadUserPhones();
+    this.userFacadeService.loadUserActivePhone();
+
+    this.userFacadeService.phonesState$.subscribe((phonesState: StateEntity<string[]>) => {
+      this.phonesState = phonesState;
+      this.cdr.detectChanges();
+    });
+
+    this.userFacadeService.activePhoneState$.subscribe((activePhoneState: StateEntity<string>) => {
+      this.activePhoneState = activePhoneState;
+      this.cdr.detectChanges();
+    });
+
+    this.userFacadeService.userTariff$.subscribe((userTariff: StateEntity<Tariff>) => {
+      console.log(userTariff);
+    });
+
+    this.userFacadeService.userTariffModifiers$.subscribe((userTariffModifiers: StateEntity<TariffModifier[]>) => {
+      console.log(userTariffModifiers);
+    });
+  }
 
   public onSetActivePhone(phone: string): void {
-    this.activePhone = phone;
   }
 }

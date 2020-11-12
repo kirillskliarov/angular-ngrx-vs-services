@@ -1,6 +1,7 @@
 export interface TariffModifier {
-  id: string;
-  label: string;
-  description: string;
-  allowedOnTariffs: string[];
+  readonly id: string;
+  readonly label: string;
+  readonly description: string;
+  readonly fee: number;
+  readonly allowedOnTariffs: string[];
 }
