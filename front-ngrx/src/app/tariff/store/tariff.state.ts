@@ -3,11 +3,11 @@ import { EntityStatus } from '../../models/entity-status';
 import { Tariff } from '../../models/tariff';
 
 export interface TariffState {
-  tariffs: StateEntity<Tariff[] | null>;
+  allTariffList: StateEntity<Tariff[] | null>;
 }
 
 export const initialState: TariffState = {
-  tariffs: {
+  allTariffList: {
     status: EntityStatus.INIT,
     value: null,
   },

@@ -1,23 +1,23 @@
-import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
-import { loadTariffs, loadTariffsSuccess } from './tariff.actions';
+import { ActionReducer, createReducer, on } from '@ngrx/store';
+import { loadAllTariffList, loadAllTariffListSuccess } from './tariff.actions';
 import { initialState, TariffState } from './tariff.state';
 import { EntityStatus } from '../../models/entity-status';
 
 const _tariffReducer: ActionReducer<TariffState> = createReducer<TariffState>(
   initialState,
-  on(loadTariffs, (state: TariffState): TariffState => {
+  on(loadAllTariffList, (state: TariffState): TariffState => {
     return {
       ...state,
-      tariffs: {
-        ...state.tariffs,
+      allTariffList: {
+        ...state.allTariffList,
         status: EntityStatus.LOADING,
       }
     };
   }),
-  on(loadTariffsSuccess, (state: TariffState, { tariffs }): TariffState => {
+  on(loadAllTariffListSuccess, (state: TariffState, { tariffs }): TariffState => {
     return {
       ...state,
-      tariffs: {
+      allTariffList: {
         status: EntityStatus.SUCCESS,
         value: tariffs,
       },

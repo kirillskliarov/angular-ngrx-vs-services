@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tariff } from '../../models/tariff';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TariffService {
 
   constructor(private httpClient: HttpClient) { }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
-import { loadTariffs, loadTariffsSuccess } from './tariff.actions';
+import { map, switchMap } from 'rxjs/operators';
+import { loadAllTariffList, loadAllTariffListSuccess } from './tariff.actions';
 import { TariffService } from '../services/tariff.service';
 import { Tariff } from '../../models/tariff';
 
@@ -9,9 +9,9 @@ import { Tariff } from '../../models/tariff';
 export class TariffEffects {
 
   public loadTariffs$ = createEffect(() => this.actions$.pipe(
-    ofType(loadTariffs),
+    ofType(loadAllTariffList),
     switchMap(() => this.tariffService.getTariffs().pipe(
-      map((tariffs: Tariff[]) => loadTariffsSuccess({ tariffs })),
+      map((tariffs: Tariff[]) => loadAllTariffListSuccess({ tariffs })),
     ))
   ));
 

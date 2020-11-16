@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { UserFacadeService } from './services/user-facade.service';
 import { StateEntity } from './models/state-entity';
 import { Tariff } from './models/tariff';
 import { TariffModifier } from './models/tariff-modifier';
-import { activePhone } from './store/application.selectors';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +12,11 @@ import { activePhone } from './store/application.selectors';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   public phonesState: StateEntity<string[]>;
   public activePhone: string;
+
+  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -24,23 +27,36 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.userFacadeService.loadUserPhones();
 
-    this.userFacadeService.phonesState$.subscribe((phonesState: StateEntity<string[]>) => {
-      this.phonesState = phonesState;
-      this.cdr.detectChanges();
-    });
+    this.userFacadeService.phonesState$
+      .pipe(
+        takeUntil(this.destroy$),
+      )
+      .subscribe((phonesState: StateEntity<string[]>) => {
+        this.phonesState = phonesState;
+        this.cdr.detectChanges();
+      });
 
-    this.userFacadeService.activePhone$.subscribe((activePhone: string) => {
-      this.activePhone = activePhone;
-      this.cdr.detectChanges();
-    });
+    this.userFacadeService.activePhone$
+      .pipe(
+        takeUntil(this.destroy$),
+      )
+      .subscribe((activePhone: string) => {
+        this.activePhone = activePhone;
+        this.cdr.detectChanges();
+      });
 
-    this.userFacadeService.userTariff$.subscribe((userTariff: StateEntity<Tariff>) => {
-      console.log(userTariff);
-    });
+    // this.userFacadeService.userTariff$.subscribe((userTariff: StateEntity<Tariff>) => {
+    //   console.log(userTariff);
+    // });
+    //
+    // this.userFacadeService.userTariffModifiers$.subscribe((userTariffModifiers: StateEntity<TariffModifier[]>) => {
+    //   console.log(userTariffModifiers);
+    // });
+  }
 
-    this.userFacadeService.userTariffModifiers$.subscribe((userTariffModifiers: StateEntity<TariffModifier[]>) => {
-      console.log(userTariffModifiers);
-    });
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public onSetActivePhone(phone: string): void {

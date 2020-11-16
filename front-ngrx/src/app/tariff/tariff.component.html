@@ -1,1 +1,21 @@
-<p>tariff works!</p>
+<div>
+  <div *ngIf="userTariff">
+    <div>{{userTariff.label}}</div>
+    <div>{{userTariff.description}}</div>
+    <div>{{userTariff.fee}}</div>
+  </div>
+
+  <div *ngIf="allTariffList">
+    <ul class="list-group">
+      <li *ngFor="let tariff of allTariffList"
+          class="list-group-item"
+          [ngClass]="{
+            active: tariff.id === userTariff.id
+          }"
+      >
+        <div>{{tariff.description}}</div>
+        <div>{{tariff.fee}}</div>
+      </li>
+    </ul>
+  </div>
+</div>

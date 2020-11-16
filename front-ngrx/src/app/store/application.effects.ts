@@ -30,7 +30,6 @@ export class ApplicationEffects {
     map(({ phones }) => setUserActivePhone({ activePhone: phones[0] })),
   ));
 
-
   public setUserActivePhoneLoadTariff$ = createEffect(() => this.actions$.pipe(
     ofType(setUserActivePhone),
     map(({ activePhone }) => loadUserTariff())

@@ -3,7 +3,7 @@ import { TariffState } from './tariff.state';
 
 export const tariffState = createFeatureSelector<TariffState>('tariff');
 
-export const tariffsState = createSelector(
+export const allTariffListState = createSelector(
   tariffState,
-  ((state: TariffState) => state.tariffs),
+  (state: TariffState) => state.allTariffList,
 );

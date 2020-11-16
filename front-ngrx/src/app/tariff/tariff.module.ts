@@ -6,6 +6,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { tariffReducer } from './store/tariff.reducers';
 import { TariffEffects } from './store/tariff.effects';
+import { TariffService } from './services/tariff.service';
+import { TariffFacadeService } from './services/tariff-facade.service';
 
 const routes: Routes = [
   {
@@ -21,12 +23,14 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature('tariff', {
-      tariff: tariffReducer,
-    }),
+    StoreModule.forFeature('tariff', tariffReducer),
     EffectsModule.forFeature([
       TariffEffects,
     ]),
+  ],
+  providers: [
+    TariffFacadeService,
+    TariffService,
   ],
   exports: [
     RouterModule,
