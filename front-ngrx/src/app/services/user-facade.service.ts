@@ -3,7 +3,12 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ApplicationState } from '../store/application.state';
 import { StateEntity } from '../models/state-entity';
-import { loadUserPhones, loadUserTariff, loadUserTariffModifiers } from '../store/application.actions';
+import {
+  loadUserPhones,
+  loadUserTariff,
+  loadUserTariffModifiers,
+  setUserActivePhone,
+} from '../store/application.actions';
 import {
   activePhone,
   phonesState,
@@ -28,6 +33,10 @@ export class UserFacadeService {
 
   public loadUserPhones(): void {
     this.store.dispatch(loadUserPhones());
+  }
+
+  public setActivePhone(activePhone: string): void {
+    this.store.dispatch(setUserActivePhone({ activePhone }));
   }
 
   public loadUserTariff(): void {

@@ -27,7 +27,18 @@ export class ApplicationEffects {
   public loadUserPhonesSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserPhonesSuccess),
     filter(({ phones }) => !!phones),
-    map(({ phones }) => setUserActivePhone({ activePhone: phones[0]})),
+    map(({ phones }) => setUserActivePhone({ activePhone: phones[0] })),
+  ));
+
+
+  public setUserActivePhoneLoadTariff$ = createEffect(() => this.actions$.pipe(
+    ofType(setUserActivePhone),
+    map(({ activePhone }) => loadUserTariff())
+  ));
+
+  public setUserActivePhoneloadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
+    ofType(setUserActivePhone),
+    map(({ activePhone }) => loadUserTariffModifiers())
   ));
 
   public loadUserTariff$ = createEffect(() => this.actions$.pipe(

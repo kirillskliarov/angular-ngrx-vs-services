@@ -44,5 +44,6 @@ export class AppComponent implements OnInit {
   }
 
   public onSetActivePhone(phone: string): void {
+    this.userFacadeService.setActivePhone(phone);
   }
 }
