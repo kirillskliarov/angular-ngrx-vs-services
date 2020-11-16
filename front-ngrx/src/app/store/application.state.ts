@@ -5,7 +5,7 @@ import { TariffModifier } from '../models/tariff-modifier';
 
 export interface ApplicationState {
   phones: StateEntity<string[] | null>;
-  activePhone: StateEntity<string | null>;
+  activePhone: string | null;
   userTariff: StateEntity<Tariff | null>;
   userTariffModifiers: StateEntity<TariffModifier[] | null>;
 }
@@ -15,10 +15,7 @@ export const initialState: ApplicationState = {
     status: EntityStatus.INIT,
     value: null,
   },
-  activePhone: {
-    status: EntityStatus.INIT,
-    value: null,
-  },
+  activePhone: null,
   userTariff: {
     status: EntityStatus.INIT,
     value: null,

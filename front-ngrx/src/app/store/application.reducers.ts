@@ -1,7 +1,5 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
 import {
-  loadUserActivePhone,
-  loadUserActivePhoneSuccess,
   loadUserPhones,
   loadUserPhonesSuccess,
   loadUserTariff,
@@ -11,6 +9,7 @@ import {
 } from './application.actions';
 import { EntityStatus } from '../models/entity-status';
 import { ApplicationState, initialState } from './application.state';
+import { activePhone } from './application.selectors';
 
 const _applicationReducer: ActionReducer<ApplicationState> = createReducer<ApplicationState>(
   initialState,
@@ -32,22 +31,10 @@ const _applicationReducer: ActionReducer<ApplicationState> = createReducer<Appli
       },
     };
   }),
-  on(loadUserActivePhone, (state: ApplicationState): ApplicationState => {
+  on(setUserActivePhone, (state: ApplicationState, { activePhone }): ApplicationState => {
     return {
       ...state,
-      activePhone: {
-        ...state.activePhone,
-        status: EntityStatus.LOADING,
-      },
-    };
-  }),
-  on(loadUserActivePhoneSuccess, (state: ApplicationState, { activePhone }): ApplicationState => {
-    return {
-      ...state,
-      activePhone: {
-        status: EntityStatus.SUCCESS,
-        value: activePhone,
-      },
+      activePhone,
     };
   }),
   on(loadUserTariff, (state: ApplicationState): ApplicationState => {

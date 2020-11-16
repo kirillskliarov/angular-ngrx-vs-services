@@ -3,6 +3,7 @@ import { UserFacadeService } from './services/user-facade.service';
 import { StateEntity } from './models/state-entity';
 import { Tariff } from './models/tariff';
 import { TariffModifier } from './models/tariff-modifier';
+import { activePhone } from './store/application.selectors';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ import { TariffModifier } from './models/tariff-modifier';
 })
 export class AppComponent implements OnInit {
   public phonesState: StateEntity<string[]>;
-  public activePhoneState: StateEntity<string>;
+  public activePhone: string;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -22,15 +23,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.userFacadeService.loadUserPhones();
-    this.userFacadeService.loadUserActivePhone();
 
     this.userFacadeService.phonesState$.subscribe((phonesState: StateEntity<string[]>) => {
       this.phonesState = phonesState;
       this.cdr.detectChanges();
     });
 
-    this.userFacadeService.activePhoneState$.subscribe((activePhoneState: StateEntity<string>) => {
-      this.activePhoneState = activePhoneState;
+    this.userFacadeService.activePhone$.subscribe((activePhone: string) => {
+      this.activePhone = activePhone;
       this.cdr.detectChanges();
     });
 

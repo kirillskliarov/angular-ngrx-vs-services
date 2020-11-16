@@ -27,13 +27,3 @@ export const USER_DB: ReadonlyMap<string, Account> = (new Map<string, Account>()
     ],
   })
 ;
-
-let defaultPhone = PHONES[0];
-
-export function getDefaultPhone(): string {
-  return defaultPhone;
-}
-
-export function setDefaultPhone(phone: string) {
-  defaultPhone = phone;
-}

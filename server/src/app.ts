@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import jsonServer from 'json-server';
 import { PHONES } from './data/phones';
 import { Account } from './models/account';
-import { getDefaultPhone, setDefaultPhone, USER_DB } from './data/user-db';
+import { USER_DB } from './data/user-db';
 import { TARIFF_LIST, TARIFF_MAP } from './data/tariff-list';
 import { TARIFF_MODIFIERS_LIST, TARIFF_MODIFIERS_MAP } from './data/tariff-modifiers-list';
 import { SUBSCRIPTION_LIST, SUBSCRIPTION_MAP } from './data/subscription-list';
@@ -24,15 +24,6 @@ server.get("/", (req: Request, res: Response) => {
 
 server.get('/user/phones/list', (request: Request, response: Response) => {
   response.status(200).jsonp(PHONES);
-});
-
-server.get('/user/phones/default', (request: Request, response: Response) => {
-  response.status(200).jsonp(getDefaultPhone());
-});
-
-server.post('/user/phones/default', (request: Request, response: Response) => {
-  const phone = request.body.phone;
-  response.status(200).jsonp(setDefaultPhone(phone));
 });
 
 // http://localhost:5000/user/tariff?phone=%2B79995555555

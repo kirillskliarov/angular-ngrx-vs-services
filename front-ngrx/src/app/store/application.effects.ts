@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
-  loadUserActivePhone,
-  loadUserActivePhoneSuccess,
   loadUserPhones,
   loadUserPhonesSuccess,
   loadUserTariff,
   loadUserTariffModifiers,
   loadUserTariffModifiersSuccess,
-  loadUserTariffSuccess,
+  loadUserTariffSuccess, setUserActivePhone,
 } from './application.actions';
 import { filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
 import { UserFacadeService } from '../services/user-facade.service';
-import { StateEntity } from '../models/state-entity';
-import { EntityStatus } from '../models/entity-status';
 
 @Injectable()
 export class ApplicationEffects {
@@ -28,31 +24,19 @@ export class ApplicationEffects {
     )),
   ));
 
-  public loadActivePhone$ = createEffect(() => this.actions$.pipe(
-    ofType(loadUserActivePhone),
-    switchMap(() => this.userService.getActivePhone().pipe(
-      map((activePhone: string) => loadUserActivePhoneSuccess({ activePhone })),
-    ))
-  ));
-
-  public loadActivePhoneSuccessLoadUserTariff$ = createEffect(() => this.actions$.pipe(
-    ofType(loadUserActivePhoneSuccess),
-    map(() => loadUserTariff()),
-  ));
-
-
-  public loadActivePhoneSuccessLoadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
-    ofType(loadUserActivePhoneSuccess),
-    map(() => loadUserTariffModifiers()),
+  public loadUserPhonesSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(loadUserPhonesSuccess),
+    filter(({ phones }) => !!phones),
+    map(({ phones }) => setUserActivePhone({ activePhone: phones[0]})),
   ));
 
   public loadUserTariff$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserTariff),
-    withLatestFrom(this.userFacadeService.activePhoneState$.pipe(
-      filter((stateEntity) => stateEntity.status === EntityStatus.SUCCESS),
+    withLatestFrom(this.userFacadeService.activePhone$.pipe(
+      filter((activePhone) => activePhone !== null),
     )),
-    switchMap(([_, activePhoneState]) => {
-      return this.userService.getUserTariff(activePhoneState.value).pipe(
+    switchMap(([_, activePhone]) => {
+      return this.userService.getUserTariff(activePhone).pipe(
         map((userTariff: Tariff) => loadUserTariffSuccess({ userTariff })),
       )
     }),
@@ -60,10 +44,10 @@ export class ApplicationEffects {
 
   public loadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserTariffModifiers),
-    withLatestFrom(this.userFacadeService.activePhoneState$.pipe(
-      filter((stateEntity) => stateEntity.status === EntityStatus.SUCCESS),
+    withLatestFrom(this.userFacadeService.activePhone$.pipe(
+      filter((activePhone) => activePhone !== null),
     )),
-    switchMap(([_, activePhoneState]) => this.userService.getUserTariffModifiers(activePhoneState.value).pipe(
+    switchMap(([_, activePhone]) => this.userService.getUserTariffModifiers(activePhone).pipe(
       map((userTariffModifiers: TariffModifier[]) => loadUserTariffModifiersSuccess({ userTariffModifiers }))
     )),
   ));

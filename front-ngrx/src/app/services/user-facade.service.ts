@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ApplicationState } from '../store/application.state';
 import { StateEntity } from '../models/state-entity';
-import { loadUserActivePhone, loadUserPhones, loadUserTariff, loadUserTariffModifiers } from '../store/application.actions';
+import { loadUserPhones, loadUserTariff, loadUserTariffModifiers } from '../store/application.actions';
 import {
-  activePhoneState,
+  activePhone,
   phonesState,
   userTariffModifiersState,
   userTariffState
@@ -19,7 +19,7 @@ import { TariffModifier } from '../models/tariff-modifier';
 export class UserFacadeService {
 
   public phonesState$: Observable<StateEntity<string[]>> = this.store.select(phonesState);
-  public activePhoneState$: Observable<StateEntity<string>> = this.store.select(activePhoneState);
+  public activePhone$: Observable<string> = this.store.select(activePhone);
   public userTariff$: Observable<StateEntity<Tariff>> = this.store.select(userTariffState);
   public userTariffModifiers$: Observable<StateEntity<TariffModifier[]>> = this.store.select(userTariffModifiersState);
 
@@ -28,10 +28,6 @@ export class UserFacadeService {
 
   public loadUserPhones(): void {
     this.store.dispatch(loadUserPhones());
-  }
-
-  public loadUserActivePhone(): void {
-    this.store.dispatch(loadUserActivePhone());
   }
 
   public loadUserTariff(): void {

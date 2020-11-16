@@ -11,15 +11,6 @@ export const loadUserPhonesSuccess = createAction(
   props<{ phones: string[] }>(),
 );
 
-export const loadUserActivePhone = createAction(
-  '[Application] loadUserActivePhone',
-);
-
-export const loadUserActivePhoneSuccess = createAction(
-  '[Application] loadUserActivePhoneSuccess',
-  props<{ activePhone: string }>(),
-);
-
 export const setUserActivePhone = createAction(
   '[Application] setUserActivePhone',
   props<{ activePhone: string }>(),
