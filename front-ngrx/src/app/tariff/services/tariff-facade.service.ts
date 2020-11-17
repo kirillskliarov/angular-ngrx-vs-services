@@ -13,7 +13,7 @@ import { EntityStatus } from '../../models/entity-status';
 export class TariffFacadeService {
 
   public allTariffListState$: Observable<StateEntity<Tariff[]>> = this.store.select(allTariffListState);
-  public allTariffListValue$ = this.allTariffListState$.pipe(
+  public allTariffListValue$: Observable<Tariff[]> = this.allTariffListState$.pipe(
     filter((state: StateEntity<Tariff[]>) => state.status === EntityStatus.SUCCESS),
     map((state: StateEntity<Tariff[]>) => state.value),
   );

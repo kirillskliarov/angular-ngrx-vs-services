@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
+import { Subscription } from '../models/subscription';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,10 @@ export class UserService {
   public getUserTariffModifiers(phone: string): Observable<TariffModifier[]> {
     const params = { phone };
     return this.httpClient.get<TariffModifier[]>('http://localhost:5000/user/tariff-modifiers', { params });
+  }
+
+  public getUserSubscriptions(phone: string): Observable<Subscription[]> {
+    const params = { phone };
+    return this.httpClient.get<Subscription[]>('http://localhost:5000/user/subscriptions', { params });
   }
 }

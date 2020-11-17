@@ -1,1 +1,31 @@
-<p>subscription works!</p>
+<div class="d-flex">
+  <div *ngIf="userSubscriptionList" class="card" style="width: 18rem;">
+    <div class="card-header">
+      User subscriptions
+    </div>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let userSubscription of userSubscriptionList"
+          class="list-group-item"
+      >
+        <div>{{userSubscription.label}}</div>
+        <div>{{userSubscription.fee}}</div>
+      </li>
+    </ul>
+  </div>
+
+
+  <div *ngIf="allSubscriptionList" class="card" style="width: 18rem;">
+    <div class="card-header">
+      All subscriptions
+    </div>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let subscription of allSubscriptionList"
+          class="list-group-item"
+      >
+        <div>{{subscription.label}}</div>
+        <div>{{subscription.fee}}</div>
+      </li>
+    </ul>
+  </div>
+
+</div>

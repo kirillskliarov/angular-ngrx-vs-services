@@ -35,7 +35,7 @@ export class ApplicationEffects {
     map(({ activePhone }) => loadUserTariff())
   ));
 
-  public setUserActivePhoneloadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
+  public setUserActivePhoneLoadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
     ofType(setUserActivePhone),
     map(({ activePhone }) => loadUserTariffModifiers())
   ));
