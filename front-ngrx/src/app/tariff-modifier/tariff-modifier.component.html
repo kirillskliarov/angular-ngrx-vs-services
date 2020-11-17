@@ -1,1 +1,31 @@
-<p>tariff-modifier works!</p>
+<div class="d-flex">
+  <div *ngIf="userTariffModifierList" class="card" style="width: 18rem;">
+    <div class="card-header">
+      User tariff modifiers
+    </div>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let userTariffModifier of userTariffModifierList"
+          class="list-group-item"
+      >
+        <div>{{userTariffModifier.description}}</div>
+        <div>{{userTariffModifier.fee}}</div>
+      </li>
+    </ul>
+  </div>
+
+
+  <div *ngIf="allTariffModifierList" class="card" style="width: 18rem;">
+    <div class="card-header">
+      All tariff modifiers
+    </div>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let tariffModifier of allTariffModifierList"
+          class="list-group-item"
+      >
+        <div>{{tariffModifier.description}}</div>
+        <div>{{tariffModifier.fee}}</div>
+      </li>
+    </ul>
+  </div>
+
+</div>

@@ -8,11 +8,11 @@ import {
   loadUserTariffSuccess, setUserActivePhone,
 } from './application.actions';
 import { EntityStatus } from '../models/entity-status';
-import { ApplicationState, initialState } from './application.state';
+import { ApplicationState, applicationInitialState } from './application.state';
 import { activePhone } from './application.selectors';
 
 const _applicationReducer: ActionReducer<ApplicationState> = createReducer<ApplicationState>(
-  initialState,
+  applicationInitialState,
   on(loadUserPhones, (state: ApplicationState): ApplicationState => {
     return {
       ...state,

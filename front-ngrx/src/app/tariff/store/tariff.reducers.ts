@@ -1,10 +1,10 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
 import { loadAllTariffList, loadAllTariffListSuccess } from './tariff.actions';
-import { initialState, TariffState } from './tariff.state';
+import { tariffInitialState, TariffState } from './tariff.state';
 import { EntityStatus } from '../../models/entity-status';
 
 const _tariffReducer: ActionReducer<TariffState> = createReducer<TariffState>(
-  initialState,
+  tariffInitialState,
   on(loadAllTariffList, (state: TariffState): TariffState => {
     return {
       ...state,
@@ -14,12 +14,12 @@ const _tariffReducer: ActionReducer<TariffState> = createReducer<TariffState>(
       }
     };
   }),
-  on(loadAllTariffListSuccess, (state: TariffState, { tariffs }): TariffState => {
+  on(loadAllTariffListSuccess, (state: TariffState, { tariffList }): TariffState => {
     return {
       ...state,
       allTariffList: {
         status: EntityStatus.SUCCESS,
-        value: tariffs,
+        value: tariffList,
       },
     };
   }),

@@ -6,7 +6,7 @@ export interface TariffState {
   allTariffList: StateEntity<Tariff[] | null>;
 }
 
-export const initialState: TariffState = {
+export const tariffInitialState: TariffState = {
   allTariffList: {
     status: EntityStatus.INIT,
     value: null,

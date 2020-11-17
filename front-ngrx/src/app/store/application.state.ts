@@ -10,7 +10,7 @@ export interface ApplicationState {
   userTariffModifiers: StateEntity<TariffModifier[] | null>;
 }
 
-export const initialState: ApplicationState = {
+export const applicationInitialState: ApplicationState = {
   phones: {
     status: EntityStatus.INIT,
     value: null,

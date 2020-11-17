@@ -41,7 +41,6 @@ export class TariffComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe((allTariffList: Tariff[]) => {
-        console.log(allTariffList);
         this.allTariffList = allTariffList;
         this.cdr.detectChanges();
       });

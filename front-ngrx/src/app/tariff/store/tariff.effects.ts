@@ -10,8 +10,8 @@ export class TariffEffects {
 
   public loadTariffs$ = createEffect(() => this.actions$.pipe(
     ofType(loadAllTariffList),
-    switchMap(() => this.tariffService.getTariffs().pipe(
-      map((tariffs: Tariff[]) => loadAllTariffListSuccess({ tariffs })),
+    switchMap(() => this.tariffService.getAllTariffList().pipe(
+      map((tariffList: Tariff[]) => loadAllTariffListSuccess({ tariffList })),
     ))
   ));
 
