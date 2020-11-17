@@ -1,16 +1,15 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { TariffModifier } from '../models/tariff-modifier';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Subscription } from '../models/subscription';
 import { UserFacadeService } from '../services/user-facade.service';
 import { SubscriptionFacadeService } from './services/subscription-facade.service';
 import { takeUntil } from 'rxjs/operators';
-import { activePhone } from '../store/application.selectors';
 
 @Component({
   selector: 'app-subscription',
   templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.scss']
+  styleUrls: ['./subscription.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubscriptionComponent implements OnInit, OnDestroy {
 
@@ -27,15 +26,16 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptionFacadeService.loadUserSubscriptionList();
     this.subscriptionFacadeService.loadAllSubscriptionList();
 
     this.userFacadeService.activePhone$
       .pipe(
         takeUntil(this.destroy$),
-      ).subscribe((activePhone: string) => {
+      )
+      .subscribe((activePhone: string) => {
         this.subscriptionFacadeService.loadUserSubscriptionList();
-    });
+        this.cdr.detectChanges();
+      });
 
     this.subscriptionFacadeService.userSubscriptionListValue$
       .pipe(
