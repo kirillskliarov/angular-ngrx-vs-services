@@ -50,5 +50,4 @@ export class TariffComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }

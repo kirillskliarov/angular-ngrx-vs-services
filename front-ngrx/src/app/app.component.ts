@@ -44,14 +44,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.activePhone = activePhone;
         this.cdr.detectChanges();
       });
-
-    // this.userFacadeService.userTariff$.subscribe((userTariff: StateEntity<Tariff>) => {
-    //   console.log(userTariff);
-    // });
-    //
-    // this.userFacadeService.userTariffModifiers$.subscribe((userTariffModifiers: StateEntity<TariffModifier[]>) => {
-    //   console.log(userTariffModifiers);
-    // });
   }
 
   public ngOnDestroy(): void {
