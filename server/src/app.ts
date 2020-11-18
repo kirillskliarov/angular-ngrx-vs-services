@@ -10,6 +10,7 @@ import { Tariff } from './models/tariff';
 import { TariffModifier } from './models/tariff-modifier';
 import { Subscription } from './models/subscription';
 import { pushIfNotExists, removeElementFromArray } from './unils/array';
+import { getUserTariffModifiers } from './unils/user';
 
 const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
@@ -37,9 +38,8 @@ server.get('/user/tariff', (request: Request, response: Response) => {
 // http://localhost:5000/user/tariff-modifiers?phone=%2B79995555555
 server.get('/user/tariff-modifiers', (request: Request, response: Response) => {
   const phone = request.query.phone as string;
-  const tariffModifierList: (TariffModifier | undefined)[] = (USER_DB.get(phone) as Account).tariffModifierList
-    .map((tariffModifierId: string) => TARIFF_MODIFIERS_MAP.get(tariffModifierId));
-  response.status(200).jsonp(tariffModifierList);
+  const userTariffModifierList: TariffModifier[] = getUserTariffModifiers(phone);
+  response.status(200).jsonp(userTariffModifierList);
 });
 
 // http://localhost:5000/user/subscriptions?phone=%2B79280001133
@@ -62,6 +62,25 @@ server.delete('/user/subscriptions', (request: Request, response: Response) => {
   const phone = request.query.phone as string;
   const subscriptionList: string[] = (USER_DB.get(phone) as Account).subscriptionList;
   removeElementFromArray<string>(subscriptionList, request.body.id);
+  response.status(200).jsonp({});
+});
+
+// http://localhost:5000/user/tariff?phone=%2B79995555555
+server.post('/user/tariff', (request: Request, response: Response) => {
+  const phone = request.query.phone as string;
+  const tariffId = request.body.id;
+  const account: Account =  (USER_DB.get(phone) as Account);
+  const userTariffModifierList: TariffModifier[] = getUserTariffModifiers(phone);
+  const tariffModifiersToRemove: string[] = [];
+  userTariffModifierList.forEach((tariffMofidier: TariffModifier) => {
+    if (!tariffMofidier.allowedOnTariffs.includes(tariffId)) {
+      tariffModifiersToRemove.push(tariffMofidier.id);
+    }
+  });
+  tariffModifiersToRemove.forEach((tariffModifierId: string) => {
+    removeElementFromArray<string>(account.tariffModifierList, tariffModifierId);
+  });
+  account.tariff = tariffId;
   response.status(200).jsonp({});
 });
 
