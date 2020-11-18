@@ -9,6 +9,7 @@ import { SUBSCRIPTION_LIST, SUBSCRIPTION_MAP } from './data/subscription-list';
 import { Tariff } from './models/tariff';
 import { TariffModifier } from './models/tariff-modifier';
 import { Subscription } from './models/subscription';
+import { pushIfNotExists, removeElementFromArray } from './unils/array';
 
 const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
@@ -47,6 +48,21 @@ server.get('/user/subscriptions', (request: Request, response: Response) => {
   const subscriptionList: (Subscription | undefined)[] = (USER_DB.get(phone) as Account).subscriptionList
     .map((subscriptionId: string) => SUBSCRIPTION_MAP.get(subscriptionId));
   response.status(200).jsonp(subscriptionList);
+});
+
+// http://localhost:5000/user/subscriptions?phone=%2B79280001133
+server.post('/user/subscriptions', (request: Request, response: Response) => {
+  const phone = request.query.phone as string;
+  const subscriptionList: string[] = (USER_DB.get(phone) as Account).subscriptionList;
+  pushIfNotExists<string>(subscriptionList, request.body.id);
+  response.status(200).jsonp({});
+});
+
+server.delete('/user/subscriptions', (request: Request, response: Response) => {
+  const phone = request.query.phone as string;
+  const subscriptionList: string[] = (USER_DB.get(phone) as Account).subscriptionList;
+  removeElementFromArray<string>(subscriptionList, request.body.id);
+  response.status(200).jsonp({});
 });
 
 // http://localhost:5000/tariff/list
