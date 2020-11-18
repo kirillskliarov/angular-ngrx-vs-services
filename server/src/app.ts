@@ -84,6 +84,13 @@ server.post('/user/tariff', (request: Request, response: Response) => {
   response.status(200).jsonp({});
 });
 
+server.delete('/user/tariff-modifiers', (request: Request, response: Response) => {
+  const phone = request.query.phone as string;
+  const tariffModifierList: string[] = (USER_DB.get(phone) as Account).tariffModifierList;
+  removeElementFromArray<string>(tariffModifierList, request.body.id);
+  response.status(200).jsonp({});
+});
+
 // http://localhost:5000/tariff/list
 server.get('/tariff/list', (request: Request, response: Response) => {
   setTimeout(() => {
