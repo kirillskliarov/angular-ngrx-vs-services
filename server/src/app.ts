@@ -69,7 +69,7 @@ server.delete('/user/subscriptions', (request: Request, response: Response) => {
 server.post('/user/tariff', (request: Request, response: Response) => {
   const phone = request.query.phone as string;
   const tariffId = request.body.id;
-  const account: Account =  (USER_DB.get(phone) as Account);
+  const account: Account = (USER_DB.get(phone) as Account);
   const userTariffModifierList: TariffModifier[] = getUserTariffModifiers(phone);
   const tariffModifiersToRemove: string[] = [];
   userTariffModifierList.forEach((tariffMofidier: TariffModifier) => {
@@ -81,6 +81,17 @@ server.post('/user/tariff', (request: Request, response: Response) => {
     removeElementFromArray<string>(account.tariffModifierList, tariffModifierId);
   });
   account.tariff = tariffId;
+  response.status(200).jsonp({});
+});
+
+server.post('/user/tariff-modifiers', (request: Request, response: Response) => {
+  const phone = request.query.phone as string;
+  const tariffModifierId: string = request.body.id;
+  const tariffModifier: TariffModifier = TARIFF_MODIFIERS_MAP.get(tariffModifierId) as TariffModifier;
+  const account = USER_DB.get(phone) as Account;
+  if (tariffModifier.allowedOnTariffs.includes(account.tariff)) {
+    pushIfNotExists(account.tariffModifierList, tariffModifier.id);
+  }
   response.status(200).jsonp({});
 });
 
