@@ -6,30 +6,30 @@ export const loadUserPhones = createAction(
   '[Application] loadUserPhones',
 );
 
-export const loadUserPhonesSuccess = createAction(
-  '[Application] loadUserPhonesSuccess',
+export const loadUserPhonesSuccessAction = createAction(
+  '[Application] loadUserPhonesSuccessAction',
   props<{ phones: string[] }>(),
 );
 
-export const setUserActivePhone = createAction(
-  '[Application] setUserActivePhone',
+export const setUserActivePhoneAction = createAction(
+  '[Application] setUserActivePhoneAction',
   props<{ activePhone: string }>(),
 );
 
-export const loadUserTariff = createAction(
-  '[Application] loadUserTariff',
+export const loadUserTariffAction = createAction(
+  '[Application] loadUserTariffAction',
 );
 
-export const loadUserTariffSuccess = createAction(
-  '[Application] loadUserTariffSuccess',
+export const loadUserTariffSuccessAction = createAction(
+  '[Application] loadUserTariffSuccessAction',
   props<{ userTariff: Tariff }>(),
 );
 
-export const loadUserTariffModifiers = createAction(
-  '[Application] loadUserTariffModifiers',
+export const loadUserTariffModifiersAction = createAction(
+  '[Application] loadUserTariffModifiersAction',
 );
 
-export const loadUserTariffModifiersSuccess = createAction(
-  '[Application] loadUserTariffModifiersSuccess',
+export const loadUserTariffModifiersSuccessAction = createAction(
+  '[Application] loadUserTariffModifiersSuccessAction',
   props<{ userTariffModifiers: TariffModifier[] }>(),
 );

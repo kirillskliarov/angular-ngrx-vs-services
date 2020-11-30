@@ -1,11 +1,16 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
-import { loadAllTariffList, loadAllTariffListSuccess } from './tariff.actions';
+import {
+  changeUserTariffAction,
+  changeUserTariffSuccessAction,
+  loadAllTariffListAction,
+  loadAllTariffListSuccessAction
+} from './tariff.actions';
 import { tariffInitialState, TariffState } from './tariff.state';
 import { EntityStatus } from '../../models/entity-status';
 
 const _tariffReducer: ActionReducer<TariffState> = createReducer<TariffState>(
   tariffInitialState,
-  on(loadAllTariffList, (state: TariffState): TariffState => {
+  on(loadAllTariffListAction, (state: TariffState): TariffState => {
     return {
       ...state,
       allTariffList: {
@@ -14,12 +19,30 @@ const _tariffReducer: ActionReducer<TariffState> = createReducer<TariffState>(
       }
     };
   }),
-  on(loadAllTariffListSuccess, (state: TariffState, { tariffList }): TariffState => {
+  on(loadAllTariffListSuccessAction, (state: TariffState, { tariffList }): TariffState => {
     return {
       ...state,
       allTariffList: {
         status: EntityStatus.SUCCESS,
         value: tariffList,
+      },
+    };
+  }),
+  on(changeUserTariffAction, (state: TariffState): TariffState => {
+    return {
+      ...state,
+      changeUserTariff: {
+        ...state.changeUserTariff,
+        status: EntityStatus.LOADING,
+      },
+    };
+  }),
+  on(changeUserTariffSuccessAction, (state: TariffState): TariffState => {
+    return {
+      ...state,
+      changeUserTariff: {
+        ...state.changeUserTariff,
+        status: EntityStatus.SUCCESS,
       },
     };
   }),

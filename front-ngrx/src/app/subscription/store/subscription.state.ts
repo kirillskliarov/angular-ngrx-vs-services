@@ -9,11 +9,11 @@ export interface SubscriptionState {
 
 export const subscriptionInitialState: SubscriptionState = {
   userSubscriptionList: {
-    status: EntityStatus.INIT,
+    status: EntityStatus.SUCCESS,
     value: null,
   },
   allSubscriptionList: {
-    status: EntityStatus.INIT,
+    status: EntityStatus.SUCCESS,
     value: null,
   },
 };

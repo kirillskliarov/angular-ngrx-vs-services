@@ -1,11 +1,11 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
 import {
   loadUserPhones,
-  loadUserPhonesSuccess,
-  loadUserTariff,
-  loadUserTariffModifiers,
-  loadUserTariffModifiersSuccess,
-  loadUserTariffSuccess, setUserActivePhone,
+  loadUserPhonesSuccessAction,
+  loadUserTariffAction,
+  loadUserTariffModifiersAction,
+  loadUserTariffModifiersSuccessAction,
+  loadUserTariffSuccessAction, setUserActivePhoneAction,
 } from './application.actions';
 import { EntityStatus } from '../models/entity-status';
 import { ApplicationState, applicationInitialState } from './application.state';
@@ -22,7 +22,7 @@ const _applicationReducer: ActionReducer<ApplicationState> = createReducer<Appli
       }
     };
   }),
-  on(loadUserPhonesSuccess, (state: ApplicationState, { phones }): ApplicationState => {
+  on(loadUserPhonesSuccessAction, (state: ApplicationState, { phones }): ApplicationState => {
     return {
       ...state,
       phones: {
@@ -31,13 +31,13 @@ const _applicationReducer: ActionReducer<ApplicationState> = createReducer<Appli
       },
     };
   }),
-  on(setUserActivePhone, (state: ApplicationState, { activePhone }): ApplicationState => {
+  on(setUserActivePhoneAction, (state: ApplicationState, { activePhone }): ApplicationState => {
     return {
       ...state,
       activePhone,
     };
   }),
-  on(loadUserTariff, (state: ApplicationState): ApplicationState => {
+  on(loadUserTariffAction, (state: ApplicationState): ApplicationState => {
     return {
       ...state,
       userTariff: {
@@ -46,7 +46,7 @@ const _applicationReducer: ActionReducer<ApplicationState> = createReducer<Appli
       },
     };
   }),
-  on(loadUserTariffSuccess, (state: ApplicationState, { userTariff }) => {
+  on(loadUserTariffSuccessAction, (state: ApplicationState, { userTariff }) => {
     return {
       ...state,
       userTariff: {
@@ -55,7 +55,7 @@ const _applicationReducer: ActionReducer<ApplicationState> = createReducer<Appli
       },
     };
   }),
-  on(loadUserTariffModifiers, (state: ApplicationState): ApplicationState => {
+  on(loadUserTariffModifiersAction, (state: ApplicationState): ApplicationState => {
     return {
       ...state,
       userTariffModifiers: {
@@ -64,7 +64,7 @@ const _applicationReducer: ActionReducer<ApplicationState> = createReducer<Appli
       },
     };
   }),
-  on(loadUserTariffModifiersSuccess, (state: ApplicationState, { userTariffModifiers }): ApplicationState => {
+  on(loadUserTariffModifiersSuccessAction, (state: ApplicationState, { userTariffModifiers }): ApplicationState => {
     return {
       ...state,
       userTariffModifiers: {

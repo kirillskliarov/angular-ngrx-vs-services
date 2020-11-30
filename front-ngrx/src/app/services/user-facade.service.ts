@@ -5,15 +5,16 @@ import { ApplicationState } from '../store/application.state';
 import { StateEntity } from '../models/state-entity';
 import {
   loadUserPhones,
-  loadUserTariff,
-  loadUserTariffModifiers,
-  setUserActivePhone,
+  loadUserTariffAction,
+  loadUserTariffModifiersAction,
+  setUserActivePhoneAction,
 } from '../store/application.actions';
 import { activePhone, phonesState, userTariffModifiersState, userTariffState } from '../store/application.selectors';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { EntityStatus } from '../models/entity-status';
+import { changeUserTariffAction } from '../tariff/store/tariff.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -45,14 +46,44 @@ export class UserFacadeService {
   }
 
   public setActivePhone(activePhone: string): void {
-    this.store.dispatch(setUserActivePhone({ activePhone }));
+    this.store.dispatch(setUserActivePhoneAction({ activePhone }));
   }
 
   public loadUserTariff(): void {
-    this.store.dispatch(loadUserTariff());
+    this.store.dispatch(loadUserTariffAction());
   }
 
   public loadUserTariffModifiers(): void {
-    this.store.dispatch(loadUserTariffModifiers());
+    this.store.dispatch(loadUserTariffModifiersAction());
+  }
+
+  public changeUserTariff(id: string): void {
+    this.store.dispatch(changeUserTariffAction({ id }));
+  }
+
+  public getConflictTariffModifiersList(tariff: Tariff): TariffModifier[] {
+    const userTariffModifierList = this.getUserTariffModifierListSnapshot().value;
+
+    const conflictTariffModifiersList: TariffModifier[] = [];
+
+    userTariffModifierList.forEach((tariffModifier: TariffModifier) => {
+      if (!tariffModifier.allowedOnTariffs.includes(tariff.id)) {
+        conflictTariffModifiersList.push(tariffModifier);
+      }
+    });
+
+    return conflictTariffModifiersList;
+  }
+
+  private getUserTariffSnapshot(): StateEntity<Tariff | null> {
+    let state: StateEntity<Tariff | null>;
+    this.store.select(userTariffState).pipe(take(1)).subscribe(s => state = s);
+    return state;
+  }
+
+  private getUserTariffModifierListSnapshot(): StateEntity<TariffModifier[] | null> {
+    let state: StateEntity<TariffModifier[] | null>;
+    this.store.select(userTariffModifiersState).pipe(take(1)).subscribe(s => state = s);
+    return state;
   }
 }

@@ -3,7 +3,9 @@ import { Tariff } from '../models/tariff';
 import { UserFacadeService } from '../services/user-facade.service';
 import { TariffFacadeService } from './services/tariff-facade.service';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChangeTariffModalComponent } from './change-tariff-modal/change-tariff-modal.component';
 
 @Component({
   selector: 'app-tariff',
@@ -21,6 +23,7 @@ export class TariffComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private userFacadeService: UserFacadeService,
     private tariffFacadeService: TariffFacadeService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -49,5 +52,20 @@ export class TariffComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public openModal(tariff: Tariff): void {
+    const modalRef = this.modalService.open(ChangeTariffModalComponent);
+    const conflictTariffModifierList = this.userFacadeService.getConflictTariffModifiersList(tariff);
+    console.log(conflictTariffModifierList);
+    (modalRef.componentInstance as ChangeTariffModalComponent).conflictTariffModifierList = conflictTariffModifierList;
+
+    modalRef.closed.pipe(
+      takeUntil(this.destroy$),
+      filter(result => result === true),
+    )
+      .subscribe((() => {
+        this.userFacadeService.changeUserTariff(tariff.id);
+      }));
   }
 }

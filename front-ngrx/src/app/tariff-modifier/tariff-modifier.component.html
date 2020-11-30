@@ -9,6 +9,11 @@
       >
         <div>{{userTariffModifier.description}}</div>
         <div>{{userTariffModifier.fee}}</div>
+        <div>
+          <span *ngFor="let tariffId of userTariffModifier.allowedOnTariffs">
+            {{tariffId}},
+          </span>
+        </div>
       </li>
     </ul>
   </div>
@@ -22,8 +27,14 @@
       <li *ngFor="let tariffModifier of allTariffModifierList"
           class="list-group-item"
       >
+        <div>{{tariffModifier.label}}_{{tariffModifier.id}}</div>
         <div>{{tariffModifier.description}}</div>
         <div>{{tariffModifier.fee}}</div>
+        <div>
+          <span *ngFor="let tariffId of tariffModifier.allowedOnTariffs">
+            {{tariffId}},
+          </span>
+        </div>
       </li>
     </ul>
   </div>

@@ -8,6 +8,8 @@ import { tariffReducer } from './store/tariff.reducers';
 import { TariffEffects } from './store/tariff.effects';
 import { TariffService } from './services/tariff.service';
 import { TariffFacadeService } from './services/tariff-facade.service';
+import { ChangeTariffModalComponent } from './change-tariff-modal/change-tariff-modal.component';
+import { ModalModule } from '../shared/modal/modal.module';
 
 const routes: Routes = [
   {
@@ -19,6 +21,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TariffComponent,
+    ChangeTariffModalComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,7 @@ const routes: Routes = [
     EffectsModule.forFeature([
       TariffEffects,
     ]),
+    ModalModule,
   ],
   providers: [
     TariffFacadeService,

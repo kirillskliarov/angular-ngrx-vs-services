@@ -1,0 +1,13 @@
+<p>change-tariff-modal works!</p>
+<app-modal (confirm)="onConfirm()"
+           (cancel)="onCancel()"
+>
+  <div *ngIf="conflictTariffModifierList.length > 0">
+    <div>Tariff modifiers will be disabled</div>
+    <ul>
+      <li *ngFor="let tariffModifier of conflictTariffModifierList">
+        {{tariffModifier.label}}_{{tariffModifier.id}}
+      </li>
+    </ul>
+  </div>
+</app-modal>

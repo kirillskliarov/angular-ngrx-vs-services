@@ -8,7 +8,7 @@ export interface TariffModifierState {
 
 export const tariffModifierInitialState: TariffModifierState = {
   allTariffModifierList: {
-    status: EntityStatus.INIT,
+    status: EntityStatus.SUCCESS,
     value: null,
   },
 };

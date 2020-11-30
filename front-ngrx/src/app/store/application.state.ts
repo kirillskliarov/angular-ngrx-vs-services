@@ -12,16 +12,16 @@ export interface ApplicationState {
 
 export const applicationInitialState: ApplicationState = {
   phones: {
-    status: EntityStatus.INIT,
+    status: EntityStatus.SUCCESS,
     value: null,
   },
   activePhone: null,
   userTariff: {
-    status: EntityStatus.INIT,
+    status: EntityStatus.SUCCESS,
     value: null,
   },
   userTariffModifiers: {
-    status: EntityStatus.INIT,
+    status: EntityStatus.SUCCESS,
     value: null,
   },
 };

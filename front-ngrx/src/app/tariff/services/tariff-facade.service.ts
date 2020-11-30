@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TariffState } from '../store/tariff.state';
-import { loadAllTariffList } from '../store/tariff.actions';
+import { loadAllTariffListAction } from '../store/tariff.actions';
 import { Observable } from 'rxjs';
 import { StateEntity } from '../../models/state-entity';
 import { Tariff } from '../../models/tariff';
@@ -22,6 +22,6 @@ export class TariffFacadeService {
   }
 
   public loadAllTariffList(): void {
-    this.store.dispatch(loadAllTariffList());
+    this.store.dispatch(loadAllTariffListAction());
   }
 }

@@ -37,4 +37,12 @@ export class UserService {
     const params = { phone };
     return this.httpClient.get<Subscription[]>('http://localhost:5000/user/subscriptions', { params });
   }
+
+  public changeUserTariff(phone: string, tariffId: string): Observable<void> {
+    return this.httpClient.post<void>(
+      'http://localhost:5000/user/tariff',
+      { id: tariffId },
+      { params: { phone } }
+    );
+  }
 }
