@@ -5,12 +5,12 @@ import { TARIFF_MODIFIERS_LIST } from './tariff-modifiers-list';
 import { SUBSCRIPTION_LIST } from './subscription-list';
 
 export const USER_DB: ReadonlyMap<string, Account> = (new Map<string, Account>())
-  .set(PHONES[0], {
+  .set(PHONES[1], {
     tariff: TARIFF_LIST[0].id,
     tariffModifierList: [],
     subscriptionList: [],
   })
-  .set(PHONES[1], {
+  .set(PHONES[0], {
     tariff: TARIFF_LIST[0].id,
     tariffModifierList: [
       TARIFF_MODIFIERS_LIST[4].id,

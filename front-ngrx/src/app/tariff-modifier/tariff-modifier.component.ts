@@ -4,6 +4,7 @@ import { UserFacadeService } from '../services/user-facade.service';
 import { TariffModifierFacadeService } from './services/tariff-modifier-facade.service';
 import { TariffModifier } from '../models/tariff-modifier';
 import { takeUntil } from 'rxjs/operators';
+import { UserTariffModifier } from '../models/user-tariff-modifier';
 
 @Component({
   selector: 'app-tariff-modifier',
@@ -13,7 +14,7 @@ import { takeUntil } from 'rxjs/operators';
 export class TariffModifierComponent implements OnInit, OnDestroy {
 
   public userTariffModifierList: TariffModifier[] | null = null;
-  public allTariffModifierList: TariffModifier[] | null = null;
+  public allTariffModifierList: UserTariffModifier[] | null = null;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -40,7 +41,7 @@ export class TariffModifierComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
       )
-      .subscribe((allTariffModifierList: TariffModifier[]) => {
+      .subscribe((allTariffModifierList: UserTariffModifier[]) => {
         this.allTariffModifierList = allTariffModifierList;
         this.cdr.detectChanges();
       });
