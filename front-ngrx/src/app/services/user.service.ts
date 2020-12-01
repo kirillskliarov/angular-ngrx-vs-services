@@ -38,11 +38,20 @@ export class UserService {
     return this.httpClient.get<Subscription[]>('http://localhost:5000/user/subscriptions', { params });
   }
 
-  public changeUserTariff(phone: string, tariffId: string): Observable<void> {
+  public changeUserTariff(phone: string, id: string): Observable<void> {
     return this.httpClient.post<void>(
       'http://localhost:5000/user/tariff',
-      { id: tariffId },
+      { id },
       { params: { phone } }
     );
+  }
+
+  public deleteUserTariffModifier(phone: string, id: string): Observable<void> {
+    return this.httpClient.delete<void>('http://localhost:5000/user/tariff-modifiers', {
+      params: {
+        phone,
+        id,
+      },
+    });
   }
 }

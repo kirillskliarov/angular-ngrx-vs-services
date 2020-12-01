@@ -6,7 +6,7 @@ import { filter, map, withLatestFrom } from 'rxjs/operators';
 import { EntityStatus } from '../../models/entity-status';
 import { allTariffModifierListState } from '../store/tariff-modifier.selectors';
 import { TariffModifier } from '../../models/tariff-modifier';
-import { loadAllTariffModifierList } from '../store/tariff-modifier.actions';
+import { deleteUserTariffModifierAction, loadAllTariffModifierListAction } from '../store/tariff-modifier.actions';
 import { UserFacadeService } from '../../services/user-facade.service';
 import { UserTariffModifier } from '../../models/user-tariff-modifier';
 
@@ -14,20 +14,23 @@ import { UserTariffModifier } from '../../models/user-tariff-modifier';
 export class TariffModifierFacadeService {
 
   public allTariffModifierListState$: Observable<StateEntity<TariffModifier[]>> = this.store.select(allTariffModifierListState);
-
-  public allTariffModifierListValue$: Observable<UserTariffModifier[]> = combineLatest(
+  public allTariffModifierListValue$: Observable<TariffModifier[]> = this.allTariffModifierListState$.pipe(
+    filter((state: StateEntity<TariffModifier[]>) => state.status === EntityStatus.SUCCESS),
+    map((state: StateEntity<TariffModifier[]>) => state.value),
+  );
+  public allTariffModifierListValueWithUserData$: Observable<UserTariffModifier[]> = combineLatest(
     [
-      this.allTariffModifierListState$.pipe(
-        filter((state: StateEntity<TariffModifier[]>) => state.status === EntityStatus.SUCCESS),
-      ),
+      this.allTariffModifierListValue$,
       this.userFacadeService.userTariffModifiersValue$,
+      this.userFacadeService.userTariffValue$,
     ]
   ).pipe(
-    map(([state, userTariffModifierList]) => {
-      return state.value.map((tariffModifier: TariffModifier): UserTariffModifier => {
+    map(([tariffModifiers, userTariffModifierList, userTariff]) => {
+      return tariffModifiers.map((tariffModifier: TariffModifier): UserTariffModifier => {
         return {
           ...tariffModifier,
           isUser: userTariffModifierList.some((userTariffModifier: TariffModifier) => userTariffModifier.id === tariffModifier.id),
+          compatibleWithTariff: tariffModifier.allowedOnTariffs.some((tariffModifier) => tariffModifier === userTariff.id),
         };
       });
     }),
@@ -40,6 +43,10 @@ export class TariffModifierFacadeService {
   }
 
   public loadAllTariffModifierList(): void {
-    this.store.dispatch(loadAllTariffModifierList());
+    this.store.dispatch(loadAllTariffModifierListAction());
+  }
+
+  public deleteTariffModifier(id: string): void {
+    this.store.dispatch(deleteUserTariffModifierAction({ id }));
   }
 }

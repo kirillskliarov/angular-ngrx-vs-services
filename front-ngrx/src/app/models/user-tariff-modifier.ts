@@ -5,4 +5,5 @@ export interface UserTariffModifier {
   readonly fee: number;
   readonly allowedOnTariffs: string[];
   isUser: boolean;
+  compatibleWithTariff: boolean;
 }

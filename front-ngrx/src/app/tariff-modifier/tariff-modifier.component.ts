@@ -3,8 +3,10 @@ import { Subject } from 'rxjs';
 import { UserFacadeService } from '../services/user-facade.service';
 import { TariffModifierFacadeService } from './services/tariff-modifier-facade.service';
 import { TariffModifier } from '../models/tariff-modifier';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { UserTariffModifier } from '../models/user-tariff-modifier';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteTariffModifierModalComponent } from './delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
 
 @Component({
   selector: 'app-tariff-modifier',
@@ -22,6 +24,7 @@ export class TariffModifierComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private userFacadeService: UserFacadeService,
     private tariffModifierFacadeService: TariffModifierFacadeService,
+    private modalService: NgbModal,
   ) {
   }
 
@@ -37,7 +40,7 @@ export class TariffModifierComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       });
 
-    this.tariffModifierFacadeService.allTariffModifierListValue$
+    this.tariffModifierFacadeService.allTariffModifierListValueWithUserData$
       .pipe(
         takeUntil(this.destroy$),
       )
@@ -51,6 +54,17 @@ export class TariffModifierComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public openDeleteModal(userTariffModifier: TariffModifier): void {
+    const modalRef = this.modalService.open(DeleteTariffModifierModalComponent);
+
+    modalRef.closed.pipe(
+      takeUntil(this.destroy$),
+      filter(result => result === true),
+    ).subscribe(() => {
+      this.tariffModifierFacadeService.deleteTariffModifier(userTariffModifier.id);
+    });
   }
 
 }

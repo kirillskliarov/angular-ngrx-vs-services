@@ -1,11 +1,15 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
 import { EntityStatus } from '../../models/entity-status';
 import { tariffModifierInitialState, TariffModifierState } from './tariff-modifier.state';
-import { loadAllTariffModifierList, loadAllTariffModifierListSuccess } from './tariff-modifier.actions';
+import {
+  deleteUserTariffModifierAction, deleteUserTariffModifierSuccessAction,
+  loadAllTariffModifierListAction,
+  loadAllTariffModifierListSuccessAction
+} from './tariff-modifier.actions';
 
 const _tariffModifierReducer: ActionReducer<TariffModifierState> = createReducer<TariffModifierState>(
   tariffModifierInitialState,
-  on(loadAllTariffModifierList, (state: TariffModifierState): TariffModifierState => {
+  on(loadAllTariffModifierListAction, (state: TariffModifierState): TariffModifierState => {
     return {
       ...state,
       allTariffModifierList: {
@@ -14,13 +18,31 @@ const _tariffModifierReducer: ActionReducer<TariffModifierState> = createReducer
       }
     };
   }),
-  on(loadAllTariffModifierListSuccess, (state: TariffModifierState, { tariffModifierList }): TariffModifierState => {
+  on(loadAllTariffModifierListSuccessAction, (state: TariffModifierState, { tariffModifierList }): TariffModifierState => {
     return {
       ...state,
       allTariffModifierList: {
         status: EntityStatus.SUCCESS,
         value: tariffModifierList,
       },
+    };
+  }),
+  on(deleteUserTariffModifierAction, (state: TariffModifierState): TariffModifierState => {
+    return {
+      ...state,
+      deleteTariffModifier: {
+        ...state.deleteTariffModifier,
+        status: EntityStatus.LOADING,
+      }
+    };
+  }),
+  on(deleteUserTariffModifierSuccessAction, (state: TariffModifierState): TariffModifierState => {
+    return {
+      ...state,
+      deleteTariffModifier: {
+        ...state.deleteTariffModifier,
+        status: EntityStatus.SUCCESS,
+      }
     };
   }),
 );

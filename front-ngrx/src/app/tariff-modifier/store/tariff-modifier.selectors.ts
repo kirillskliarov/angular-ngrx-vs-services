@@ -7,3 +7,8 @@ export const allTariffModifierListState = createSelector(
   tariffModifierState,
   (state: TariffModifierState) => state.allTariffModifierList,
 );
+
+export const deleteTariffModifierState = createSelector(
+  tariffModifierState,
+  (state: TariffModifierState) => state.deleteTariffModifier,
+);

@@ -57,15 +57,14 @@ export class TariffComponent implements OnInit, OnDestroy {
   public openModal(tariff: Tariff): void {
     const modalRef = this.modalService.open(ChangeTariffModalComponent);
     const conflictTariffModifierList = this.userFacadeService.getConflictTariffModifiersList(tariff);
-    console.log(conflictTariffModifierList);
     (modalRef.componentInstance as ChangeTariffModalComponent).conflictTariffModifierList = conflictTariffModifierList;
 
     modalRef.closed.pipe(
       takeUntil(this.destroy$),
       filter(result => result === true),
     )
-      .subscribe((() => {
+      .subscribe(() => {
         this.userFacadeService.changeUserTariff(tariff.id);
-      }));
+      });
   }
 }

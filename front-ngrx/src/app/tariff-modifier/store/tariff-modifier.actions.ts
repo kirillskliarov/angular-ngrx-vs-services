@@ -1,12 +1,20 @@
 import { createAction, props } from '@ngrx/store';
-import { Tariff } from '../../models/tariff';
 import { TariffModifier } from '../../models/tariff-modifier';
 
-export const loadAllTariffModifierList = createAction(
-  '[Tariff Modifier] loadAllTariffModifierList',
+export const loadAllTariffModifierListAction = createAction(
+  '[Tariff Modifier] loadAllTariffModifierListAction',
 );
 
-export const loadAllTariffModifierListSuccess = createAction(
-  '[Tariff Modifier] loadAllTariffModifierListSuccess',
+export const loadAllTariffModifierListSuccessAction = createAction(
+  '[Tariff Modifier] loadAllTariffModifierListSuccessAction',
   props<{ tariffModifierList: TariffModifier[] }>(),
+);
+
+export const deleteUserTariffModifierAction = createAction(
+  '[Tariff Modifier] deleteUserTariffModifierAction',
+  props<{ id: string }>(),
+);
+
+export const deleteUserTariffModifierSuccessAction = createAction(
+  '[Tariff Modifier] deleteUserTariffModifierSuccessAction',
 );

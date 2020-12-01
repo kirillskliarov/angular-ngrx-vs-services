@@ -8,6 +8,8 @@ import { tariffModifierReducer } from './store/tariff-modifier.reducers';
 import { TariffModifierEffects } from './store/tariff-modifier.effects';
 import { TariffModifierService } from './services/tariff-modifier.service';
 import { TariffModifierFacadeService } from './services/tariff-modifier-facade.service';
+import { DeleteTariffModifierModalComponent } from './delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
+import { ModalModule } from '../shared/modal/modal.module';
 
 const routes: Routes = [
   {
@@ -19,6 +21,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TariffModifierComponent,
+    DeleteTariffModifierModalComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +30,7 @@ const routes: Routes = [
     EffectsModule.forFeature([
       TariffModifierEffects,
     ]),
+    ModalModule,
   ],
   providers: [
     TariffModifierService,
