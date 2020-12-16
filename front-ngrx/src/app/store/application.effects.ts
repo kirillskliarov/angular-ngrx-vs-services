@@ -14,7 +14,10 @@ import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
 import { UserFacadeService } from '../services/user-facade.service';
 import { changeUserTariffSuccessAction } from '../tariff/store/tariff.actions';
-import { deleteUserTariffModifierSuccessAction } from '../tariff-modifier/store/tariff-modifier.actions';
+import {
+  addUserTariffModifierSuccessAction,
+  deleteUserTariffModifierSuccessAction
+} from '../tariff-modifier/store/tariff-modifier.actions';
 
 @Injectable()
 export class ApplicationEffects {
@@ -76,6 +79,11 @@ export class ApplicationEffects {
 
   public deleteUserTariffModifierLoadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
     ofType(deleteUserTariffModifierSuccessAction),
+    map(() => loadUserTariffModifiersAction())
+  ));
+
+  public addUserTariffModifierLoadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
+    ofType(addUserTariffModifierSuccessAction),
     map(() => loadUserTariffModifiersAction())
   ));
 

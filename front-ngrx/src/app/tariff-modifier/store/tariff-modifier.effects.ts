@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { TariffModifierService } from '../services/tariff-modifier.service';
 import {
+  addUserTariffModifierAction, addUserTariffModifierSuccessAction,
   deleteUserTariffModifierAction, deleteUserTariffModifierSuccessAction,
   loadAllTariffModifierListAction,
   loadAllTariffModifierListSuccessAction
@@ -27,6 +28,16 @@ export class TariffModifierEffects {
     switchMap(([{ id }, phone]) => {
       return this.userService.deleteUserTariffModifier(phone, id).pipe(
         map(() => deleteUserTariffModifierSuccessAction()),
+      );
+    }),
+  ));
+
+  public addTariffModifier$ = createEffect(() => this.actions$.pipe(
+    ofType(addUserTariffModifierAction),
+    withLatestFrom(this.userFacadeService.activePhone$),
+    switchMap(([{ id }, phone]) => {
+      return this.userService.addUserTariffModifier(phone, id).pipe(
+        map(() => addUserTariffModifierSuccessAction()),
       );
     }),
   ));

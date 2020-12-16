@@ -18,3 +18,12 @@ export const deleteUserTariffModifierAction = createAction(
 export const deleteUserTariffModifierSuccessAction = createAction(
   '[Tariff Modifier] deleteUserTariffModifierSuccessAction',
 );
+
+export const addUserTariffModifierAction = createAction(
+  '[Tariff Modifier] addUserTariffModifierAction',
+  props<{ id: string }>(),
+);
+
+export const addUserTariffModifierSuccessAction = createAction(
+  '[Tariff Modifier] addUserTariffModifierSuccessAction',
+);

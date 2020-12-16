@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { StateEntity } from '../../models/state-entity';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { EntityStatus } from '../../models/entity-status';
 import { allTariffModifierListState } from '../store/tariff-modifier.selectors';
 import { TariffModifier } from '../../models/tariff-modifier';
-import { deleteUserTariffModifierAction, loadAllTariffModifierListAction } from '../store/tariff-modifier.actions';
+import {
+  addUserTariffModifierAction,
+  deleteUserTariffModifierAction,
+  loadAllTariffModifierListAction,
+} from '../store/tariff-modifier.actions';
 import { UserFacadeService } from '../../services/user-facade.service';
 import { UserTariffModifier } from '../../models/user-tariff-modifier';
 
@@ -48,5 +52,9 @@ export class TariffModifierFacadeService {
 
   public deleteTariffModifier(id: string): void {
     this.store.dispatch(deleteUserTariffModifierAction({ id }));
+  }
+
+  public addTariffModifier(id: string): void {
+    this.store.dispatch(addUserTariffModifierAction({ id }));
   }
 }

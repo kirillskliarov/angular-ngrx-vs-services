@@ -16,7 +16,7 @@
         </div>
         <button type="button"
                 class="btn btn-danger"
-                (click)="openDeleteModal(userTariffModifier)"
+                (click)="onDeleteClick(userTariffModifier)"
         >
           Delete
         </button>
@@ -43,6 +43,15 @@
         </div>
         <div>User: {{tariffModifier.isUser ? 'yes' : 'no'}}</div>
         <div>Compatible With Tariff: {{tariffModifier.compatibleWithTariff ? 'yes' : 'no'}}</div>
+        <span class="d-inline-block" tabindex="0" placement="top" [ngbTooltip]="tariffModifier | tooltip">
+          <button [disabled]="tariffModifier.isUser || !tariffModifier.compatibleWithTariff"
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="onAddClick(tariffModifier)"
+          >
+          Add
+        </button>
+        </span>
       </li>
     </ul>
   </div>

@@ -7,6 +7,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { UserTariffModifier } from '../models/user-tariff-modifier';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteTariffModifierModalComponent } from './delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
+import { AddTariffModifierModalComponent } from './add-tariff-modifier-modal/add-tariff-modifier-modal.component';
 
 @Component({
   selector: 'app-tariff-modifier',
@@ -56,15 +57,25 @@ export class TariffModifierComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  public openDeleteModal(userTariffModifier: TariffModifier): void {
+  public onDeleteClick(tariffModifier: TariffModifier): void {
     const modalRef = this.modalService.open(DeleteTariffModifierModalComponent);
 
     modalRef.closed.pipe(
       takeUntil(this.destroy$),
       filter(result => result === true),
     ).subscribe(() => {
-      this.tariffModifierFacadeService.deleteTariffModifier(userTariffModifier.id);
+      this.tariffModifierFacadeService.deleteTariffModifier(tariffModifier.id);
     });
   }
 
+  public onAddClick(tariffModifier: TariffModifier): void {
+    const modalRef = this.modalService.open(AddTariffModifierModalComponent);
+
+    modalRef.closed.pipe(
+      takeUntil(this.destroy$),
+      filter(result => result === true),
+    ).subscribe(() => {
+      this.tariffModifierFacadeService.addTariffModifier(tariffModifier.id);
+    });
+  }
 }

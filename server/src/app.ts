@@ -97,8 +97,9 @@ server.post('/user/tariff-modifiers', (request: Request, response: Response) => 
 
 server.delete('/user/tariff-modifiers', (request: Request, response: Response) => {
   const phone = request.query.phone as string;
+  const id = request.query.id as string;
   const tariffModifierList: string[] = (USER_DB.get(phone) as Account).tariffModifierList;
-  removeElementFromArray<string>(tariffModifierList, request.body.id);
+  removeElementFromArray<string>(tariffModifierList, id);
   response.status(200).jsonp({});
 });
 

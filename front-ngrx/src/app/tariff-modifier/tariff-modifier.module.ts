@@ -10,6 +10,9 @@ import { TariffModifierService } from './services/tariff-modifier.service';
 import { TariffModifierFacadeService } from './services/tariff-modifier-facade.service';
 import { DeleteTariffModifierModalComponent } from './delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
 import { ModalModule } from '../shared/modal/modal.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TooltipPipe } from './pipes/tooltip.pipe';
+import { AddTariffModifierModalComponent } from './add-tariff-modifier-modal/add-tariff-modifier-modal.component';
 
 const routes: Routes = [
   {
@@ -22,6 +25,8 @@ const routes: Routes = [
   declarations: [
     TariffModifierComponent,
     DeleteTariffModifierModalComponent,
+    TooltipPipe,
+    AddTariffModifierModalComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +36,7 @@ const routes: Routes = [
       TariffModifierEffects,
     ]),
     ModalModule,
+    NgbModule,
   ],
   providers: [
     TariffModifierService,

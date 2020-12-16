@@ -54,4 +54,12 @@ export class UserService {
       },
     });
   }
+
+  public addUserTariffModifier(phone: string, id: string): Observable<void> {
+    return this.httpClient.post<void>(
+      'http://localhost:5000/user/tariff-modifiers',
+      { id },
+      { params: { phone } }
+    );
+  }
 }
