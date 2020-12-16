@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import {
   changeUserTariffAction,
   changeUserTariffSuccessAction,
@@ -11,6 +11,7 @@ import { TariffService } from '../services/tariff.service';
 import { Tariff } from '../../models/tariff';
 import { UserFacadeService } from '../../services/user-facade.service';
 import { UserService } from '../../services/user.service';
+import { loadUserTariffAction, loadUserTariffModifiersAction } from '../../store/application.actions';
 
 @Injectable()
 export class TariffEffects {

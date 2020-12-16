@@ -8,7 +8,7 @@ import {
   loadUserTariffModifiersSuccessAction,
   loadUserTariffSuccessAction, setUserActivePhoneAction,
 } from './application.actions';
-import { filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
@@ -53,7 +53,7 @@ export class ApplicationEffects {
     switchMap(([_, activePhone]) => {
       return this.userService.getUserTariff(activePhone).pipe(
         map((userTariff: Tariff) => loadUserTariffSuccessAction({ userTariff })),
-      )
+      );
     }),
   ));
 
@@ -67,22 +67,22 @@ export class ApplicationEffects {
     )),
   ));
 
-  public changeUserTariffLoadUserTariff$ = createEffect(() => this.actions$.pipe(
+  public changeUserTariffSuccessAction$ = createEffect(() => this.actions$.pipe(
     ofType(changeUserTariffSuccessAction),
-    map(() => loadUserTariffAction())
+    mergeMap(() => {
+      return [
+        loadUserTariffAction(),
+        loadUserTariffModifiersAction(),
+      ];
+    }),
   ));
 
-  public changeUserTariffLoadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
-    ofType(changeUserTariffSuccessAction),
-    map(() => loadUserTariffModifiersAction())
-  ));
-
-  public deleteUserTariffModifierLoadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
+  public deleteUserTariffModifierSuccessAction$ = createEffect(() => this.actions$.pipe(
     ofType(deleteUserTariffModifierSuccessAction),
     map(() => loadUserTariffModifiersAction())
   ));
 
-  public addUserTariffModifierLoadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
+  public addUserTariffModifierSuccessAction$ = createEffect(() => this.actions$.pipe(
     ofType(addUserTariffModifierSuccessAction),
     map(() => loadUserTariffModifiersAction())
   ));
