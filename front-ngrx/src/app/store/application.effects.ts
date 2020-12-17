@@ -9,7 +9,7 @@ import {
   loadUserTariffSuccessAction,
   setUserActivePhoneAction,
 } from './application.actions';
-import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
@@ -32,7 +32,6 @@ export class ApplicationEffects {
 
   public loadUserPhoneListSuccessEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserPhoneListSuccessAction),
-    filter(({ userPhoneList }) => !!userPhoneList), // TODO: may be redundant
     map(({ userPhoneList }) => setUserActivePhoneAction({ userActivePhone: userPhoneList[0] })),
   ));
 
