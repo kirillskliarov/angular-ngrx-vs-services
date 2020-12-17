@@ -32,7 +32,7 @@ export class SubscriptionComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.subscriptionFacadeService.loadAllSubscriptionList();
 
-    this.userFacadeService.activePhone$
+    this.userFacadeService.userActivePhone$
       .pipe(
         takeUntil(this.destroy$),
       )
@@ -41,7 +41,7 @@ export class SubscriptionComponent extends BaseComponent implements OnInit {
         this.cdr.detectChanges();
       });
 
-    this.subscriptionFacadeService.userSubscriptionListValue$
+    this.subscriptionFacadeService.userSubscriptionList$
       .pipe(
         takeUntil(this.destroy$),
       )
@@ -50,7 +50,7 @@ export class SubscriptionComponent extends BaseComponent implements OnInit {
         this.cdr.detectChanges();
       });
 
-    this.subscriptionFacadeService.allSubscriptionListValueWithUserData$
+    this.subscriptionFacadeService.allSubscriptionListWithUserData$
       .pipe(
         takeUntil(this.destroy$),
       )

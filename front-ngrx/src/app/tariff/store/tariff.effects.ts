@@ -27,7 +27,7 @@ export class TariffEffects {
   public changeUserTariffEffect$ = createEffect(() => this.actions$.pipe(
     ofType(changeUserTariffAction),
     withLatestFrom(
-      this.userFacadeService.activePhone$,
+      this.userFacadeService.userActivePhone$,
     ),
     switchMap(([{ id }, activePhone]) => {
       return this.userService.changeUserTariff(activePhone, id).pipe(

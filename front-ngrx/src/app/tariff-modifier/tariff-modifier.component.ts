@@ -31,7 +31,7 @@ export class TariffModifierComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.tariffModifierFacadeService.loadAllTariffModifierList();
 
-    this.userFacadeService.userTariffModifiersValue$
+    this.userFacadeService.userTariffModifierList$
       .pipe(
         takeUntil(this.destroy$),
       )

@@ -25,15 +25,15 @@ export class ApplicationEffects {
 
   public loadUserPhoneListEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserPhoneListAction),
-    switchMap(() => this.userService.getPhones().pipe(
-      map((phones: string[]) => loadUserPhoneListSuccessAction({ phoneList: phones })),
+    switchMap(() => this.userService.getUserPhoneList().pipe(
+      map((userPhoneList: string[]) => loadUserPhoneListSuccessAction({ userPhoneList })),
     )),
   ));
 
   public loadUserPhoneListSuccessEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserPhoneListSuccessAction),
-    filter(({ phoneList }) => !!phoneList), // TODO: may be redundant
-    map(({ phoneList }) => setUserActivePhoneAction({ phone: phoneList[0] })),
+    filter(({ userPhoneList }) => !!userPhoneList), // TODO: may be redundant
+    map(({ userPhoneList }) => setUserActivePhoneAction({ userActivePhone: userPhoneList[0] })),
   ));
 
   public setUserActivePhoneEffect$ = createEffect(() => this.actions$.pipe(
@@ -48,9 +48,9 @@ export class ApplicationEffects {
 
   public loadUserTariffEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserTariffAction),
-    withLatestFrom(this.userFacadeService.activePhone$),
-    switchMap(([, activePhone]) => {
-      return this.userService.getUserTariff(activePhone).pipe(
+    withLatestFrom(this.userFacadeService.userActivePhone$),
+    switchMap(([, userActivePhone]) => {
+      return this.userService.getUserTariff(userActivePhone).pipe(
         map((userTariff: Tariff) => loadUserTariffSuccessAction({ userTariff })),
       );
     }),
@@ -58,8 +58,8 @@ export class ApplicationEffects {
 
   public loadUserTariffModifierListEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserTariffModifierListAction),
-    withLatestFrom(this.userFacadeService.activePhone$),
-    switchMap(([, activePhone]) => this.userService.getUserTariffModifiers(activePhone).pipe(
+    withLatestFrom(this.userFacadeService.userActivePhone$),
+    switchMap(([, userActivePhone]) => this.userService.getUserTariffModifierList(userActivePhone).pipe(
       map((userTariffModifierList: TariffModifier[]) => loadUserTariffModifierListSuccessAction({ userTariffModifierList }))
     )),
   ));

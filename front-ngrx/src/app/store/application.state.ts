@@ -2,15 +2,15 @@ import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
 
 export interface ApplicationState {
-  phoneList: string[] | null;
-  activePhone: string | null;
+  userPhoneList: string[] | null;
+  userActivePhone: string | null;
   userTariff: Tariff | null;
   userTariffModifierList: TariffModifier[] | null;
 }
 
 export const applicationInitialState: ApplicationState = {
-  phoneList: null,
-  activePhone: null,
+  userPhoneList: null,
+  userActivePhone: null,
   userTariff: null,
   userTariffModifierList: null,
 };

@@ -21,9 +21,9 @@ export class AppComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userFacadeService.loadUserPhones();
+    this.userFacadeService.loadUserPhoneList();
 
-    this.userFacadeService.phonesState$
+    this.userFacadeService.userPhoneList$
       .pipe(
         takeUntil(this.destroy$),
       )
@@ -32,7 +32,7 @@ export class AppComponent extends BaseComponent implements OnInit {
         this.cdr.detectChanges();
       });
 
-    this.userFacadeService.activePhone$
+    this.userFacadeService.userActivePhone$
       .pipe(
         takeUntil(this.destroy$),
       )
@@ -43,6 +43,6 @@ export class AppComponent extends BaseComponent implements OnInit {
   }
 
   public onSetActivePhone(phone: string): void {
-    this.userFacadeService.setActivePhone(phone);
+    this.userFacadeService.setUserActivePhone(phone);
   }
 }

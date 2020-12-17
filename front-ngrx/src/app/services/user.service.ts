@@ -15,12 +15,8 @@ export class UserService {
   ) {
   }
 
-  public getPhones(): Observable<string[]> {
+  public getUserPhoneList(): Observable<string[]> {
     return this.httpClient.get<string[]>('http://localhost:5000/user/phones/list');
-  }
-
-  public getActivePhone(): Observable<string> {
-    return this.httpClient.get<string>('http://localhost:5000/user/phones/default');
   }
 
   public getUserTariff(phone: string): Observable<Tariff> {
@@ -28,12 +24,12 @@ export class UserService {
     return this.httpClient.get<Tariff>('http://localhost:5000/user/tariff', { params });
   }
 
-  public getUserTariffModifiers(phone: string): Observable<TariffModifier[]> {
+  public getUserTariffModifierList(phone: string): Observable<TariffModifier[]> {
     const params = { phone };
     return this.httpClient.get<TariffModifier[]>('http://localhost:5000/user/tariff-modifiers', { params });
   }
 
-  public getUserSubscriptions(phone: string): Observable<Subscription[]> {
+  public getUserSubscriptionList(phone: string): Observable<Subscription[]> {
     const params = { phone };
     return this.httpClient.get<Subscription[]>('http://localhost:5000/user/subscriptions', { params });
   }

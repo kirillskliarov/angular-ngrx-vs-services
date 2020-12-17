@@ -21,8 +21,8 @@ export class TariffModifierFacadeService {
   public allTariffModifierListValueWithUserData$: Observable<UserTariffModifier[]> = combineLatest(
     [
       this.allTariffModifierListValue$,
-      this.userFacadeService.userTariffModifiersValue$,
-      this.userFacadeService.userTariffValue$,
+      this.userFacadeService.userTariffModifierList$,
+      this.userFacadeService.userTariff$,
     ]
   ).pipe(
     map(([tariffModifiers, userTariffModifierList, userTariff]) => {

@@ -19,15 +19,15 @@ import { UserSubscription } from '../../models/user-subscription';
 @Injectable()
 export class SubscriptionFacadeService {
 
-  public userSubscriptionListValue$: Observable<Subscription[]> = this.store.select(userSubscriptionListSelector).pipe(
+  public userSubscriptionList$: Observable<Subscription[]> = this.store.select(userSubscriptionListSelector).pipe(
     filter(value => value !== null),
   );
-  public allSubscriptionListValue$: Observable<Subscription[]> = this.store.select(allSubscriptionListSelector).pipe(
+  public allSubscriptionList$: Observable<Subscription[]> = this.store.select(allSubscriptionListSelector).pipe(
     filter(value => value !== null),
   );
-  public allSubscriptionListValueWithUserData$: Observable<UserSubscription[]> = combineLatest([
-    this.allSubscriptionListValue$,
-    this.userSubscriptionListValue$,
+  public allSubscriptionListWithUserData$: Observable<UserSubscription[]> = combineLatest([
+    this.allSubscriptionList$,
+    this.userSubscriptionList$,
   ]).pipe(
     map(([subscriptionList, userSubscribtionList]): UserSubscription[] => {
       return subscriptionList.map((subscription: Subscription): UserSubscription => {
@@ -39,9 +39,7 @@ export class SubscriptionFacadeService {
     }),
   );
 
-  constructor(
-    private store: Store<SubscriptionState>,
-  ) {
+  constructor(private store: Store<SubscriptionState>) {
   }
 
   public loadUserSubscriptionList(): void {

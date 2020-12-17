@@ -8,12 +8,12 @@ export const loadUserPhoneListAction = createAction(
 
 export const loadUserPhoneListSuccessAction = createAction(
   '[Application] loadUserPhoneListSuccessAction',
-  props<{ phoneList: string[] }>(),
+  props<{ userPhoneList: string[] }>(),
 );
 
 export const setUserActivePhoneAction = createAction(
   '[Application] setUserActivePhoneAction',
-  props<{ phone: string }>(),
+  props<{ userActivePhone: string }>(),
 );
 
 export const loadUserTariffAction = createAction(

@@ -3,14 +3,14 @@ import { ApplicationState } from './application.state';
 
 export const applicationSelector = createFeatureSelector<ApplicationState>('application');
 
-export const phoneListSelector = createSelector(
+export const userPhoneListSelector = createSelector(
   applicationSelector,
-  ((state: ApplicationState) => state.phoneList),
+  ((state: ApplicationState) => state.userPhoneList),
 );
 
-export const activePhoneSelector = createSelector(
+export const userActivePhoneSelector = createSelector(
   applicationSelector,
-  ((state: ApplicationState) => state.activePhone),
+  ((state: ApplicationState) => state.userActivePhone),
 );
 
 export const userTariffSelector = createSelector(

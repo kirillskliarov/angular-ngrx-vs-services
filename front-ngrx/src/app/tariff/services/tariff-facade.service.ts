@@ -10,7 +10,7 @@ import { filter } from 'rxjs/operators';
 @Injectable()
 export class TariffFacadeService {
 
-  public allTariffListValue$: Observable<Tariff[]> = this.store.select(allTariffListSelector).pipe(
+  public allTariffList$: Observable<Tariff[]> = this.store.select(allTariffListSelector).pipe(
     filter(value => value !== null),
   );
 

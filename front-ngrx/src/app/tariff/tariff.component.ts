@@ -29,7 +29,7 @@ export class TariffComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.tariffFacadeService.loadAllTariffList();
 
-    this.userFacadeService.userTariffValue$
+    this.userFacadeService.userTariff$
       .pipe(
         takeUntil(this.destroy$),
       )
@@ -38,7 +38,7 @@ export class TariffComponent extends BaseComponent implements OnInit {
         this.cdr.detectChanges();
       });
 
-    this.tariffFacadeService.allTariffListValue$
+    this.tariffFacadeService.allTariffList$
       .pipe(
         takeUntil(this.destroy$),
       )

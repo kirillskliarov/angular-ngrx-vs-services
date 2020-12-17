@@ -9,16 +9,16 @@ import { ApplicationState, applicationInitialState } from './application.state';
 
 const applicationActionReducer: ActionReducer<ApplicationState> = createReducer<ApplicationState>(
   applicationInitialState,
-  on(loadUserPhoneListSuccessAction, (state: ApplicationState, { phoneList }): ApplicationState => {
+  on(loadUserPhoneListSuccessAction, (state: ApplicationState, { userPhoneList }): ApplicationState => {
     return {
       ...state,
-      phoneList,
+      userPhoneList,
     };
   }),
-  on(setUserActivePhoneAction, (state: ApplicationState, { phone }): ApplicationState => {
+  on(setUserActivePhoneAction, (state: ApplicationState, { userActivePhone }): ApplicationState => {
     return {
       ...state,
-      activePhone: phone,
+      userActivePhone,
     };
   }),
   on(loadUserTariffSuccessAction, (state: ApplicationState, { userTariff }) => {

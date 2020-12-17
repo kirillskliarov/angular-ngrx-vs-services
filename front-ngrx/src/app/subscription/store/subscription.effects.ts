@@ -21,8 +21,8 @@ export class SubscriptionEffects {
 
   public loadUserSubscriptionListEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserSubscriptionListAction),
-    withLatestFrom(this.userFacadeService.activePhone$),
-    switchMap(([, activePhone]) => this.userService.getUserSubscriptions(activePhone).pipe(
+    withLatestFrom(this.userFacadeService.userActivePhone$),
+    switchMap(([, activePhone]) => this.userService.getUserSubscriptionList(activePhone).pipe(
       map((userSubscriptionList: Subscription[]) => loadUserSubscriptionListSuccessAction({ userSubscriptionList })),
     )),
   ));
@@ -36,7 +36,7 @@ export class SubscriptionEffects {
 
   public addUserSubscriptionEffect$ = createEffect(() => this.actions$.pipe(
     ofType(addUserSubscriptionAction),
-    withLatestFrom(this.userFacadeService.activePhone$),
+    withLatestFrom(this.userFacadeService.userActivePhone$),
     switchMap(([{ id }, activePhone]) => this.userService.addUserSubscription(activePhone, id).pipe(
       mergeMap(() => {
         return [
@@ -49,7 +49,7 @@ export class SubscriptionEffects {
 
   public deleteUserSubscriptionEffect = createEffect(() => this.actions$.pipe(
     ofType(deleteUserSubscriptionAction),
-    withLatestFrom(this.userFacadeService.activePhone$),
+    withLatestFrom(this.userFacadeService.userActivePhone$),
     switchMap(([{ id }, activePhone]) => this.userService.deleteUserSubscription(activePhone, id).pipe(
       mergeMap(() => {
         return [

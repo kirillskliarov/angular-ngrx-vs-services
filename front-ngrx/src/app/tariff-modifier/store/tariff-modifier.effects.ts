@@ -26,7 +26,7 @@ export class TariffModifierEffects {
 
   public deleteUserTariffModifierEffect$ = createEffect(() => this.actions$.pipe(
     ofType(deleteUserTariffModifierAction),
-    withLatestFrom(this.userFacadeService.activePhone$),
+    withLatestFrom(this.userFacadeService.userActivePhone$),
     switchMap(([{ id }, activePhone]) => {
       return this.userService.deleteUserTariffModifier(activePhone, id).pipe(
         map(() => deleteUserTariffModifierSuccessAction()),
@@ -36,7 +36,7 @@ export class TariffModifierEffects {
 
   public addUserTariffModifierEffect$ = createEffect(() => this.actions$.pipe(
     ofType(addUserTariffModifierAction),
-    withLatestFrom(this.userFacadeService.activePhone$),
+    withLatestFrom(this.userFacadeService.userActivePhone$),
     switchMap(([{ id }, activePhone]) => {
       return this.userService.addUserTariffModifier(activePhone, id).pipe(
         map(() => addUserTariffModifierSuccessAction()),
