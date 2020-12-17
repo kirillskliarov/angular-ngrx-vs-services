@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UserFacadeService } from '../services/user-facade.service';
 import { TariffModifierFacadeService } from './services/tariff-modifier-facade.service';
 import { TariffModifier } from '../models/tariff-modifier';
@@ -8,18 +7,17 @@ import { UserTariffModifier } from '../models/user-tariff-modifier';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteTariffModifierModalComponent } from './components/delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
 import { AddTariffModifierModalComponent } from './components/add-tariff-modifier-modal/add-tariff-modifier-modal.component';
+import { BaseComponent } from '../core/base.component';
 
 @Component({
   selector: 'app-tariff-modifier',
   templateUrl: './tariff-modifier.component.html',
   styleUrls: ['./tariff-modifier.component.scss']
 })
-export class TariffModifierComponent implements OnInit, OnDestroy {
+export class TariffModifierComponent extends BaseComponent implements OnInit {
 
   public userTariffModifierList: TariffModifier[] | null = null;
   public allTariffModifierList: UserTariffModifier[] | null = null;
-
-  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -27,6 +25,7 @@ export class TariffModifierComponent implements OnInit, OnDestroy {
     private tariffModifierFacadeService: TariffModifierFacadeService,
     private modalService: NgbModal,
   ) {
+    super();
   }
 
   ngOnInit(): void {
@@ -50,11 +49,6 @@ export class TariffModifierComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       });
 
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   public onAddClick(tariffModifier: TariffModifier): void {

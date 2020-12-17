@@ -1,23 +1,21 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Tariff } from '../models/tariff';
 import { UserFacadeService } from '../services/user-facade.service';
 import { TariffFacadeService } from './services/tariff-facade.service';
-import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangeTariffModalComponent } from './components/change-tariff-modal/change-tariff-modal.component';
+import { BaseComponent } from '../core/base.component';
 
 @Component({
   selector: 'app-tariff',
   templateUrl: './tariff.component.html',
   styleUrls: ['./tariff.component.scss']
 })
-export class TariffComponent implements OnInit, OnDestroy {
+export class TariffComponent extends BaseComponent implements OnInit {
 
   public userTariff: Tariff | null = null;
   public allTariffList: Tariff[] | null = null;
-
-  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -25,6 +23,7 @@ export class TariffComponent implements OnInit, OnDestroy {
     private tariffFacadeService: TariffFacadeService,
     private modalService: NgbModal,
   ) {
+    super();
   }
 
   ngOnInit(): void {
@@ -47,11 +46,6 @@ export class TariffComponent implements OnInit, OnDestroy {
         this.allTariffList = allTariffList;
         this.cdr.detectChanges();
       });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   public openModal(tariff: Tariff): void {

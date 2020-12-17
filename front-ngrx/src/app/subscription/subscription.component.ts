@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Subscription } from '../models/subscription';
 import { UserFacadeService } from '../services/user-facade.service';
 import { SubscriptionFacadeService } from './services/subscription-facade.service';
@@ -8,6 +7,7 @@ import { UserSubscription } from '../models/user-subscription';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddSubscriptionModalComponent } from './components/add-subscription-modal/add-subscription-modal.component';
 import { DeleteSubscriptionModalComponent } from './components/delete-subscription-modal/delete-subscription-modal.component';
+import { BaseComponent } from '../core/base.component';
 
 @Component({
   selector: 'app-subscription',
@@ -15,12 +15,10 @@ import { DeleteSubscriptionModalComponent } from './components/delete-subscripti
   styleUrls: ['./subscription.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SubscriptionComponent implements OnInit, OnDestroy {
+export class SubscriptionComponent extends BaseComponent implements OnInit {
 
   public userSubscriptionList: Subscription[] | null = null;
   public allSubscriptionList: UserSubscription[] | null = null;
-
-  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -28,6 +26,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     private subscriptionFacadeService: SubscriptionFacadeService,
     private modalService: NgbModal,
   ) {
+    super();
   }
 
   ngOnInit(): void {
@@ -59,11 +58,6 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
         this.allSubscriptionList = allSubscriptionList;
         this.cdr.detectChanges();
       });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   public onAddClick(subscription: Subscription): void {

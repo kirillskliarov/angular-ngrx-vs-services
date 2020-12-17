@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UserFacadeService } from './services/user-facade.service';
-import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { BaseComponent } from './core/base.component';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +9,15 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent extends BaseComponent implements OnInit {
   public phonesState: string[];
   public activePhone: string;
-
-  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private cdr: ChangeDetectorRef,
     private userFacadeService: UserFacadeService,
   ) {
+    super();
   }
 
   ngOnInit(): void {
@@ -41,11 +40,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.activePhone = activePhone;
         this.cdr.detectChanges();
       });
-  }
-
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   public onSetActivePhone(phone: string): void {
