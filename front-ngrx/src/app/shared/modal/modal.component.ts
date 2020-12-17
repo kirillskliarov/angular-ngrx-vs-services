@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modal',
@@ -7,10 +8,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
 
-  @Output()
-  public confirm: EventEmitter<void> = new EventEmitter<void>();
-  @Output()
-  public cancel: EventEmitter<void> = new EventEmitter<void>();
+  @Input()
+  public modalRef: NgbActiveModal;
 
   constructor() { }
 
@@ -18,10 +17,10 @@ export class ModalComponent implements OnInit {
   }
 
   public onConfirmClick(): void {
-    this.confirm.emit();
+    this.modalRef.close(true);
   }
 
   public onCancelClick(): void {
-    this.cancel.emit();
+    this.modalRef.close();
   }
 }
