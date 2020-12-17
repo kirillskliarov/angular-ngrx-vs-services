@@ -5,11 +5,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { applicationReducer } from './store/application.reducers';
 import { ApplicationEffects } from './store/application.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
     HttpClientModule,
     StoreModule.forRoot({
       application: applicationReducer,
@@ -27,8 +26,9 @@ import { HttpClientModule } from '@angular/common/http';
     EffectsModule.forRoot([
       ApplicationEffects,
     ]),
+    NgbDropdownModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
