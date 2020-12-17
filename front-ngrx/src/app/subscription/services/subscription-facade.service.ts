@@ -3,7 +3,10 @@ import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Subscription } from '../../models/subscription';
-import { allSubscriptionListState, userSubscriptionListState } from '../store/subscription.selectors';
+import {
+  allSubscriptionListState,
+  userSubscriptionListState,
+} from '../store/subscription.selectors';
 import {
   loadUserSubscriptionListAction,
   loadAllSubscriptionListAction,

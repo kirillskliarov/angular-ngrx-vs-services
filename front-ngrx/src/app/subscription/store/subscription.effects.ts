@@ -13,7 +13,7 @@ import {
   loadAllSubscriptionListAction,
   loadAllSubscriptionListSuccessAction,
   loadUserSubscriptionListAction,
-  loadUserSubscriptionListSuccessAction
+  loadUserSubscriptionListSuccessAction,
 } from './subscription.actions';
 
 @Injectable()

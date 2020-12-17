@@ -5,7 +5,7 @@ import {
   changeUserTariffAction,
   changeUserTariffSuccessAction,
   loadAllTariffListAction,
-  loadAllTariffListSuccessAction
+  loadAllTariffListSuccessAction,
 } from './tariff.actions';
 import { TariffService } from '../services/tariff.service';
 import { Tariff } from '../../models/tariff';

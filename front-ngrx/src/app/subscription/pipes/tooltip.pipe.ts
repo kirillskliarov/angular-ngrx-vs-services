@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { UserTariffModifier } from '../../models/user-tariff-modifier';
 import { UserSubscription } from '../../models/user-subscription';
 
 @Pipe({

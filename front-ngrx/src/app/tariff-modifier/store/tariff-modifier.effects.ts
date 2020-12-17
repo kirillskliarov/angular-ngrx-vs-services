@@ -3,10 +3,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { TariffModifierService } from '../services/tariff-modifier.service';
 import {
-  addUserTariffModifierAction, addUserTariffModifierSuccessAction,
-  deleteUserTariffModifierAction, deleteUserTariffModifierSuccessAction,
+  addUserTariffModifierAction,
+  addUserTariffModifierSuccessAction,
+  deleteUserTariffModifierAction,
+  deleteUserTariffModifierSuccessAction,
   loadAllTariffModifierListAction,
-  loadAllTariffModifierListSuccessAction
+  loadAllTariffModifierListSuccessAction,
 } from './tariff-modifier.actions';
 import { TariffModifier } from '../../models/tariff-modifier';
 import { UserService } from '../../services/user.service';

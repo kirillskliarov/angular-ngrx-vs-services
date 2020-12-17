@@ -6,9 +6,10 @@ import {
   loadUserTariffAction,
   loadUserTariffModifiersAction,
   loadUserTariffModifiersSuccessAction,
-  loadUserTariffSuccessAction, setUserActivePhoneAction,
+  loadUserTariffSuccessAction,
+  setUserActivePhoneAction,
 } from './application.actions';
-import { filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
@@ -16,7 +17,7 @@ import { UserFacadeService } from '../services/user-facade.service';
 import { changeUserTariffSuccessAction } from '../tariff/store/tariff.actions';
 import {
   addUserTariffModifierSuccessAction,
-  deleteUserTariffModifierSuccessAction
+  deleteUserTariffModifierSuccessAction,
 } from '../tariff-modifier/store/tariff-modifier.actions';
 
 @Injectable()

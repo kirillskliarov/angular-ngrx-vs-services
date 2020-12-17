@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ApplicationState } from './application.state';
 
 export const applicationState = createFeatureSelector<ApplicationState>('application');
