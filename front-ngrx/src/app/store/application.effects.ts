@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
-  loadUserPhones,
-  loadUserPhonesSuccessAction,
+  loadUserPhoneListAction,
+  loadUserPhoneListSuccessAction,
   loadUserTariffAction,
-  loadUserTariffModifiersAction,
-  loadUserTariffModifiersSuccessAction,
+  loadUserTariffModifierListAction,
+  loadUserTariffModifierListSuccessAction,
   loadUserTariffSuccessAction,
   setUserActivePhoneAction,
 } from './application.actions';
@@ -23,69 +23,65 @@ import {
 @Injectable()
 export class ApplicationEffects {
 
-  public loadPhones$ = createEffect(() => this.actions$.pipe(
-    ofType(loadUserPhones),
+  public loadUserPhoneListEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(loadUserPhoneListAction),
     switchMap(() => this.userService.getPhones().pipe(
-      map((phones: string[]) => loadUserPhonesSuccessAction({ phones })),
+      map((phones: string[]) => loadUserPhoneListSuccessAction({ phoneList: phones })),
     )),
   ));
 
-  public loadUserPhonesSuccess$ = createEffect(() => this.actions$.pipe(
-    ofType(loadUserPhonesSuccessAction),
-    filter(({ phones }) => !!phones),
-    map(({ phones }) => setUserActivePhoneAction({ activePhone: phones[0] })),
+  public loadUserPhoneListSuccessEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(loadUserPhoneListSuccessAction),
+    filter(({ phoneList }) => !!phoneList), // TODO: may be redundant
+    map(({ phoneList }) => setUserActivePhoneAction({ phone: phoneList[0] })),
   ));
 
-  public setUserActivePhoneLoadUserTariff$ = createEffect(() => this.actions$.pipe(
+  public setUserActivePhoneEffect$ = createEffect(() => this.actions$.pipe(
     ofType(setUserActivePhoneAction),
-    map(() => loadUserTariffAction())
+    mergeMap(() => {
+      return [
+        loadUserTariffAction(),
+        loadUserTariffModifierListAction(),
+      ];
+    })
   ));
 
-  public setUserActivePhoneLoadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
-    ofType(setUserActivePhoneAction),
-    map(() => loadUserTariffModifiersAction())
-  ));
-
-  public loadUserTariff$ = createEffect(() => this.actions$.pipe(
+  public loadUserTariffEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserTariffAction),
-    withLatestFrom(this.userFacadeService.activePhone$.pipe(
-      filter((activePhone) => activePhone !== null),
-    )),
-    switchMap(([_, activePhone]) => {
+    withLatestFrom(this.userFacadeService.activePhone$),
+    switchMap(([, activePhone]) => {
       return this.userService.getUserTariff(activePhone).pipe(
         map((userTariff: Tariff) => loadUserTariffSuccessAction({ userTariff })),
       );
     }),
   ));
 
-  public loadUserTariffModifiers$ = createEffect(() => this.actions$.pipe(
-    ofType(loadUserTariffModifiersAction),
-    withLatestFrom(this.userFacadeService.activePhone$.pipe(
-      filter((activePhone) => activePhone !== null),
-    )),
-    switchMap(([_, activePhone]) => this.userService.getUserTariffModifiers(activePhone).pipe(
-      map((userTariffModifiers: TariffModifier[]) => loadUserTariffModifiersSuccessAction({ userTariffModifiers }))
+  public loadUserTariffModifierListEffect$ = createEffect(() => this.actions$.pipe(
+    ofType(loadUserTariffModifierListAction),
+    withLatestFrom(this.userFacadeService.activePhone$),
+    switchMap(([, activePhone]) => this.userService.getUserTariffModifiers(activePhone).pipe(
+      map((userTariffModifierList: TariffModifier[]) => loadUserTariffModifierListSuccessAction({ userTariffModifierList }))
     )),
   ));
 
-  public changeUserTariffSuccessAction$ = createEffect(() => this.actions$.pipe(
+  public changeUserTariffSuccessEffect$ = createEffect(() => this.actions$.pipe(
     ofType(changeUserTariffSuccessAction),
     mergeMap(() => {
       return [
         loadUserTariffAction(),
-        loadUserTariffModifiersAction(),
+        loadUserTariffModifierListAction(),
       ];
     }),
   ));
 
-  public deleteUserTariffModifierSuccessAction$ = createEffect(() => this.actions$.pipe(
+  public deleteUserTariffModifierSuccessEffect$ = createEffect(() => this.actions$.pipe(
     ofType(deleteUserTariffModifierSuccessAction),
-    map(() => loadUserTariffModifiersAction())
+    map(() => loadUserTariffModifierListAction())
   ));
 
-  public addUserTariffModifierSuccessAction$ = createEffect(() => this.actions$.pipe(
+  public addUserTariffModifierSuccessEffect$ = createEffect(() => this.actions$.pipe(
     ofType(addUserTariffModifierSuccessAction),
-    map(() => loadUserTariffModifiersAction())
+    map(() => loadUserTariffModifierListAction())
   ));
 
   constructor(

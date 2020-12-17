@@ -4,8 +4,8 @@ import { combineLatest, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Subscription } from '../../models/subscription';
 import {
-  allSubscriptionListState,
-  userSubscriptionListState,
+  allSubscriptionListSelector,
+  userSubscriptionListSelector,
 } from '../store/subscription.selectors';
 import {
   loadUserSubscriptionListAction,
@@ -19,10 +19,10 @@ import { UserSubscription } from '../../models/user-subscription';
 @Injectable()
 export class SubscriptionFacadeService {
 
-  public userSubscriptionListValue$: Observable<Subscription[]> = this.store.select(userSubscriptionListState).pipe(
+  public userSubscriptionListValue$: Observable<Subscription[]> = this.store.select(userSubscriptionListSelector).pipe(
     filter(value => value !== null),
   );
-  public allSubscriptionListValue$: Observable<Subscription[]> = this.store.select(allSubscriptionListState).pipe(
+  public allSubscriptionListValue$: Observable<Subscription[]> = this.store.select(allSubscriptionListSelector).pipe(
     filter(value => value !== null),
   );
   public allSubscriptionListValueWithUserData$: Observable<UserSubscription[]> = combineLatest([

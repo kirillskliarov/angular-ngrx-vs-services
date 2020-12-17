@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
 import { UserFacadeService } from '../../services/user-facade.service';
 import { SubscriptionService } from '../services/subscription.service';
@@ -19,28 +19,24 @@ import {
 @Injectable()
 export class SubscriptionEffects {
 
-  public loadUserSubscriptionListAction$ = createEffect(() => this.actions$.pipe(
+  public loadUserSubscriptionListEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadUserSubscriptionListAction),
-    withLatestFrom(this.userFacadeService.activePhone$.pipe(
-      filter((activePhone) => activePhone !== null),
-    )),
+    withLatestFrom(this.userFacadeService.activePhone$),
     switchMap(([, activePhone]) => this.userService.getUserSubscriptions(activePhone).pipe(
-      map((subscriptionList: Subscription[]) => loadUserSubscriptionListSuccessAction({ subscriptionList })),
+      map((userSubscriptionList: Subscription[]) => loadUserSubscriptionListSuccessAction({ userSubscriptionList })),
     )),
   ));
 
-  public loadAllSubscriptionListAction$ = createEffect(() => this.actions$.pipe(
+  public loadAllSubscriptionListEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadAllSubscriptionListAction),
     switchMap(() => this.subscriptionService.getAllSubscriptionList().pipe(
-      map((subscriptionList: Subscription[]) => loadAllSubscriptionListSuccessAction({ subscriptionList })),
+      map((allSubscriptionList: Subscription[]) => loadAllSubscriptionListSuccessAction({ allSubscriptionList })),
     )),
   ));
 
-  public addUserSubscriptionAction$ = createEffect(() => this.actions$.pipe(
+  public addUserSubscriptionEffect$ = createEffect(() => this.actions$.pipe(
     ofType(addUserSubscriptionAction),
-    withLatestFrom(this.userFacadeService.activePhone$.pipe(
-      filter((activePhone) => activePhone !== null),
-    )),
+    withLatestFrom(this.userFacadeService.activePhone$),
     switchMap(([{ id }, activePhone]) => this.userService.addUserSubscription(activePhone, id).pipe(
       mergeMap(() => {
         return [
@@ -51,11 +47,9 @@ export class SubscriptionEffects {
     )),
   ));
 
-  public deleteUserSubscriptionAction$ = createEffect(() => this.actions$.pipe(
+  public deleteUserSubscriptionEffect = createEffect(() => this.actions$.pipe(
     ofType(deleteUserSubscriptionAction),
-    withLatestFrom(this.userFacadeService.activePhone$.pipe(
-      filter((activePhone) => activePhone !== null),
-    )),
+    withLatestFrom(this.userFacadeService.activePhone$),
     switchMap(([{ id }, activePhone]) => this.userService.deleteUserSubscription(activePhone, id).pipe(
       mergeMap(() => {
         return [

@@ -1,24 +1,24 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ApplicationState } from './application.state';
 
-export const applicationState = createFeatureSelector<ApplicationState>('application');
+export const applicationSelector = createFeatureSelector<ApplicationState>('application');
 
-export const phonesState = createSelector(
-  applicationState,
-  ((state: ApplicationState) => state.phones),
+export const phoneListSelector = createSelector(
+  applicationSelector,
+  ((state: ApplicationState) => state.phoneList),
 );
 
-export const activePhoneValue = createSelector(
-  applicationState,
+export const activePhoneSelector = createSelector(
+  applicationSelector,
   ((state: ApplicationState) => state.activePhone),
 );
 
-export const userTariffState = createSelector(
-  applicationState,
+export const userTariffSelector = createSelector(
+  applicationSelector,
   ((state: ApplicationState) => state.userTariff),
 );
 
-export const userTariffModifiersState = createSelector(
-  applicationState,
-  ((state: ApplicationState) => state.userTariffModifiers),
+export const userTariffModifierListSelector = createSelector(
+  applicationSelector,
+  ((state: ApplicationState) => state.userTariffModifierList),
 );

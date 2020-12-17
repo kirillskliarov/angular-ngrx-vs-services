@@ -6,10 +6,10 @@ import {
 
 const tariffModifierActionReducer: ActionReducer<TariffModifierState> = createReducer<TariffModifierState>(
   tariffModifierInitialState,
-  on(loadAllTariffModifierListSuccessAction, (state: TariffModifierState, { tariffModifierList }): TariffModifierState => {
+  on(loadAllTariffModifierListSuccessAction, (state: TariffModifierState, { allTariffModifierList }): TariffModifierState => {
     return {
       ...state,
-      allTariffModifierList: tariffModifierList,
+      allTariffModifierList,
     };
   }),
 );

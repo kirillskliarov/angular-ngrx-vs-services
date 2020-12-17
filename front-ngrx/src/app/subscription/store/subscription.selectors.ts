@@ -1,14 +1,14 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { SubscriptionState } from './subscription.state';
 
-export const subscriptionState = createFeatureSelector<SubscriptionState>('subscription');
+export const subscriptionSelector = createFeatureSelector<SubscriptionState>('subscription');
 
-export const userSubscriptionListState = createSelector(
-  subscriptionState,
+export const userSubscriptionListSelector = createSelector(
+  subscriptionSelector,
   ((state: SubscriptionState) => state.userSubscriptionList),
 );
 
-export const allSubscriptionListState = createSelector(
-  subscriptionState,
+export const allSubscriptionListSelector = createSelector(
+  subscriptionSelector,
   ((state: SubscriptionState) => state.allSubscriptionList),
 );

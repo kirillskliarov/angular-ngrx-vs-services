@@ -7,16 +7,16 @@ import {
 
 const subscriptionActionReducer: ActionReducer<SubscriptionState> = createReducer<SubscriptionState>(
   subscriptionInitialState,
-  on(loadUserSubscriptionListSuccessAction, (state: SubscriptionState, { subscriptionList }): SubscriptionState => {
+  on(loadUserSubscriptionListSuccessAction, (state: SubscriptionState, { userSubscriptionList }): SubscriptionState => {
     return {
       ...state,
-      userSubscriptionList: subscriptionList,
+      userSubscriptionList,
     };
   }),
-  on(loadAllSubscriptionListSuccessAction, (state: SubscriptionState, { subscriptionList }): SubscriptionState => {
+  on(loadAllSubscriptionListSuccessAction, (state: SubscriptionState, { allSubscriptionList }): SubscriptionState => {
     return {
       ...state,
-      allSubscriptionList: subscriptionList,
+      allSubscriptionList,
     };
   }),
 );

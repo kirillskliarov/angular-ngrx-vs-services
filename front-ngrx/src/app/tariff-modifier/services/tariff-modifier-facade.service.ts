@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { allTariffModifierListState } from '../store/tariff-modifier.selectors';
+import { allTariffModifierListSelector } from '../store/tariff-modifier.selectors';
 import { TariffModifier } from '../../models/tariff-modifier';
 import {
   addUserTariffModifierAction,
@@ -15,7 +15,7 @@ import { UserTariffModifier } from '../../models/user-tariff-modifier';
 @Injectable()
 export class TariffModifierFacadeService {
 
-  public allTariffModifierListValue$: Observable<TariffModifier[]> = this.store.select(allTariffModifierListState).pipe(
+  public allTariffModifierListValue$: Observable<TariffModifier[]> = this.store.select(allTariffModifierListSelector).pipe(
     filter(value => value !== null),
   );
   public allTariffModifierListValueWithUserData$: Observable<UserTariffModifier[]> = combineLatest(

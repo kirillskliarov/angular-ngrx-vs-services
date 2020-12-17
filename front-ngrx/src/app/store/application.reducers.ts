@@ -1,9 +1,7 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
 import {
-  loadUserPhonesSuccessAction,
-  loadUserTariffAction,
-  loadUserTariffModifiersAction,
-  loadUserTariffModifiersSuccessAction,
+  loadUserPhoneListSuccessAction,
+  loadUserTariffModifierListSuccessAction,
   loadUserTariffSuccessAction,
   setUserActivePhoneAction,
 } from './application.actions';
@@ -11,21 +9,16 @@ import { ApplicationState, applicationInitialState } from './application.state';
 
 const applicationActionReducer: ActionReducer<ApplicationState> = createReducer<ApplicationState>(
   applicationInitialState,
-  on(loadUserPhonesSuccessAction, (state: ApplicationState, { phones }): ApplicationState => {
+  on(loadUserPhoneListSuccessAction, (state: ApplicationState, { phoneList }): ApplicationState => {
     return {
       ...state,
-      phones,
+      phoneList,
     };
   }),
-  on(setUserActivePhoneAction, (state: ApplicationState, { activePhone }): ApplicationState => {
+  on(setUserActivePhoneAction, (state: ApplicationState, { phone }): ApplicationState => {
     return {
       ...state,
-      activePhone,
-    };
-  }),
-  on(loadUserTariffAction, (state: ApplicationState): ApplicationState => {
-    return {
-      ...state,
+      activePhone: phone,
     };
   }),
   on(loadUserTariffSuccessAction, (state: ApplicationState, { userTariff }) => {
@@ -34,15 +27,10 @@ const applicationActionReducer: ActionReducer<ApplicationState> = createReducer<
       userTariff,
     };
   }),
-  on(loadUserTariffModifiersAction, (state: ApplicationState): ApplicationState => {
+  on(loadUserTariffModifierListSuccessAction, (state: ApplicationState, { userTariffModifierList }): ApplicationState => {
     return {
       ...state,
-    };
-  }),
-  on(loadUserTariffModifiersSuccessAction, (state: ApplicationState, { userTariffModifiers }): ApplicationState => {
-    return {
-      ...state,
-      userTariffModifiers,
+      userTariffModifierList,
     };
   }),
 );

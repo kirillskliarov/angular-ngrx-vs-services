@@ -7,7 +7,7 @@ export const loadUserSubscriptionListAction = createAction(
 
 export const loadUserSubscriptionListSuccessAction = createAction(
   '[Subscription] loadUserSubscriptionListSuccessAction',
-  props<{ subscriptionList: Subscription[] }>(),
+  props<{ userSubscriptionList: Subscription[] }>(),
 );
 
 export const loadAllSubscriptionListAction = createAction(
@@ -16,7 +16,7 @@ export const loadAllSubscriptionListAction = createAction(
 
 export const loadAllSubscriptionListSuccessAction = createAction(
   '[Subscription] loadAllSubscriptionListSuccessAction',
-  props<{ subscriptionList: Subscription[] }>(),
+  props<{ allSubscriptionList: Subscription[] }>(),
 );
 
 export const addUserSubscriptionAction = createAction(

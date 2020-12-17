@@ -17,28 +17,28 @@ import { UserFacadeService } from '../../services/user-facade.service';
 @Injectable()
 export class TariffModifierEffects {
 
-  public loadTariffModifierLList$ = createEffect(() => this.actions$.pipe(
+  public loadAllTariffModifierListEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadAllTariffModifierListAction),
     switchMap(() => this.tariffModifierService.getAllTariffModifierList().pipe(
-      map((tariffModifierList: TariffModifier[]) => loadAllTariffModifierListSuccessAction({ tariffModifierList })),
+      map((allTariffModifierList: TariffModifier[]) => loadAllTariffModifierListSuccessAction({ allTariffModifierList })),
     ))
   ));
 
-  public deleteTariffModifier$ = createEffect(() => this.actions$.pipe(
+  public deleteUserTariffModifierEffect$ = createEffect(() => this.actions$.pipe(
     ofType(deleteUserTariffModifierAction),
     withLatestFrom(this.userFacadeService.activePhone$),
-    switchMap(([{ id }, phone]) => {
-      return this.userService.deleteUserTariffModifier(phone, id).pipe(
+    switchMap(([{ id }, activePhone]) => {
+      return this.userService.deleteUserTariffModifier(activePhone, id).pipe(
         map(() => deleteUserTariffModifierSuccessAction()),
       );
     }),
   ));
 
-  public addTariffModifier$ = createEffect(() => this.actions$.pipe(
+  public addUserTariffModifierEffect$ = createEffect(() => this.actions$.pipe(
     ofType(addUserTariffModifierAction),
     withLatestFrom(this.userFacadeService.activePhone$),
-    switchMap(([{ id }, phone]) => {
-      return this.userService.addUserTariffModifier(phone, id).pipe(
+    switchMap(([{ id }, activePhone]) => {
+      return this.userService.addUserTariffModifier(activePhone, id).pipe(
         map(() => addUserTariffModifierSuccessAction()),
       );
     }),

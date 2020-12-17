@@ -3,12 +3,12 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ApplicationState } from '../store/application.state';
 import {
-  loadUserPhones,
+  loadUserPhoneListAction,
   loadUserTariffAction,
-  loadUserTariffModifiersAction,
+  loadUserTariffModifierListAction,
   setUserActivePhoneAction,
 } from '../store/application.actions';
-import { activePhoneValue, phonesState, userTariffModifiersState, userTariffState } from '../store/application.selectors';
+import { activePhoneSelector, phoneListSelector, userTariffModifierListSelector, userTariffSelector } from '../store/application.selectors';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
 import { filter, take } from 'rxjs/operators';
@@ -19,16 +19,16 @@ import { changeUserTariffAction } from '../tariff/store/tariff.actions';
 })
 export class UserFacadeService {
 
-  public phonesState$: Observable<string[]> = this.store.select(phonesState).pipe(
+  public phonesState$: Observable<string[]> = this.store.select(phoneListSelector).pipe(
     filter(value => value !== null),
   );
-  public activePhone$: Observable<string> = this.store.select(activePhoneValue).pipe(
+  public activePhone$: Observable<string> = this.store.select(activePhoneSelector).pipe(
     filter(value => value !== null),
   );
-  public userTariffValue$: Observable<Tariff> = this.store.select(userTariffState).pipe(
+  public userTariffValue$: Observable<Tariff> = this.store.select(userTariffSelector).pipe(
     filter(value => value !== null),
   );
-  public userTariffModifiersValue$: Observable<TariffModifier[]> = this.store.select(userTariffModifiersState).pipe(
+  public userTariffModifiersValue$: Observable<TariffModifier[]> = this.store.select(userTariffModifierListSelector).pipe(
     filter(value => value !== null),
   );
 
@@ -36,11 +36,11 @@ export class UserFacadeService {
   }
 
   public loadUserPhones(): void {
-    this.store.dispatch(loadUserPhones());
+    this.store.dispatch(loadUserPhoneListAction());
   }
 
   public setActivePhone(activePhone: string): void {
-    this.store.dispatch(setUserActivePhoneAction({ activePhone }));
+    this.store.dispatch(setUserActivePhoneAction({ phone: activePhone }));
   }
 
   public loadUserTariff(): void {
@@ -48,7 +48,7 @@ export class UserFacadeService {
   }
 
   public loadUserTariffModifiers(): void {
-    this.store.dispatch(loadUserTariffModifiersAction());
+    this.store.dispatch(loadUserTariffModifierListAction());
   }
 
   public changeUserTariff(id: string): void {
@@ -71,7 +71,7 @@ export class UserFacadeService {
 
   private getUserTariffModifierListSnapshot(): TariffModifier[] | null {
     let state: TariffModifier[] | null;
-    this.store.select(userTariffModifiersState).pipe(take(1)).subscribe(s => state = s);
+    this.store.select(userTariffModifierListSelector).pipe(take(1)).subscribe(s => state = s);
     return state;
   }
 }

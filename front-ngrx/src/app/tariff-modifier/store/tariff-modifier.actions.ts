@@ -7,7 +7,7 @@ export const loadAllTariffModifierListAction = createAction(
 
 export const loadAllTariffModifierListSuccessAction = createAction(
   '[Tariff Modifier] loadAllTariffModifierListSuccessAction',
-  props<{ tariffModifierList: TariffModifier[] }>(),
+  props<{ allTariffModifierList: TariffModifier[] }>(),
 );
 
 export const deleteUserTariffModifierAction = createAction(

@@ -1,9 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { TariffModifierState } from './tariff-modifier.state';
 
-export const tariffModifierState = createFeatureSelector<TariffModifierState>('tariff-modifier');
+export const tariffModifierSelector = createFeatureSelector<TariffModifierState>('tariff-modifier');
 
-export const allTariffModifierListState = createSelector(
-  tariffModifierState,
+export const allTariffModifierListSelector = createSelector(
+  tariffModifierSelector,
   (state: TariffModifierState) => state.allTariffModifierList,
 );

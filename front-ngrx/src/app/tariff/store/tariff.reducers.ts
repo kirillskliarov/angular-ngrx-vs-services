@@ -6,10 +6,10 @@ import { tariffInitialState, TariffState } from './tariff.state';
 
 const tariffActionReducer: ActionReducer<TariffState> = createReducer<TariffState>(
   tariffInitialState,
-  on(loadAllTariffListSuccessAction, (state: TariffState, { tariffList }): TariffState => {
+  on(loadAllTariffListSuccessAction, (state: TariffState, { allTariffList }): TariffState => {
     return {
       ...state,
-      allTariffList: tariffList,
+      allTariffList,
     };
   }),
 );

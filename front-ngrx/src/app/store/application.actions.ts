@@ -2,18 +2,18 @@ import { createAction, props } from '@ngrx/store';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
 
-export const loadUserPhones = createAction(
-  '[Application] loadUserPhones',
+export const loadUserPhoneListAction = createAction(
+  '[Application] loadUserPhoneListAction',
 );
 
-export const loadUserPhonesSuccessAction = createAction(
-  '[Application] loadUserPhonesSuccessAction',
-  props<{ phones: string[] }>(),
+export const loadUserPhoneListSuccessAction = createAction(
+  '[Application] loadUserPhoneListSuccessAction',
+  props<{ phoneList: string[] }>(),
 );
 
 export const setUserActivePhoneAction = createAction(
   '[Application] setUserActivePhoneAction',
-  props<{ activePhone: string }>(),
+  props<{ phone: string }>(),
 );
 
 export const loadUserTariffAction = createAction(
@@ -25,11 +25,11 @@ export const loadUserTariffSuccessAction = createAction(
   props<{ userTariff: Tariff }>(),
 );
 
-export const loadUserTariffModifiersAction = createAction(
-  '[Application] loadUserTariffModifiersAction',
+export const loadUserTariffModifierListAction = createAction(
+  '[Application] loadUserTariffModifierListAction',
 );
 
-export const loadUserTariffModifiersSuccessAction = createAction(
-  '[Application] loadUserTariffModifiersSuccessAction',
-  props<{ userTariffModifiers: TariffModifier[] }>(),
+export const loadUserTariffModifierListSuccessAction = createAction(
+  '[Application] loadUserTariffModifierListSuccessAction',
+  props<{ userTariffModifierList: TariffModifier[] }>(),
 );

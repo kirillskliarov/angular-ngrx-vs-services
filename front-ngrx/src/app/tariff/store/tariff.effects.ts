@@ -15,22 +15,22 @@ import { UserService } from '../../services/user.service';
 @Injectable()
 export class TariffEffects {
 
-  public loadTariffs$ = createEffect(() => this.actions$.pipe(
+  public loadAllTariffListEffect$ = createEffect(() => this.actions$.pipe(
     ofType(loadAllTariffListAction),
     switchMap(() => {
       return this.tariffService.getAllTariffList().pipe(
-        map((tariffList: Tariff[]) => loadAllTariffListSuccessAction({ tariffList })),
+        map((allTariffList: Tariff[]) => loadAllTariffListSuccessAction({ allTariffList })),
       );
     }),
   ));
 
-  public changeUserTariff$ = createEffect(() => this.actions$.pipe(
+  public changeUserTariffEffect$ = createEffect(() => this.actions$.pipe(
     ofType(changeUserTariffAction),
     withLatestFrom(
       this.userFacadeService.activePhone$,
     ),
-    switchMap(([{ id }, phone]) => {
-      return this.userService.changeUserTariff(phone, id).pipe(
+    switchMap(([{ id }, activePhone]) => {
+      return this.userService.changeUserTariff(activePhone, id).pipe(
         map(() => changeUserTariffSuccessAction()),
       );
     }),
