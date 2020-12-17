@@ -5,7 +5,7 @@ import { TariffFacadeService } from './services/tariff-facade.service';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ChangeTariffModalComponent } from './change-tariff-modal/change-tariff-modal.component';
+import { ChangeTariffModalComponent } from './components/change-tariff-modal/change-tariff-modal.component';
 
 @Component({
   selector: 'app-tariff',

@@ -8,7 +8,7 @@ import { tariffReducer } from './store/tariff.reducers';
 import { TariffEffects } from './store/tariff.effects';
 import { TariffService } from './services/tariff.service';
 import { TariffFacadeService } from './services/tariff-facade.service';
-import { ChangeTariffModalComponent } from './change-tariff-modal/change-tariff-modal.component';
+import { ChangeTariffModalComponent } from './components/change-tariff-modal/change-tariff-modal.component';
 import { ModalModule } from '../shared/modal/modal.module';
 
 const routes: Routes = [

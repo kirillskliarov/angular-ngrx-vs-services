@@ -8,11 +8,11 @@ import { tariffModifierReducer } from './store/tariff-modifier.reducers';
 import { TariffModifierEffects } from './store/tariff-modifier.effects';
 import { TariffModifierService } from './services/tariff-modifier.service';
 import { TariffModifierFacadeService } from './services/tariff-modifier-facade.service';
-import { DeleteTariffModifierModalComponent } from './delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
+import { DeleteTariffModifierModalComponent } from './components/delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
 import { ModalModule } from '../shared/modal/modal.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TooltipPipe } from './pipes/tooltip.pipe';
-import { AddTariffModifierModalComponent } from './add-tariff-modifier-modal/add-tariff-modifier-modal.component';
+import { AddTariffModifierModalComponent } from './components/add-tariff-modifier-modal/add-tariff-modifier-modal.component';
 
 const routes: Routes = [
   {

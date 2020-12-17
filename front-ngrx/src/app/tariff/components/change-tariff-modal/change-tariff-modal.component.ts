@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TariffModifier } from '../../models/tariff-modifier';
+import { TariffModifier } from '../../../models/tariff-modifier';
 
 @Component({
   selector: 'app-change-tariff-modal',

@@ -6,8 +6,8 @@ import { TariffModifier } from '../models/tariff-modifier';
 import { filter, takeUntil } from 'rxjs/operators';
 import { UserTariffModifier } from '../models/user-tariff-modifier';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DeleteTariffModifierModalComponent } from './delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
-import { AddTariffModifierModalComponent } from './add-tariff-modifier-modal/add-tariff-modifier-modal.component';
+import { DeleteTariffModifierModalComponent } from './components/delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
+import { AddTariffModifierModalComponent } from './components/add-tariff-modifier-modal/add-tariff-modifier-modal.component';
 
 @Component({
   selector: 'app-tariff-modifier',
