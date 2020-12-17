@@ -15,7 +15,6 @@ import {
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
 import { filter, take } from 'rxjs/operators';
-import { changeUserTariffAction } from '../tariff/store/tariff.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -46,11 +45,7 @@ export class UserFacadeService {
     this.store.dispatch(setUserActivePhoneAction({ userActivePhone }));
   }
 
-  public changeUserTariff(id: string): void {
-    this.store.dispatch(changeUserTariffAction({ id }));
-  }
-
-  public getConflictTariffModifiersList(tariff: Tariff): TariffModifier[] {
+  public getConflictTariffModifierList(tariff: Tariff): TariffModifier[] {
     const userTariffModifierList = this.getUserTariffModifierListSnapshot();
 
     const conflictTariffModifiersList: TariffModifier[] = [];
@@ -64,9 +59,12 @@ export class UserFacadeService {
     return conflictTariffModifiersList;
   }
 
-  private getUserTariffModifierListSnapshot(): TariffModifier[] | null {
-    let state: TariffModifier[];
-    this.store.select(userTariffModifierListSelector).pipe(take(1)).subscribe(s => state = s);
-    return state;
+  private getUserTariffModifierListSnapshot(): TariffModifier[] {
+    let userTariffModifierList: TariffModifier[];
+    this.store.select(userTariffModifierListSelector)
+      .pipe(take(1))
+      .subscribe(list => userTariffModifierList = list);
+
+    return userTariffModifierList;
   }
 }

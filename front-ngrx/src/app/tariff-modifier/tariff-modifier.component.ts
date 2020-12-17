@@ -40,7 +40,7 @@ export class TariffModifierComponent extends BaseComponent implements OnInit {
         this.cdr.detectChanges();
       });
 
-    this.tariffModifierFacadeService.allTariffModifierListValueWithUserData$
+    this.tariffModifierFacadeService.allTariffModifierListWithUserData$
       .pipe(
         takeUntil(this.destroy$),
       )

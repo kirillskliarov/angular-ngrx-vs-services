@@ -50,15 +50,15 @@ export class TariffComponent extends BaseComponent implements OnInit {
 
   public openModal(tariff: Tariff): void {
     const modalRef = this.modalService.open(ChangeTariffModalComponent);
-    const conflictTariffModifierList = this.userFacadeService.getConflictTariffModifiersList(tariff);
-    (modalRef.componentInstance as ChangeTariffModalComponent).conflictTariffModifierList = conflictTariffModifierList;
+    (modalRef.componentInstance as ChangeTariffModalComponent)
+      .conflictTariffModifierList = this.userFacadeService.getConflictTariffModifierList(tariff);
 
     modalRef.closed.pipe(
       takeUntil(this.destroy$),
       filter(result => result === true),
     )
       .subscribe(() => {
-        this.userFacadeService.changeUserTariff(tariff.id);
+        this.tariffFacadeService.changeUserTariff(tariff.id);
       });
   }
 }

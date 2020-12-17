@@ -15,12 +15,12 @@ import { UserTariffModifier } from '../../models/user-tariff-modifier';
 @Injectable()
 export class TariffModifierFacadeService {
 
-  public allTariffModifierListValue$: Observable<TariffModifier[]> = this.store.select(allTariffModifierListSelector).pipe(
+  public allTariffModifierList$: Observable<TariffModifier[]> = this.store.select(allTariffModifierListSelector).pipe(
     filter(value => value !== null),
   );
-  public allTariffModifierListValueWithUserData$: Observable<UserTariffModifier[]> = combineLatest(
+  public allTariffModifierListWithUserData$: Observable<UserTariffModifier[]> = combineLatest(
     [
-      this.allTariffModifierListValue$,
+      this.allTariffModifierList$,
       this.userFacadeService.userTariffModifierList$,
       this.userFacadeService.userTariff$,
     ]
