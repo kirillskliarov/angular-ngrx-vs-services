@@ -57,17 +57,6 @@ export class TariffModifierComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  public onDeleteClick(tariffModifier: TariffModifier): void {
-    const modalRef = this.modalService.open(DeleteTariffModifierModalComponent);
-
-    modalRef.closed.pipe(
-      takeUntil(this.destroy$),
-      filter(result => result === true),
-    ).subscribe(() => {
-      this.tariffModifierFacadeService.deleteTariffModifier(tariffModifier.id);
-    });
-  }
-
   public onAddClick(tariffModifier: TariffModifier): void {
     const modalRef = this.modalService.open(AddTariffModifierModalComponent);
 
@@ -76,6 +65,17 @@ export class TariffModifierComponent implements OnInit, OnDestroy {
       filter(result => result === true),
     ).subscribe(() => {
       this.tariffModifierFacadeService.addTariffModifier(tariffModifier.id);
+    });
+  }
+
+  public onDeleteClick(tariffModifier: TariffModifier): void {
+    const modalRef = this.modalService.open(DeleteTariffModifierModalComponent);
+
+    modalRef.closed.pipe(
+      takeUntil(this.destroy$),
+      filter(result => result === true),
+    ).subscribe(() => {
+      this.tariffModifierFacadeService.deleteTariffModifier(tariffModifier.id);
     });
   }
 }

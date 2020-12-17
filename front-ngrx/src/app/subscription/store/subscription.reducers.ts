@@ -1,16 +1,16 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
 import { subscriptionInitialState, SubscriptionState } from './subscription.state';
 import {
-  loadAllSubscriptionList,
-  loadAllSubscriptionListSuccess,
-  loadUserSubscriptionList,
-  loadUserSubscriptionListSuccess,
+  loadAllSubscriptionListAction,
+  loadAllSubscriptionListSuccessAction,
+  loadUserSubscriptionListAction,
+  loadUserSubscriptionListSuccessAction,
 } from './subscription.actions';
 import { EntityStatus } from '../../models/entity-status';
 
-const _subscriptionReducer: ActionReducer<SubscriptionState> = createReducer<SubscriptionState>(
+const subscriptionActionReducer: ActionReducer<SubscriptionState> = createReducer<SubscriptionState>(
   subscriptionInitialState,
-  on(loadUserSubscriptionList, (state: SubscriptionState): SubscriptionState => {
+  on(loadUserSubscriptionListAction, (state: SubscriptionState): SubscriptionState => {
     return {
       ...state,
       userSubscriptionList: {
@@ -19,7 +19,7 @@ const _subscriptionReducer: ActionReducer<SubscriptionState> = createReducer<Sub
       }
     };
   }),
-  on(loadUserSubscriptionListSuccess, (state: SubscriptionState, { subscriptionList }): SubscriptionState => {
+  on(loadUserSubscriptionListSuccessAction, (state: SubscriptionState, { subscriptionList }): SubscriptionState => {
     return {
       ...state,
       userSubscriptionList: {
@@ -28,7 +28,7 @@ const _subscriptionReducer: ActionReducer<SubscriptionState> = createReducer<Sub
       },
     };
   }),
-  on(loadAllSubscriptionList, (state: SubscriptionState): SubscriptionState => {
+  on(loadAllSubscriptionListAction, (state: SubscriptionState): SubscriptionState => {
     return {
       ...state,
       allSubscriptionList: {
@@ -37,7 +37,7 @@ const _subscriptionReducer: ActionReducer<SubscriptionState> = createReducer<Sub
       }
     };
   }),
-  on(loadAllSubscriptionListSuccess, (state: SubscriptionState, { subscriptionList }): SubscriptionState => {
+  on(loadAllSubscriptionListSuccessAction, (state: SubscriptionState, { subscriptionList }): SubscriptionState => {
     return {
       ...state,
       allSubscriptionList: {
@@ -48,6 +48,6 @@ const _subscriptionReducer: ActionReducer<SubscriptionState> = createReducer<Sub
   }),
 );
 
-export function subscriptionReducer(state, action) {
-  return _subscriptionReducer(state, action);
+export function subscriptionReducer(state, action): SubscriptionState {
+  return subscriptionActionReducer(state, action);
 }

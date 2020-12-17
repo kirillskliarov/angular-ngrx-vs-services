@@ -62,4 +62,21 @@ export class UserService {
       { params: { phone } }
     );
   }
+
+  public deleteUserSubscription(phone: string, id: string): Observable<void> {
+    return this.httpClient.delete<void>('http://localhost:5000/user/subscriptions', {
+      params: {
+        phone,
+        id,
+      },
+    });
+  }
+
+  public addUserSubscription(phone: string, id: string): Observable<void> {
+    return this.httpClient.post<void>(
+      'http://localhost:5000/user/subscriptions',
+      { id },
+      { params: { phone } }
+    );
+  }
 }

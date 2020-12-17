@@ -8,6 +8,11 @@ import { subscriptionReducer } from './store/subscription.reducers';
 import { SubscriptionEffects } from './store/subscription.effects';
 import { SubscriptionService } from './services/subscription.service';
 import { SubscriptionFacadeService } from './services/subscription-facade.service';
+import { AddSubscriptionModalComponent } from './components/add-subscription-modal/add-subscription-modal.component';
+import { DeleteSubscriptionModalComponent } from './components/delete-subscription-modal/delete-subscription-modal.component';
+import { ModalModule } from '../shared/modal/modal.module';
+import { TooltipPipe } from './pipes/tooltip.pipe';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   {
@@ -19,6 +24,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     SubscriptionComponent,
+    AddSubscriptionModalComponent,
+    DeleteSubscriptionModalComponent,
+    TooltipPipe,
   ],
   imports: [
     CommonModule,
@@ -27,6 +35,8 @@ const routes: Routes = [
     EffectsModule.forFeature([
       SubscriptionEffects,
     ]),
+    ModalModule,
+    NgbTooltipModule,
   ],
   providers: [
     SubscriptionService,

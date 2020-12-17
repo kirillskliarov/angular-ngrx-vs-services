@@ -7,7 +7,7 @@ import {
   loadAllTariffModifierListSuccessAction
 } from './tariff-modifier.actions';
 
-const _tariffModifierReducer: ActionReducer<TariffModifierState> = createReducer<TariffModifierState>(
+const tariffModifierActionReducer: ActionReducer<TariffModifierState> = createReducer<TariffModifierState>(
   tariffModifierInitialState,
   on(loadAllTariffModifierListAction, (state: TariffModifierState): TariffModifierState => {
     return {
@@ -47,6 +47,6 @@ const _tariffModifierReducer: ActionReducer<TariffModifierState> = createReducer
   }),
 );
 
-export function tariffModifierReducer(state, action) {
-  return _tariffModifierReducer(state, action);
+export function tariffModifierReducer(state, action): TariffModifierState {
+  return tariffModifierActionReducer(state, action);
 }
