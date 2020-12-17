@@ -1,6 +1,5 @@
 import { ActionReducer, createReducer, on } from '@ngrx/store';
 import {
-  loadUserPhones,
   loadUserPhonesSuccessAction,
   loadUserTariffAction,
   loadUserTariffModifiersAction,
@@ -12,11 +11,6 @@ import { ApplicationState, applicationInitialState } from './application.state';
 
 const applicationActionReducer: ActionReducer<ApplicationState> = createReducer<ApplicationState>(
   applicationInitialState,
-  on(loadUserPhones, (state: ApplicationState): ApplicationState => {
-    return {
-      ...state,
-    };
-  }),
   on(loadUserPhonesSuccessAction, (state: ApplicationState, { phones }): ApplicationState => {
     return {
       ...state,
