@@ -9,7 +9,7 @@ import {
   loadUserTariffModifiersAction,
   setUserActivePhoneAction,
 } from '../store/application.actions';
-import { activePhone, phonesState, userTariffModifiersState, userTariffState } from '../store/application.selectors';
+import { activePhoneValue, phonesState, userTariffModifiersState, userTariffState } from '../store/application.selectors';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
 import { filter, map, take } from 'rxjs/operators';
@@ -23,19 +23,19 @@ export class UserFacadeService {
 
   public phonesState$: Observable<StateEntity<string[]>> = this.store.select(phonesState);
   public phonesValue$: Observable<string[]> = this.phonesState$.pipe(
-    filter((phonesState: StateEntity<string[]>) => phonesState.status === EntityStatus.SUCCESS),
-    map((phonesState: StateEntity<string[]>) => phonesState.value),
+    filter((phonesSt: StateEntity<string[]>) => phonesSt.status === EntityStatus.SUCCESS),
+    map((phonesSt: StateEntity<string[]>) => phonesSt.value),
   );
-  public activePhone$: Observable<string> = this.store.select(activePhone);
+  public activePhone$: Observable<string> = this.store.select(activePhoneValue);
   public userTariffState$: Observable<StateEntity<Tariff>> = this.store.select(userTariffState);
   public userTariffValue$: Observable<Tariff> = this.userTariffState$.pipe(
-    filter((userTariffState: StateEntity<Tariff>) => userTariffState.status === EntityStatus.SUCCESS),
-    map((userTariffState: StateEntity<Tariff>) => userTariffState.value),
+    filter((userTariffSt: StateEntity<Tariff>) => userTariffSt.status === EntityStatus.SUCCESS),
+    map((userTariffSt: StateEntity<Tariff>) => userTariffSt.value),
   );
   public userTariffModifiersState$: Observable<StateEntity<TariffModifier[]>> = this.store.select(userTariffModifiersState);
   public userTariffModifiersValue$: Observable<TariffModifier[]> = this.userTariffModifiersState$.pipe(
-    filter((userTariffModifiersState: StateEntity<TariffModifier[]>) => userTariffModifiersState.status === EntityStatus.SUCCESS),
-    map((userTariffModifiersState: StateEntity<TariffModifier[]>) => userTariffModifiersState.value),
+    filter((userTariffModifiersSt: StateEntity<TariffModifier[]>) => userTariffModifiersSt.status === EntityStatus.SUCCESS),
+    map((userTariffModifiersSt: StateEntity<TariffModifier[]>) => userTariffModifiersSt.value),
   );
 
   constructor(private store: Store<ApplicationState>) {

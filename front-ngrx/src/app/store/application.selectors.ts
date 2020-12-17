@@ -10,7 +10,7 @@ export const phonesState = createSelector(
   ((state: ApplicationState) => state.phones),
 );
 
-export const activePhone = createSelector(
+export const activePhoneValue = createSelector(
   applicationState,
   ((state: ApplicationState) => state.activePhone),
 );

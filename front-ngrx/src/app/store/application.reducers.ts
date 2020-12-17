@@ -9,7 +9,7 @@ import {
 } from './application.actions';
 import { EntityStatus } from '../models/entity-status';
 import { ApplicationState, applicationInitialState } from './application.state';
-import { activePhone } from './application.selectors';
+import { activePhoneValue } from './application.selectors';
 
 const _applicationReducer: ActionReducer<ApplicationState> = createReducer<ApplicationState>(
   applicationInitialState,

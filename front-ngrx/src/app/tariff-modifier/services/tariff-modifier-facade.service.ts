@@ -34,7 +34,7 @@ export class TariffModifierFacadeService {
         return {
           ...tariffModifier,
           isUser: userTariffModifierList.some((userTariffModifier: TariffModifier) => userTariffModifier.id === tariffModifier.id),
-          compatibleWithTariff: tariffModifier.allowedOnTariffs.some((tariffModifier) => tariffModifier === userTariff.id),
+          compatibleWithTariff: tariffModifier.allowedOnTariffs.some((tariffId) => tariffId === userTariff.id),
         };
       });
     }),
