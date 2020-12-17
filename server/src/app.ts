@@ -60,8 +60,9 @@ server.post('/user/subscriptions', (request: Request, response: Response) => {
 
 server.delete('/user/subscriptions', (request: Request, response: Response) => {
   const phone = request.query.phone as string;
+  const id = request.query.id as string;
   const subscriptionList: string[] = (USER_DB.get(phone) as Account).subscriptionList;
-  removeElementFromArray<string>(subscriptionList, request.body.id);
+  removeElementFromArray<string>(subscriptionList, id);
   response.status(200).jsonp({});
 });
 
