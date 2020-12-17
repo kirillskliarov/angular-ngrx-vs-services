@@ -3,19 +3,15 @@ import { Store } from '@ngrx/store';
 import { TariffState } from '../store/tariff.state';
 import { loadAllTariffListAction } from '../store/tariff.actions';
 import { Observable } from 'rxjs';
-import { StateEntity } from '../../models/state-entity';
 import { Tariff } from '../../models/tariff';
 import { allTariffListState } from '../store/tariff.selectors';
-import { filter, map } from 'rxjs/operators';
-import { EntityStatus } from '../../models/entity-status';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class TariffFacadeService {
 
-  public allTariffListState$: Observable<StateEntity<Tariff[]>> = this.store.select(allTariffListState);
-  public allTariffListValue$: Observable<Tariff[]> = this.allTariffListState$.pipe(
-    filter((state: StateEntity<Tariff[]>) => state.status === EntityStatus.SUCCESS),
-    map((state: StateEntity<Tariff[]>) => state.value),
+  public allTariffListValue$: Observable<Tariff[]> = this.store.select(allTariffListState).pipe(
+    filter(value => value !== null),
   );
 
   constructor(private store: Store<TariffState>) {

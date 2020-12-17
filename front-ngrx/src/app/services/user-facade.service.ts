@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ApplicationState } from '../store/application.state';
-import { StateEntity } from '../models/state-entity';
 import {
   loadUserPhones,
   loadUserTariffAction,
@@ -12,8 +11,7 @@ import {
 import { activePhoneValue, phonesState, userTariffModifiersState, userTariffState } from '../store/application.selectors';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
-import { filter, map, take } from 'rxjs/operators';
-import { EntityStatus } from '../models/entity-status';
+import { filter, take } from 'rxjs/operators';
 import { changeUserTariffAction } from '../tariff/store/tariff.actions';
 
 @Injectable({
@@ -21,21 +19,17 @@ import { changeUserTariffAction } from '../tariff/store/tariff.actions';
 })
 export class UserFacadeService {
 
-  public phonesState$: Observable<StateEntity<string[]>> = this.store.select(phonesState);
-  public phonesValue$: Observable<string[]> = this.phonesState$.pipe(
-    filter((phonesSt: StateEntity<string[]>) => phonesSt.status === EntityStatus.SUCCESS),
-    map((phonesSt: StateEntity<string[]>) => phonesSt.value),
+  public phonesState$: Observable<string[]> = this.store.select(phonesState).pipe(
+    filter(value => value !== null),
   );
-  public activePhone$: Observable<string> = this.store.select(activePhoneValue);
-  public userTariffState$: Observable<StateEntity<Tariff>> = this.store.select(userTariffState);
-  public userTariffValue$: Observable<Tariff> = this.userTariffState$.pipe(
-    filter((userTariffSt: StateEntity<Tariff>) => userTariffSt.status === EntityStatus.SUCCESS),
-    map((userTariffSt: StateEntity<Tariff>) => userTariffSt.value),
+  public activePhone$: Observable<string> = this.store.select(activePhoneValue).pipe(
+    filter(value => value !== null),
   );
-  public userTariffModifiersState$: Observable<StateEntity<TariffModifier[]>> = this.store.select(userTariffModifiersState);
-  public userTariffModifiersValue$: Observable<TariffModifier[]> = this.userTariffModifiersState$.pipe(
-    filter((userTariffModifiersSt: StateEntity<TariffModifier[]>) => userTariffModifiersSt.status === EntityStatus.SUCCESS),
-    map((userTariffModifiersSt: StateEntity<TariffModifier[]>) => userTariffModifiersSt.value),
+  public userTariffValue$: Observable<Tariff> = this.store.select(userTariffState).pipe(
+    filter(value => value !== null),
+  );
+  public userTariffModifiersValue$: Observable<TariffModifier[]> = this.store.select(userTariffModifiersState).pipe(
+    filter(value => value !== null),
   );
 
   constructor(private store: Store<ApplicationState>) {
@@ -62,7 +56,7 @@ export class UserFacadeService {
   }
 
   public getConflictTariffModifiersList(tariff: Tariff): TariffModifier[] {
-    const userTariffModifierList = this.getUserTariffModifierListSnapshot().value;
+    const userTariffModifierList = this.getUserTariffModifierListSnapshot();
 
     const conflictTariffModifiersList: TariffModifier[] = [];
 
@@ -75,14 +69,8 @@ export class UserFacadeService {
     return conflictTariffModifiersList;
   }
 
-  private getUserTariffSnapshot(): StateEntity<Tariff | null> {
-    let state: StateEntity<Tariff | null>;
-    this.store.select(userTariffState).pipe(take(1)).subscribe(s => state = s);
-    return state;
-  }
-
-  private getUserTariffModifierListSnapshot(): StateEntity<TariffModifier[] | null> {
-    let state: StateEntity<TariffModifier[] | null>;
+  private getUserTariffModifierListSnapshot(): TariffModifier[] | null {
+    let state: TariffModifier[] | null;
     this.store.select(userTariffModifiersState).pipe(take(1)).subscribe(s => state = s);
     return state;
   }

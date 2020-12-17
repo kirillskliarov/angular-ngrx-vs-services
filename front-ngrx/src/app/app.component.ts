@@ -1,8 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { UserFacadeService } from './services/user-facade.service';
-import { StateEntity } from './models/state-entity';
-import { Tariff } from './models/tariff';
-import { TariffModifier } from './models/tariff-modifier';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -13,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
-  public phonesState: StateEntity<string[]>;
+  public phonesState: string[];
   public activePhone: string;
 
   private destroy$: Subject<void> = new Subject<void>();
@@ -31,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
       )
-      .subscribe((phonesState: StateEntity<string[]>) => {
+      .subscribe((phonesState: string[]) => {
         this.phonesState = phonesState;
         this.cdr.detectChanges();
       });

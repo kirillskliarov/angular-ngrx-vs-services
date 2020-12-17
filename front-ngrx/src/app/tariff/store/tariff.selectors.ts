@@ -7,9 +7,3 @@ export const allTariffListState = createSelector(
   tariffState,
   (state: TariffState) => state.allTariffList,
 );
-
-export const changeUserTariffStatus = createSelector(
-  tariffState,
-  (state: TariffState) => state.changeUserTariff.status,
-);
-

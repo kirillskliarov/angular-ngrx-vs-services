@@ -1,42 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
-import { StateEntity } from '../../models/state-entity';
 import { filter, map } from 'rxjs/operators';
-import { EntityStatus } from '../../models/entity-status';
 import { Subscription } from '../../models/subscription';
 import { allSubscriptionListState, userSubscriptionListState } from '../store/subscription.selectors';
 import {
   loadUserSubscriptionListAction,
   loadAllSubscriptionListAction,
-  addUserSubscriptionAction, deleteUserSubscriptionAction
+  addUserSubscriptionAction,
+  deleteUserSubscriptionAction,
 } from '../store/subscription.actions';
 import { SubscriptionState } from '../store/subscription.state';
 import { UserSubscription } from '../../models/user-subscription';
-import { UserFacadeService } from '../../services/user-facade.service';
 
 @Injectable()
 export class SubscriptionFacadeService {
 
-  public userSubscriptionListState$: Observable<StateEntity<Subscription[]>> = this.store.select(userSubscriptionListState);
-  public userSubscriptionListValue$: Observable<Subscription[]> = this.userSubscriptionListState$.pipe(
-    filter((state: StateEntity<Subscription[]>) => state.status === EntityStatus.SUCCESS),
-    map((state: StateEntity<Subscription[]>) => state.value),
+  public userSubscriptionListValue$: Observable<Subscription[]> = this.store.select(userSubscriptionListState).pipe(
+    filter(value => value !== null),
   );
-  public allSubscriptionListState$: Observable<StateEntity<Subscription[]>> = this.store.select(allSubscriptionListState);
-  public allSubscriptionListValue$: Observable<Subscription[]> = this.allSubscriptionListState$.pipe(
-    filter((state: StateEntity<Subscription[]>) => state.status === EntityStatus.SUCCESS),
-    map((state: StateEntity<Subscription[]>) => state.value),
+  public allSubscriptionListValue$: Observable<Subscription[]> = this.store.select(allSubscriptionListState).pipe(
+    filter(value => value !== null),
   );
   public allSubscriptionListValueWithUserData$: Observable<UserSubscription[]> = combineLatest([
     this.allSubscriptionListValue$,
     this.userSubscriptionListValue$,
   ]).pipe(
     map(([subscriptionList, userSubscribtionList]): UserSubscription[] => {
-      return subscriptionList.map((subsctibtion: Subscription): UserSubscription => {
+      return subscriptionList.map((subscription: Subscription): UserSubscription => {
         return {
-          ...subsctibtion,
-          isUser: userSubscribtionList.some((userSubscription: Subscription) => userSubscription.id === subsctibtion.id),
+          ...subscription,
+          isUser: userSubscribtionList.some((userSubscription: Subscription) => userSubscription.id === subscription.id),
         };
       });
     }),

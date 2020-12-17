@@ -1,7 +1,5 @@
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import { ApplicationState } from './application.state';
-import { StateEntity } from '../models/state-entity';
-import { TariffModifier } from '../models/tariff-modifier';
 
 export const applicationState = createFeatureSelector<ApplicationState>('application');
 

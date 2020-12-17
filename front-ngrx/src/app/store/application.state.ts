@@ -1,27 +1,16 @@
-import { StateEntity } from '../models/state-entity';
-import { EntityStatus } from '../models/entity-status';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
 
 export interface ApplicationState {
-  phones: StateEntity<string[]>;
+  phones: string[] | null;
   activePhone: string | null;
-  userTariff: StateEntity<Tariff | null>;
-  userTariffModifiers: StateEntity<TariffModifier[] | null>;
+  userTariff: Tariff | null;
+  userTariffModifiers: TariffModifier[] | null;
 }
 
 export const applicationInitialState: ApplicationState = {
-  phones: {
-    status: EntityStatus.SUCCESS,
-    value: [],
-  },
+  phones: null,
   activePhone: null,
-  userTariff: {
-    status: EntityStatus.SUCCESS,
-    value: null,
-  },
-  userTariffModifiers: {
-    status: EntityStatus.SUCCESS,
-    value: null,
-  },
+  userTariff: null,
+  userTariffModifiers: null,
 };
