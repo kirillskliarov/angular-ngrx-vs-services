@@ -31,33 +31,30 @@ export class TariffComponent extends BaseComponent implements OnInit {
     this.tariffFacadeService.loadAllTariffList();
 
     this.userFacadeService.userTariff$
-      .pipe(
-        takeUntil(this.destroy$),
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((userTariff: Tariff) => {
         this.userTariff = userTariff;
         this.cdr.detectChanges();
       });
 
     this.tariffFacadeService.allTariffList$
-      .pipe(
-        takeUntil(this.destroy$),
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((allTariffList: Tariff[]) => {
         this.allTariffList = allTariffList;
         this.cdr.detectChanges();
       });
   }
 
-  public openModal(tariff: Tariff): void {
+  public onSetEvent(tariff: Tariff): void {
     const modalRef = this.modalService.open(ChangeTariffModalComponent);
     (modalRef.componentInstance as ChangeTariffModalComponent)
       .conflictTariffModifierList = this.userFacadeService.getConflictTariffModifierList(tariff);
 
-    modalRef.closed.pipe(
-      takeUntil(this.destroy$),
-      filter(result => result === true),
-    )
+    modalRef.closed
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(result => result === true),
+      )
       .subscribe(() => {
         this.tariffFacadeService.changeUserTariff(tariff.id);
       });

@@ -10,8 +10,8 @@ import { BaseComponent } from './core/base.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent extends BaseComponent implements OnInit {
-  public phonesState: string[];
-  public activePhone: string;
+  public userPhoneList: string[];
+  public userActivePhone: string;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -24,25 +24,21 @@ export class AppComponent extends BaseComponent implements OnInit {
     this.userFacadeService.loadUserPhoneList();
 
     this.userFacadeService.userPhoneList$
-      .pipe(
-        takeUntil(this.destroy$),
-      )
-      .subscribe((phonesState: string[]) => {
-        this.phonesState = phonesState;
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((userPhoneList: string[]) => {
+        this.userPhoneList = userPhoneList;
         this.cdr.detectChanges();
       });
 
     this.userFacadeService.userActivePhone$
-      .pipe(
-        takeUntil(this.destroy$),
-      )
-      .subscribe((activePhone: string) => {
-        this.activePhone = activePhone;
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((userActivePhone: string) => {
+        this.userActivePhone = userActivePhone;
         this.cdr.detectChanges();
       });
   }
 
-  public onSetActivePhone(phone: string): void {
+  public onSetUserActivePhone(phone: string): void {
     this.userFacadeService.setUserActivePhone(phone);
   }
 }

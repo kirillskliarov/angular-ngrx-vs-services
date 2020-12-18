@@ -1,6 +1,6 @@
-<app-header [phones]="phonesState"
-            [activePhone]="activePhone"
-            (setActivePhone)="onSetActivePhone($event)"
+<app-header [userPhoneList]="userPhoneList"
+            [userActivePhone]="userActivePhone"
+            (setUserActivePhoneEvent)="onSetUserActivePhone($event)"
 ></app-header>
 <div class="router__container container">
   <router-outlet></router-outlet>

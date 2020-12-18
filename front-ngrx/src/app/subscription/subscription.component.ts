@@ -33,52 +33,50 @@ export class SubscriptionComponent extends BaseComponent implements OnInit {
     this.subscriptionFacadeService.loadAllSubscriptionList();
 
     this.userFacadeService.userActivePhone$
-      .pipe(
-        takeUntil(this.destroy$),
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((activePhone: string) => {
         this.subscriptionFacadeService.loadUserSubscriptionList();
         this.cdr.detectChanges();
       });
 
     this.subscriptionFacadeService.userSubscriptionList$
-      .pipe(
-        takeUntil(this.destroy$),
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((userSubscriptionList: Subscription[]) => {
         this.userSubscriptionList = userSubscriptionList;
         this.cdr.detectChanges();
       });
 
     this.subscriptionFacadeService.allSubscriptionListWithUserData$
-      .pipe(
-        takeUntil(this.destroy$),
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((allSubscriptionList: NonUserSubscription[]) => {
         this.allSubscriptionList = allSubscriptionList;
         this.cdr.detectChanges();
       });
   }
 
-  public onAddClick(subscription: Subscription): void {
+  public onAddEvent(subscription: Subscription): void {
     const modalRef = this.modalService.open(AddSubscriptionModalComponent);
 
-    modalRef.closed.pipe(
-      takeUntil(this.destroy$),
-      filter(result => result === true),
-    ).subscribe(() => {
-      this.subscriptionFacadeService.addUserSubscription(subscription.id);
-    });
+    modalRef.closed
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(result => result === true),
+      )
+      .subscribe(() => {
+        this.subscriptionFacadeService.addUserSubscription(subscription.id);
+      });
   }
 
-  public onDeleteClick(subscription: Subscription): void {
+  public onDeleteEvent(subscription: Subscription): void {
     const modalRef = this.modalService.open(DeleteSubscriptionModalComponent);
 
-    modalRef.closed.pipe(
-      takeUntil(this.destroy$),
-      filter(result => result === true),
-    ).subscribe(() => {
-      this.subscriptionFacadeService.deleteUserSubscription(subscription.id);
-    });
+    modalRef.closed
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(result => result === true),
+      )
+      .subscribe(() => {
+        this.subscriptionFacadeService.deleteUserSubscription(subscription.id);
+      });
   }
 }

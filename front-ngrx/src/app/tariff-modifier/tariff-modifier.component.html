@@ -9,7 +9,7 @@
         <li *ngFor="let userTariffModifier of userTariffModifierList"
             class="list-group-item">
           <app-user-tariff-modifier-card [userTariffModifier]="userTariffModifier"
-                                         (deleteEvent)="onDeleteClick($event)">
+                                         (deleteEvent)="onDeleteEvent($event)">
           </app-user-tariff-modifier-card>
         </li>
       </ul>
@@ -26,7 +26,7 @@
         <li *ngFor="let tariffModifier of allTariffModifierList"
             class="list-group-item">
           <app-tariff-modifier-card [tariffModifier]="tariffModifier"
-                                    (addEvent)="onAddClick($event)">
+                                    (addEvent)="onAddEvent($event)">
           </app-tariff-modifier-card>
         </li>
       </ul>

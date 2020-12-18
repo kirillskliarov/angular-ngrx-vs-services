@@ -9,7 +9,7 @@
         <li *ngFor="let userSubscription of userSubscriptionList"
             class="list-group-item">
           <app-user-subscription-card [userSubscription]="userSubscription"
-                                      (deleteEvent)="onDeleteClick($event)">
+                                      (deleteEvent)="onDeleteEvent($event)">
           </app-user-subscription-card>
         </li>
       </ul>
@@ -26,7 +26,7 @@
         <li *ngFor="let subscription of allSubscriptionList"
             class="list-group-item">
           <app-subscription-card [subscription]="subscription"
-                                 (addEvent)="onAddClick($event)">
+                                 (addEvent)="onAddEvent($event)">
           </app-subscription-card>
         </li>
       </ul>

@@ -33,18 +33,14 @@ export class TariffModifierComponent extends BaseComponent implements OnInit {
     this.tariffModifierFacadeService.loadAllTariffModifierList();
 
     this.userFacadeService.userTariffModifierList$
-      .pipe(
-        takeUntil(this.destroy$),
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((userTariffModifierList: TariffModifier[]) => {
         this.userTariffModifierList = userTariffModifierList;
         this.cdr.detectChanges();
       });
 
     this.tariffModifierFacadeService.allTariffModifierListWithUserData$
-      .pipe(
-        takeUntil(this.destroy$),
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((allTariffModifierList: NonUserTariffModifier[]) => {
         this.allTariffModifierList = allTariffModifierList;
         this.cdr.detectChanges();
@@ -52,25 +48,29 @@ export class TariffModifierComponent extends BaseComponent implements OnInit {
 
   }
 
-  public onAddClick(tariffModifier: TariffModifier): void {
+  public onAddEvent(tariffModifier: TariffModifier): void {
     const modalRef = this.modalService.open(AddTariffModifierModalComponent);
 
-    modalRef.closed.pipe(
-      takeUntil(this.destroy$),
-      filter(result => result === true),
-    ).subscribe(() => {
-      this.tariffModifierFacadeService.addTariffModifier(tariffModifier.id);
-    });
+    modalRef.closed
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(result => result === true),
+      )
+      .subscribe(() => {
+        this.tariffModifierFacadeService.addTariffModifier(tariffModifier.id);
+      });
   }
 
-  public onDeleteClick(tariffModifier: TariffModifier): void {
+  public onDeleteEvent(tariffModifier: TariffModifier): void {
     const modalRef = this.modalService.open(DeleteTariffModifierModalComponent);
 
-    modalRef.closed.pipe(
-      takeUntil(this.destroy$),
-      filter(result => result === true),
-    ).subscribe(() => {
-      this.tariffModifierFacadeService.deleteTariffModifier(tariffModifier.id);
-    });
+    modalRef.closed
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(result => result === true),
+      )
+      .subscribe(() => {
+        this.tariffModifierFacadeService.deleteTariffModifier(tariffModifier.id);
+      });
   }
 }

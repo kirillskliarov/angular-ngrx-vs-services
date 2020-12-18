@@ -1,25 +1,41 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
   <div ngbDropdown class="d-inline-block">
-    <button class="btn btn-outline-primary" ngbDropdownToggle>{{activePhone}}</button>
+    <button class="btn btn-outline-primary"
+            ngbDropdownToggle>
+      {{userActivePhone}}
+    </button>
     <div ngbDropdownMenu>
-      <button *ngFor="let phone of phones"
+      <button *ngFor="let phone of userPhoneList"
               ngbDropdownItem
-              (click)="onSelectPhone(phone)"
-      >
+              (click)="onSelectPhone(phone)">
         {{phone}}
       </button>
     </div>
   </div>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" [routerLink]="['/']">Tariffs</a>
+<!--   TODO: use array   -->
+      <li class="nav-item"
+          [routerLinkActive]="'active'"
+          [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link"
+           [routerLink]="['/']">
+          Tariffs
+        </a>
       </li>
-      <li class="nav-item" [routerLinkActive]="'active'">
-        <a class="nav-link" [routerLink]="['/tariff-modifiers']">Tariff modifiers</a>
+      <li class="nav-item"
+          [routerLinkActive]="'active'">
+        <a class="nav-link"
+           [routerLink]="['/tariff-modifiers']">
+          Tariff modifiers
+        </a>
       </li>
-      <li class="nav-item" [routerLinkActive]="'active'">
-        <a class="nav-link" [routerLink]="['/subscriptions']">Subscriptions</a>
+      <li class="nav-item"
+          [routerLinkActive]="'active'">
+        <a class="nav-link"
+           [routerLink]="['/subscriptions']">
+          Subscriptions
+        </a>
       </li>
     </ul>
   </div>
