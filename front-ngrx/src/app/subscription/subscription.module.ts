@@ -11,8 +11,10 @@ import { SubscriptionFacadeService } from './services/subscription-facade.servic
 import { AddSubscriptionModalComponent } from './components/add-subscription-modal/add-subscription-modal.component';
 import { DeleteSubscriptionModalComponent } from './components/delete-subscription-modal/delete-subscription-modal.component';
 import { ModalModule } from '../shared/modal/modal.module';
-import { TooltipPipe } from './pipes/tooltip.pipe';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserSubscriptionCardComponent } from './components/user-subscription-card/user-subscription-card.component';
+import { SubscriptionCardComponent } from './components/subscription-card/subscription-card.component';
+import { BillableCardModule } from '../shared/billable-card/billable-card.module';
 
 const routes: Routes = [
   {
@@ -26,7 +28,8 @@ const routes: Routes = [
     SubscriptionComponent,
     AddSubscriptionModalComponent,
     DeleteSubscriptionModalComponent,
-    TooltipPipe,
+    UserSubscriptionCardComponent,
+    SubscriptionCardComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,7 @@ const routes: Routes = [
     ]),
     ModalModule,
     NgbTooltipModule,
+    BillableCardModule,
   ],
   providers: [
     SubscriptionService,

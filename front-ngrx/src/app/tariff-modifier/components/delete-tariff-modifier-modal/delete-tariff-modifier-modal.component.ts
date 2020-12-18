@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-delete-tariff-modifier-modal',
   templateUrl: './delete-tariff-modifier-modal.component.html',
-  styleUrls: ['./delete-tariff-modifier-modal.component.scss']
+  styleUrls: ['./delete-tariff-modifier-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeleteTariffModifierModalComponent implements OnInit {
 

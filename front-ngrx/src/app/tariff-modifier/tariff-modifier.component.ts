@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UserFacadeService } from '../services/user-facade.service';
 import { TariffModifierFacadeService } from './services/tariff-modifier-facade.service';
 import { TariffModifier } from '../models/tariff-modifier';
@@ -12,7 +12,8 @@ import { BaseComponent } from '../core/base.component';
 @Component({
   selector: 'app-tariff-modifier',
   templateUrl: './tariff-modifier.component.html',
-  styleUrls: ['./tariff-modifier.component.scss']
+  styleUrls: ['./tariff-modifier.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TariffModifierComponent extends BaseComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Tariff } from '../models/tariff';
 import { UserFacadeService } from '../services/user-facade.service';
 import { TariffFacadeService } from './services/tariff-facade.service';
@@ -10,13 +10,13 @@ import { BaseComponent } from '../core/base.component';
 @Component({
   selector: 'app-tariff',
   templateUrl: './tariff.component.html',
-  styleUrls: ['./tariff.component.scss']
+  styleUrls: ['./tariff.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TariffComponent extends BaseComponent implements OnInit {
 
   public userTariff: Tariff | null = null;
   public allTariffList: Tariff[] | null = null;
-  public readonly alreadyActivated = 'You already have this tariff activated';
 
   constructor(
     private cdr: ChangeDetectorRef,

@@ -8,13 +8,9 @@
       <ul class="list-group list-group-flush">
         <li *ngFor="let userSubscription of userSubscriptionList"
             class="list-group-item">
-          <div>{{userSubscription.label}}</div>
-          <div>{{userSubscription.fee}}</div>
-          <button type="button"
-                  class="btn btn-danger"
-                  (click)="onDeleteClick(userSubscription)">
-            Delete
-          </button>
+          <app-user-subscription-card [userSubscription]="userSubscription"
+                                      (deleteEvent)="onDeleteClick($event)">
+          </app-user-subscription-card>
         </li>
       </ul>
     </div>
@@ -29,19 +25,9 @@
       <ul class="list-group list-group-flush">
         <li *ngFor="let subscription of allSubscriptionList"
             class="list-group-item">
-          <div>{{subscription.label}}</div>
-          <div>{{subscription.fee}}</div>
-          <span class="d-inline-block"
-                tabindex="0"
-                placement="top"
-                [ngbTooltip]="subscription | tooltip">
-          <button [disabled]="subscription.isUser"
-                  type="button"
-                  class="btn btn-primary"
-                  (click)="onAddClick(subscription)">
-          Add
-        </button>
-        </span>
+          <app-subscription-card [subscription]="subscription"
+                                 (addEvent)="onAddClick($event)">
+          </app-subscription-card>
         </li>
       </ul>
     </div>

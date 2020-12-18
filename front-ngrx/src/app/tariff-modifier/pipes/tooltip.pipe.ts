@@ -8,11 +8,11 @@ export class TooltipPipe implements PipeTransform {
 
   transform(value: NonUserTariffModifier): string | null {
     if (value.isUser) {
-      return 'У вас уже подключен этот тарифный модификатор'; // TODO: translate
+      return 'You already have this subscription activated';
     }
 
     if (!value.compatibleWithTariff) {
-      return 'Тарифный модификатор не совместим с вашим тарифом'; // TODO: translate
+      return 'Tariff modifier is not compatible with your tariff';
     }
 
     return null;

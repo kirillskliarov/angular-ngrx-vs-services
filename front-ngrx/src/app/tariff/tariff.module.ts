@@ -11,6 +11,9 @@ import { TariffFacadeService } from './services/tariff-facade.service';
 import { ChangeTariffModalComponent } from './components/change-tariff-modal/change-tariff-modal.component';
 import { ModalModule } from '../shared/modal/modal.module';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserTariffCardComponent } from './components/user-tariff-card/user-tariff-card.component';
+import { TariffCardComponent } from './components/tariff-card/tariff-card.component';
+import { BillableCardModule } from '../shared/billable-card/billable-card.module';
 
 const routes: Routes = [
   {
@@ -23,6 +26,8 @@ const routes: Routes = [
   declarations: [
     TariffComponent,
     ChangeTariffModalComponent,
+    UserTariffCardComponent,
+    TariffCardComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +38,7 @@ const routes: Routes = [
     ]),
     ModalModule,
     NgbTooltipModule,
+    BillableCardModule,
   ],
   providers: [
     TariffFacadeService,

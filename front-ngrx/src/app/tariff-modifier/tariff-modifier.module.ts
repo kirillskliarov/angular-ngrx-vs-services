@@ -13,6 +13,9 @@ import { ModalModule } from '../shared/modal/modal.module';
 import { TooltipPipe } from './pipes/tooltip.pipe';
 import { AddTariffModifierModalComponent } from './components/add-tariff-modifier-modal/add-tariff-modifier-modal.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TariffModifierCardComponent } from './components/tariff-modifier-card/tariff-modifier-card.component';
+import { UserTariffModifierCardComponent } from './components/user-tariff-modifier-card/user-tariff-modifier-card.component';
+import { BillableCardModule } from '../shared/billable-card/billable-card.module';
 
 const routes: Routes = [
   {
@@ -27,6 +30,8 @@ const routes: Routes = [
     DeleteTariffModifierModalComponent,
     TooltipPipe,
     AddTariffModifierModalComponent,
+    TariffModifierCardComponent,
+    UserTariffModifierCardComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +42,7 @@ const routes: Routes = [
     ]),
     ModalModule,
     NgbTooltipModule,
+    BillableCardModule,
   ],
   providers: [
     TariffModifierService,
