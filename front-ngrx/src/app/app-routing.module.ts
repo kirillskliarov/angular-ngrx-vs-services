@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ROOT, SUBSCRIPTIONS, TARIFF_MODIFIERS } from './core/links';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ROOT,
     loadChildren: () => import('./tariff/tariff.module').then(m => m.TariffModule),
   },
   {
-    path: 'tariff-modifiers',
+    path: TARIFF_MODIFIERS,
     loadChildren: () => import('./tariff-modifier/tariff-modifier.module').then(m => m.TariffModifierModule),
   },
   {
-    path: 'subscriptions',
+    path: SUBSCRIPTIONS,
     loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule),
   },
   {
