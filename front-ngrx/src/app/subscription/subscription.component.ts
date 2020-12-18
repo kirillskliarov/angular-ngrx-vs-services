@@ -3,7 +3,7 @@ import { Subscription } from '../models/subscription';
 import { UserFacadeService } from '../services/user-facade.service';
 import { SubscriptionFacadeService } from './services/subscription-facade.service';
 import { filter, takeUntil } from 'rxjs/operators';
-import { UserSubscription } from '../models/user-subscription';
+import { NonUserSubscription } from '../models/non-user-subscription';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddSubscriptionModalComponent } from './components/add-subscription-modal/add-subscription-modal.component';
 import { DeleteSubscriptionModalComponent } from './components/delete-subscription-modal/delete-subscription-modal.component';
@@ -18,7 +18,7 @@ import { BaseComponent } from '../core/base.component';
 export class SubscriptionComponent extends BaseComponent implements OnInit {
 
   public userSubscriptionList: Subscription[] | null = null;
-  public allSubscriptionList: UserSubscription[] | null = null;
+  public allSubscriptionList: NonUserSubscription[] | null = null;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -54,7 +54,7 @@ export class SubscriptionComponent extends BaseComponent implements OnInit {
       .pipe(
         takeUntil(this.destroy$),
       )
-      .subscribe((allSubscriptionList: UserSubscription[]) => {
+      .subscribe((allSubscriptionList: NonUserSubscription[]) => {
         this.allSubscriptionList = allSubscriptionList;
         this.cdr.detectChanges();
       });

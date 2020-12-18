@@ -1,7 +1,5 @@
-export interface TariffModifier {
-  readonly id: string;
-  readonly label: string;
-  readonly description: string;
-  readonly fee: number;
+import { Billable } from './billable';
+
+export interface TariffModifier extends Billable {
   readonly allowedOnTariffs: string[];
 }

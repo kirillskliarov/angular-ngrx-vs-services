@@ -10,7 +10,7 @@ import {
   loadAllTariffModifierListAction,
 } from '../store/tariff-modifier.actions';
 import { UserFacadeService } from '../../services/user-facade.service';
-import { UserTariffModifier } from '../../models/user-tariff-modifier';
+import { NonUserTariffModifier } from '../../models/non-user-tariff-modifier';
 
 @Injectable()
 export class TariffModifierFacadeService {
@@ -18,7 +18,7 @@ export class TariffModifierFacadeService {
   public allTariffModifierList$: Observable<TariffModifier[]> = this.store.select(allTariffModifierListSelector).pipe(
     filter(value => value !== null),
   );
-  public allTariffModifierListWithUserData$: Observable<UserTariffModifier[]> = combineLatest(
+  public allTariffModifierListWithUserData$: Observable<NonUserTariffModifier[]> = combineLatest(
     [
       this.allTariffModifierList$,
       this.userFacadeService.userTariffModifierList$,
@@ -26,7 +26,7 @@ export class TariffModifierFacadeService {
     ]
   ).pipe(
     map(([tariffModifiers, userTariffModifierList, userTariff]) => {
-      return tariffModifiers.map((tariffModifier: TariffModifier): UserTariffModifier => {
+      return tariffModifiers.map((tariffModifier: TariffModifier): NonUserTariffModifier => {
         return {
           ...tariffModifier,
           isUser: userTariffModifierList.some((userTariffModifier: TariffModifier) => userTariffModifier.id === tariffModifier.id),

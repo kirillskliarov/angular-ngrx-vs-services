@@ -14,7 +14,7 @@ import {
   deleteUserSubscriptionAction,
 } from '../store/subscription.actions';
 import { SubscriptionState } from '../store/subscription.state';
-import { UserSubscription } from '../../models/user-subscription';
+import { NonUserSubscription } from '../../models/non-user-subscription';
 
 @Injectable()
 export class SubscriptionFacadeService {
@@ -25,12 +25,12 @@ export class SubscriptionFacadeService {
   public allSubscriptionList$: Observable<Subscription[]> = this.store.select(allSubscriptionListSelector).pipe(
     filter(value => value !== null),
   );
-  public allSubscriptionListWithUserData$: Observable<UserSubscription[]> = combineLatest([
+  public allSubscriptionListWithUserData$: Observable<NonUserSubscription[]> = combineLatest([
     this.allSubscriptionList$,
     this.userSubscriptionList$,
   ]).pipe(
-    map(([subscriptionList, userSubscribtionList]): UserSubscription[] => {
-      return subscriptionList.map((subscription: Subscription): UserSubscription => {
+    map(([subscriptionList, userSubscribtionList]): NonUserSubscription[] => {
+      return subscriptionList.map((subscription: Subscription): NonUserSubscription => {
         return {
           ...subscription,
           isUser: userSubscribtionList.some((userSubscription: Subscription) => userSubscription.id === subscription.id),

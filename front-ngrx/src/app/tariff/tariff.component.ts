@@ -16,6 +16,7 @@ export class TariffComponent extends BaseComponent implements OnInit {
 
   public userTariff: Tariff | null = null;
   public allTariffList: Tariff[] | null = null;
+  public readonly alreadyActivated = 'You already have this tariff activated';
 
   constructor(
     private cdr: ChangeDetectorRef,

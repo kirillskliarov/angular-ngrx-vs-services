@@ -10,6 +10,7 @@ import { TariffService } from './services/tariff.service';
 import { TariffFacadeService } from './services/tariff-facade.service';
 import { ChangeTariffModalComponent } from './components/change-tariff-modal/change-tariff-modal.component';
 import { ModalModule } from '../shared/modal/modal.module';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
       TariffEffects,
     ]),
     ModalModule,
+    NgbTooltipModule,
   ],
   providers: [
     TariffFacadeService,

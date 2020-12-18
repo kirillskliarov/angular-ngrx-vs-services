@@ -3,7 +3,7 @@ import { UserFacadeService } from '../services/user-facade.service';
 import { TariffModifierFacadeService } from './services/tariff-modifier-facade.service';
 import { TariffModifier } from '../models/tariff-modifier';
 import { filter, takeUntil } from 'rxjs/operators';
-import { UserTariffModifier } from '../models/user-tariff-modifier';
+import { NonUserTariffModifier } from '../models/non-user-tariff-modifier';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteTariffModifierModalComponent } from './components/delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
 import { AddTariffModifierModalComponent } from './components/add-tariff-modifier-modal/add-tariff-modifier-modal.component';
@@ -17,7 +17,7 @@ import { BaseComponent } from '../core/base.component';
 export class TariffModifierComponent extends BaseComponent implements OnInit {
 
   public userTariffModifierList: TariffModifier[] | null = null;
-  public allTariffModifierList: UserTariffModifier[] | null = null;
+  public allTariffModifierList: NonUserTariffModifier[] | null = null;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -44,7 +44,7 @@ export class TariffModifierComponent extends BaseComponent implements OnInit {
       .pipe(
         takeUntil(this.destroy$),
       )
-      .subscribe((allTariffModifierList: UserTariffModifier[]) => {
+      .subscribe((allTariffModifierList: NonUserTariffModifier[]) => {
         this.allTariffModifierList = allTariffModifierList;
         this.cdr.detectChanges();
       });

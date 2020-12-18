@@ -1,5 +1,5 @@
 import { Subscription } from './subscription';
 
-export interface UserSubscription extends Subscription {
+export interface NonUserSubscription extends Subscription {
   isUser: boolean;
 }

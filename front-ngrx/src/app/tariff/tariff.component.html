@@ -1,29 +1,45 @@
-<div>
-  <div *ngIf="userTariff">
-    <div>{{userTariff.label}}_{{userTariff.id}}</div>
-    <div>{{userTariff.description}}</div>
-    <div>{{userTariff.fee}}</div>
+<div class="row">
+  <div class="col-6">
+    <div *ngIf="userTariff"
+         class="card">
+      <div class="card-header">
+        User tariff
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div>{{userTariff.label}}_{{userTariff.id}}</div>
+          <div>{{userTariff.description}}</div>
+          <div>{{userTariff.fee}}</div>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <div *ngIf="allTariffList">
-    <ul class="list-group">
-      <li *ngFor="let tariff of allTariffList"
-          class="list-group-item"
-          [ngClass]="{
-            active: tariff.id === userTariff.id
-          }"
-      >
-        <div>{{tariff.label}}_{{tariff.id}}</div>
-        <div>{{tariff.description}}</div>
-        <div>{{tariff.fee}}</div>
-        <button type="button"
-                class="btn btn-primary"
-                [disabled]="tariff.id === userTariff.id"
-                (click)="openModal(tariff)"
-        >
-          Set
-        </button>
-      </li>
-    </ul>
+  <div class="col-6">
+    <div *ngIf="allTariffList"
+         class="card">
+      <div class="card-header">
+        All tariff list
+      </div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let tariff of allTariffList"
+            class="list-group-item">
+          <div>{{tariff.label}}_{{tariff.id}}</div>
+          <div>{{tariff.description}}</div>
+          <div>{{tariff.fee}}</div>
+          <span class="d-inline-block"
+                tabindex="0"
+                placement="top"
+                [ngbTooltip]="tariff.id === userTariff.id ? alreadyActivated : null">
+            <button type="button"
+                    class="btn btn-primary"
+                    [disabled]="tariff.id === userTariff.id"
+                    (click)="openModal(tariff)">
+              Set
+            </button>
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
