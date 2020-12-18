@@ -56,6 +56,8 @@ export class SubscriptionComponent extends BaseComponent implements OnInit {
 
   public onAddEvent(subscription: Subscription): void {
     const modalRef = this.modalService.open(AddSubscriptionModalComponent);
+    const componentInstance: AddSubscriptionModalComponent = modalRef.componentInstance;
+    componentInstance.subscription = subscription;
 
     modalRef.closed
       .pipe(
@@ -69,6 +71,8 @@ export class SubscriptionComponent extends BaseComponent implements OnInit {
 
   public onDeleteEvent(subscription: Subscription): void {
     const modalRef = this.modalService.open(DeleteSubscriptionModalComponent);
+    const componentInstance: DeleteSubscriptionModalComponent = modalRef.componentInstance;
+    componentInstance.subscription = subscription;
 
     modalRef.closed
       .pipe(

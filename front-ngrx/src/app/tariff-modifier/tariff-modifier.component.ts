@@ -50,6 +50,8 @@ export class TariffModifierComponent extends BaseComponent implements OnInit {
 
   public onAddEvent(tariffModifier: TariffModifier): void {
     const modalRef = this.modalService.open(AddTariffModifierModalComponent);
+    const componentInstance: AddTariffModifierModalComponent = modalRef.componentInstance;
+    componentInstance.tariffModifier = tariffModifier;
 
     modalRef.closed
       .pipe(
@@ -63,6 +65,8 @@ export class TariffModifierComponent extends BaseComponent implements OnInit {
 
   public onDeleteEvent(tariffModifier: TariffModifier): void {
     const modalRef = this.modalService.open(DeleteTariffModifierModalComponent);
+    const componentInstance: DeleteTariffModifierModalComponent = modalRef.componentInstance;
+    componentInstance.tariffModifier = tariffModifier;
 
     modalRef.closed
       .pipe(

@@ -1,11 +1,21 @@
-<app-modal [modalRef]="modalRef">
-  <p>change-tariff-modal works!</p>
-  <div *ngIf="conflictTariffModifierList.length > 0">
-    <div>Tariff modifiers will be disabled</div>
-    <ul>
-      <li *ngFor="let tariffModifier of conflictTariffModifierList">
-        {{tariffModifier.label}}_{{tariffModifier.id}}
-      </li>
-    </ul>
+<app-modal [modalRef]="modalRef"
+           [header]="header">
+  <div *ngIf="conflictTariffModifierList.length > 0; then conflict else noConflict">
   </div>
+  <ng-template #conflict>
+    <div class="card">
+      <div class="card-header">
+        Tariff modifiers will be disabled
+      </div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let tariffModifier of conflictTariffModifierList"
+            class="list-group-item">
+          {{tariffModifier.label}}
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+  <ng-template #noConflict>
+    <p>All tariff modifiers will remain</p>
+  </ng-template>
 </app-modal>

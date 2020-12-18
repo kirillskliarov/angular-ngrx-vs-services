@@ -11,6 +11,8 @@ export class ModalComponent implements OnInit {
 
   @Input()
   public modalRef: NgbActiveModal;
+  @Input()
+  public header: string;
 
   constructor() { }
 

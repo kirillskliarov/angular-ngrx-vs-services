@@ -47,8 +47,9 @@ export class TariffComponent extends BaseComponent implements OnInit {
 
   public onSetEvent(tariff: Tariff): void {
     const modalRef = this.modalService.open(ChangeTariffModalComponent);
-    (modalRef.componentInstance as ChangeTariffModalComponent)
-      .conflictTariffModifierList = this.userFacadeService.getConflictTariffModifierList(tariff);
+    const componentInstance: ChangeTariffModalComponent = modalRef.componentInstance;
+    componentInstance.conflictTariffModifierList = this.userFacadeService.getConflictTariffModifierList(tariff);
+    componentInstance.tariff = tariff;
 
     modalRef.closed
       .pipe(
