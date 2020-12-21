@@ -1,1 +1,35 @@
-<p>tariff-modifier works!</p>
+<div class="row">
+  <div class="col-6">
+    <div *ngIf="userTariffModifierList"
+         class="card">
+      <div class="card-header">
+        User tariff modifier list
+      </div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let userTariffModifier of userTariffModifierList"
+            class="list-group-item">
+          <app-user-tariff-modifier-card [userTariffModifier]="userTariffModifier"
+                                         (deleteEvent)="onDeleteEvent($event)">
+          </app-user-tariff-modifier-card>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <div *ngIf="allTariffModifierList"
+         class="card">
+      <div class="card-header">
+        All tariff modifier list
+      </div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let tariffModifier of allTariffModifierList"
+            class="list-group-item">
+          <app-tariff-modifier-card [tariffModifier]="tariffModifier"
+                                    (addEvent)="onAddEvent($event)">
+          </app-tariff-modifier-card>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

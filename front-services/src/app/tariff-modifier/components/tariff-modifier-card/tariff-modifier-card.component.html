@@ -1,0 +1,13 @@
+<app-billable-card [billable]="tariffModifier">
+  <span class="d-inline-block"
+        tabindex="0"
+        placement="top"
+        [ngbTooltip]="tariffModifier | tooltip">
+    <button [disabled]="tariffModifier.isUser || !tariffModifier.compatibleWithTariff"
+            type="button"
+            class="btn btn-primary"
+            (click)="onAddClick()">
+      Add
+    </button>
+  </span>
+</app-billable-card>

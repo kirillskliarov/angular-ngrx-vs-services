@@ -1,1 +1,35 @@
-<p>subscription works!</p>
+<div class="row">
+  <div class="col-6">
+    <div *ngIf="userSubscriptionList"
+         class="card">
+      <div class="card-header">
+        User subscription list
+      </div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let userSubscription of userSubscriptionList"
+            class="list-group-item">
+          <app-user-subscription-card [userSubscription]="userSubscription"
+                                      (deleteEvent)="onDeleteEvent($event)">
+          </app-user-subscription-card>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <div *ngIf="allSubscriptionList"
+         class="card">
+      <div class="card-header">
+        All subscription list
+      </div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let subscription of allSubscriptionList"
+            class="list-group-item">
+          <app-subscription-card [subscription]="subscription"
+                                 (addEvent)="onAddEvent($event)">
+          </app-subscription-card>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

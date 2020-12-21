@@ -1,0 +1,20 @@
+<div class="subscription__container">
+  <h5>{{header}}</h5>
+  <div class="subscription__content">
+    <ng-content></ng-content>
+  </div>
+  <div class="d-flex justify-content-end">
+    <div class="btn-group">
+      <button type="button"
+              class="btn btn-primary"
+              (click)="onConfirmClick()">
+        Confirm
+      </button>
+      <button type="button"
+              class="btn btn-danger"
+              (click)="onCancelClick()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

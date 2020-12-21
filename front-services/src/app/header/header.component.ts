@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NAV_LINKS } from '../core/nav-links';
+import { NavLink } from '../models/nav-link';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +10,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() public phones: string[] | null = null;
-  @Input() public activePhone: string | null = null;
+  @Input() public userPhoneList: string[] | null = null;
+  @Input() public userActivePhone: string | null = null;
 
-  @Output() public setActivePhone: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public setUserActivePhoneEvent: EventEmitter<string> = new EventEmitter<string>();
+  public readonly navLinks: ReadonlyArray<NavLink> = NAV_LINKS;
 
   constructor() { }
 
@@ -19,7 +22,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public onSelectPhone(phone: string): void {
-    this.setActivePhone.emit(phone);
+    this.setUserActivePhoneEvent.emit(phone);
   }
 
 }
