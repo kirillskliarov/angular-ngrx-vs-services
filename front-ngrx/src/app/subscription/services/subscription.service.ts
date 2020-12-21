@@ -9,6 +9,6 @@ export class SubscriptionService {
   constructor(private httpClient: HttpClient) { }
 
   public getAllSubscriptionList(): Observable<Tariff[]> {
-    return this.httpClient.get<Tariff[]>('http://localhost:5000/subscription/list');
+    return this.httpClient.get<Tariff[]>('http://localhost:6010/subscription/list');
   }
 }

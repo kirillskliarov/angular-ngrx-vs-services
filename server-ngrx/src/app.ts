@@ -18,7 +18,7 @@ const middlewares = jsonServer.defaults();
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
-const port = 5000;
+const port = 6010;
 
 server.get("/", (req: Request, res: Response) => {
   res.status(200).send('Hello World!');
