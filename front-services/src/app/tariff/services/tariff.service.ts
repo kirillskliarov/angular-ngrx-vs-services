@@ -9,6 +9,6 @@ export class TariffService {
   constructor(private httpClient: HttpClient) { }
 
   public getAllTariffList(): Observable<Tariff[]> {
-    return this.httpClient.get<Tariff[]>('http://localhost:6010/tariff/list');
+    return this.httpClient.get<Tariff[]>('http://localhost:6020/tariff/list');
   }
 }
