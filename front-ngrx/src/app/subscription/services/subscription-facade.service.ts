@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Subscription } from '../../models/subscription';
 import {
   allSubscriptionListSelector,
@@ -15,16 +15,15 @@ import {
 } from '../store/subscription.actions';
 import { SubscriptionState } from '../store/subscription.state';
 import { NonUserSubscription } from '../../models/non-user-subscription';
+import { filterNil } from '../../core/filter-nil';
 
 @Injectable()
 export class SubscriptionFacadeService {
 
-  public userSubscriptionList$: Observable<Subscription[]> = this.store.select(userSubscriptionListSelector).pipe(
-    filter(value => value !== null),
-  );
-  public allSubscriptionList$: Observable<Subscription[]> = this.store.select(allSubscriptionListSelector).pipe(
-    filter(value => value !== null),
-  );
+  public userSubscriptionList$: Observable<Subscription[]> = this.store.select(userSubscriptionListSelector)
+    .pipe(filterNil());
+  public allSubscriptionList$: Observable<Subscription[]> = this.store.select(allSubscriptionListSelector)
+    .pipe(filterNil());
   public allSubscriptionListWithUserData$: Observable<NonUserSubscription[]> = combineLatest([
     this.allSubscriptionList$,
     this.userSubscriptionList$,

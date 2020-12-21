@@ -5,14 +5,12 @@ import { changeUserTariffAction, loadAllTariffListAction } from '../store/tariff
 import { Observable } from 'rxjs';
 import { Tariff } from '../../models/tariff';
 import { allTariffListSelector } from '../store/tariff.selectors';
-import { filter } from 'rxjs/operators';
+import { filterNil } from '../../core/filter-nil';
 
 @Injectable()
 export class TariffFacadeService {
 
-  public allTariffList$: Observable<Tariff[]> = this.store.select(allTariffListSelector).pipe(
-    filter(value => value !== null),
-  );
+  public allTariffList$: Observable<Tariff[]> = this.store.select(allTariffListSelector).pipe(filterNil());
 
   constructor(private store: Store<TariffState>) {
   }

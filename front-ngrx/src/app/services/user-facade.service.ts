@@ -14,25 +14,19 @@ import {
 } from '../store/application.selectors';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
-import { filter, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
+import { filterNil } from '../core/filter-nil';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserFacadeService {
 
-  public userPhoneList$: Observable<string[]> = this.store.select(userPhoneListSelector).pipe(
-    filter(value => value !== null),
-  );
-  public userActivePhone$: Observable<string> = this.store.select(userActivePhoneSelector).pipe(
-    filter(value => value !== null),
-  );
-  public userTariff$: Observable<Tariff> = this.store.select(userTariffSelector).pipe(
-    filter(value => value !== null),
-  );
-  public userTariffModifierList$: Observable<TariffModifier[]> = this.store.select(userTariffModifierListSelector).pipe(
-    filter(value => value !== null),
-  );
+  public userPhoneList$: Observable<string[]> = this.store.select(userPhoneListSelector).pipe(filterNil());
+  public userActivePhone$: Observable<string> = this.store.select(userActivePhoneSelector).pipe(filterNil());
+  public userTariff$: Observable<Tariff> = this.store.select(userTariffSelector).pipe(filterNil());
+  public userTariffModifierList$: Observable<TariffModifier[]> = this.store.select(userTariffModifierListSelector)
+    .pipe(filterNil());
 
   constructor(private store: Store<ApplicationState>) {
   }
