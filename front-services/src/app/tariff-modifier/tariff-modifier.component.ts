@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { UserFacadeService } from '../services/user-facade.service';
 import { TariffModifierFacadeService } from './services/tariff-modifier-facade.service';
 import { TariffModifier } from '../models/tariff-modifier';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -8,6 +7,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteTariffModifierModalComponent } from './components/delete-tariff-modifier-modal/delete-tariff-modifier-modal.component';
 import { AddTariffModifierModalComponent } from './components/add-tariff-modifier-modal/add-tariff-modifier-modal.component';
 import { BaseComponent } from '../core/base.component';
+import { ApplicationStoreService } from '../services/application-store.service';
+import { TariffModifierStoreService } from './services/tariff-modifier-store.service';
 
 @Component({
   selector: 'app-tariff-modifier',
@@ -22,7 +23,8 @@ export class TariffModifierComponent extends BaseComponent implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private userFacadeService: UserFacadeService,
+    private applicationStoreService: ApplicationStoreService,
+    private tariffModifierStoreService: TariffModifierStoreService,
     private tariffModifierFacadeService: TariffModifierFacadeService,
     private modalService: NgbModal,
   ) {
@@ -32,14 +34,14 @@ export class TariffModifierComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.tariffModifierFacadeService.loadAllTariffModifierList();
 
-    this.userFacadeService.userTariffModifierList$
+    this.applicationStoreService.getUserTariffModifierList()
       .pipe(takeUntil(this.destroy$))
       .subscribe((userTariffModifierList: TariffModifier[]) => {
         this.userTariffModifierList = userTariffModifierList;
         this.cdr.detectChanges();
       });
 
-    this.tariffModifierFacadeService.allTariffModifierListWithUserData$
+    this.tariffModifierStoreService.getAllTariffModifierListWithUserData()
       .pipe(takeUntil(this.destroy$))
       .subscribe((allTariffModifierList: NonUserTariffModifier[]) => {
         this.allTariffModifierList = allTariffModifierList;

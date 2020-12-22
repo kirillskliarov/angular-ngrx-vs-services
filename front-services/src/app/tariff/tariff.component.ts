@@ -6,6 +6,8 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangeTariffModalComponent } from './components/change-tariff-modal/change-tariff-modal.component';
 import { BaseComponent } from '../core/base.component';
+import { ApplicationStoreService } from '../services/application-store.service';
+import { TariffStoreService } from './services/tariff-store.service';
 
 @Component({
   selector: 'app-tariff',
@@ -20,6 +22,8 @@ export class TariffComponent extends BaseComponent implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
+    private applicationStoreService: ApplicationStoreService,
+    private tariffStoreService: TariffStoreService,
     private userFacadeService: UserFacadeService,
     private tariffFacadeService: TariffFacadeService,
     private modalService: NgbModal,
@@ -30,14 +34,14 @@ export class TariffComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.tariffFacadeService.loadAllTariffList();
 
-    this.userFacadeService.userTariff$
+    this.applicationStoreService.getUserTariff()
       .pipe(takeUntil(this.destroy$))
       .subscribe((userTariff: Tariff) => {
         this.userTariff = userTariff;
         this.cdr.detectChanges();
       });
 
-    this.tariffFacadeService.allTariffList$
+    this.tariffStoreService.getAllTariffList()
       .pipe(takeUntil(this.destroy$))
       .subscribe((allTariffList: Tariff[]) => {
         this.allTariffList = allTariffList;

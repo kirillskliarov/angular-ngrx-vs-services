@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { UserFacadeService } from './services/user-facade.service';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from './core/base.component';
+import { ApplicationStoreService } from './services/application-store.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent extends BaseComponent implements OnInit {
   constructor(
     private cdr: ChangeDetectorRef,
     private userFacadeService: UserFacadeService,
+    private applicationStoreService: ApplicationStoreService,
   ) {
     super();
   }
@@ -23,14 +25,14 @@ export class AppComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.userFacadeService.loadUserPhoneList();
 
-    this.userFacadeService.userPhoneList$
+    this.applicationStoreService.getUserPhoneList()
       .pipe(takeUntil(this.destroy$))
       .subscribe((userPhoneList: string[]) => {
         this.userPhoneList = userPhoneList;
         this.cdr.detectChanges();
       });
 
-    this.userFacadeService.userActivePhone$
+    this.applicationStoreService.getUserActivePhone()
       .pipe(takeUntil(this.destroy$))
       .subscribe((userActivePhone: string) => {
         this.userActivePhone = userActivePhone;

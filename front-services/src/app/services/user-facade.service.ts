@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
 import { ApplicationEffectsService } from './application-effects.service';
@@ -9,11 +8,6 @@ import { ApplicationStoreService } from './application-store.service';
   providedIn: 'root'
 })
 export class UserFacadeService {
-
-  public userPhoneList$: Observable<string[]> = this.applicationStoreService.getUserPhoneList();
-  public userActivePhone$: Observable<string> = this.applicationStoreService.getUserActivePhone();
-  public userTariff$: Observable<Tariff> = this.applicationStoreService.getUserTariff();
-  public userTariffModifierList$: Observable<TariffModifier[]> = this.applicationStoreService.getUserTariffModifierList()
 
   constructor(
     private applicationEffectsService: ApplicationEffectsService,
