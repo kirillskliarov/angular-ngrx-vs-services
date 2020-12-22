@@ -7,7 +7,6 @@ import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
-// TODO: remove @ngrx/effects @ngrx/store from project
 @NgModule({
   declarations: [
     AppComponent,
