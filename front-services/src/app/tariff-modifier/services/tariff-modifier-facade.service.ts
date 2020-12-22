@@ -1,23 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { allTariffModifierListSelector } from '../store/tariff-modifier.selectors';
 import { TariffModifier } from '../../models/tariff-modifier';
-import {
-  addUserTariffModifierAction,
-  deleteUserTariffModifierAction,
-  loadAllTariffModifierListAction,
-} from '../store/tariff-modifier.actions';
 import { UserFacadeService } from '../../services/user-facade.service';
 import { NonUserTariffModifier } from '../../models/non-user-tariff-modifier';
-import { filterNil } from '../../core/filter-nil';
+import { TariffModifierStoreService } from './tariff-modifier-store.service';
+import { TariffModifierEffectsService } from './tariff-modifier-effects.service';
 
 @Injectable()
 export class TariffModifierFacadeService {
 
-  public allTariffModifierList$: Observable<TariffModifier[]> = this.store.select(allTariffModifierListSelector)
-    .pipe(filterNil());
+  public allTariffModifierList$: Observable<TariffModifier[]> = this.tariffModifierStoreService.getAllTariffModifierList();
   public allTariffModifierListWithUserData$: Observable<NonUserTariffModifier[]> = combineLatest(
     [
       this.allTariffModifierList$,
@@ -37,20 +30,21 @@ export class TariffModifierFacadeService {
   );
 
   constructor(
-    private store: Store<TariffModifier>,
     private userFacadeService: UserFacadeService,
+    private tariffModifierStoreService: TariffModifierStoreService,
+    private tariffModifierEffectsService: TariffModifierEffectsService,
   ) {
   }
 
   public loadAllTariffModifierList(): void {
-    this.store.dispatch(loadAllTariffModifierListAction());
+    this.tariffModifierEffectsService.loadAllTariffModifierList();
   }
 
   public deleteTariffModifier(id: string): void {
-    this.store.dispatch(deleteUserTariffModifierAction({ id }));
+    this.tariffModifierEffectsService.deleteUserTariffModifier({ id });
   }
 
   public addTariffModifier(id: string): void {
-    this.store.dispatch(addUserTariffModifierAction({ id }));
+    this.tariffModifierEffectsService.addUserTariffModifier({ id });
   }
 }

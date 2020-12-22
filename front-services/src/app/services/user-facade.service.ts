@@ -1,42 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { ApplicationState } from '../store/application.state';
-import {
-  loadUserPhoneListAction,
-  setUserActivePhoneAction,
-} from '../store/application.actions';
-import {
-  userActivePhoneSelector,
-  userPhoneListSelector,
-  userTariffModifierListSelector,
-  userTariffSelector,
-} from '../store/application.selectors';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
-import { take } from 'rxjs/operators';
-import { filterNil } from '../core/filter-nil';
+import { ApplicationEffectsService } from './application-effects.service';
+import { ApplicationStoreService } from './application-store.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserFacadeService {
 
-  public userPhoneList$: Observable<string[]> = this.store.select(userPhoneListSelector).pipe(filterNil());
-  public userActivePhone$: Observable<string> = this.store.select(userActivePhoneSelector).pipe(filterNil());
-  public userTariff$: Observable<Tariff> = this.store.select(userTariffSelector).pipe(filterNil());
-  public userTariffModifierList$: Observable<TariffModifier[]> = this.store.select(userTariffModifierListSelector)
-    .pipe(filterNil());
+  public userPhoneList$: Observable<string[]> = this.applicationStoreService.getUserPhoneList();
+  public userActivePhone$: Observable<string> = this.applicationStoreService.getUserActivePhone();
+  public userTariff$: Observable<Tariff> = this.applicationStoreService.getUserTariff();
+  public userTariffModifierList$: Observable<TariffModifier[]> = this.applicationStoreService.getUserTariffModifierList()
 
-  constructor(private store: Store<ApplicationState>) {
+  constructor(
+    private applicationEffectsService: ApplicationEffectsService,
+    private applicationStoreService: ApplicationStoreService,
+    ) {
   }
 
   public loadUserPhoneList(): void {
-    this.store.dispatch(loadUserPhoneListAction());
+    this.applicationEffectsService.loadUserPhoneList();
   }
 
   public setUserActivePhone(userActivePhone: string): void {
-    this.store.dispatch(setUserActivePhoneAction({ userActivePhone }));
+    this.applicationStoreService.setUserActivePhone({ userActivePhone });
+    this.applicationEffectsService.setUserActivePhone();
   }
 
   public getConflictTariffModifierList(tariff: Tariff): TariffModifier[] {
@@ -54,11 +45,6 @@ export class UserFacadeService {
   }
 
   private getUserTariffModifierListSnapshot(): TariffModifier[] {
-    let userTariffModifierList: TariffModifier[];
-    this.store.select(userTariffModifierListSelector)
-      .pipe(take(1))
-      .subscribe(list => userTariffModifierList = list);
-
-    return userTariffModifierList;
+    return this.applicationStoreService.getSnapshot().userTariffModifierList;
   }
 }

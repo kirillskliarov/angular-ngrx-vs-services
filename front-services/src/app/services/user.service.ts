@@ -16,15 +16,18 @@ export class UserService {
   }
 
   public getUserPhoneList(): Observable<string[]> {
+    // debugger;
     return this.httpClient.get<string[]>('http://localhost:6020/user/phones/list');
   }
 
   public getUserTariff(phone: string): Observable<Tariff> {
+    // debugger;
     const params = { phone };
     return this.httpClient.get<Tariff>('http://localhost:6020/user/tariff', { params });
   }
 
   public getUserTariffModifierList(phone: string): Observable<TariffModifier[]> {
+    // debugger;
     const params = { phone };
     return this.httpClient.get<TariffModifier[]>('http://localhost:6020/user/tariff-modifiers', { params });
   }

@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { TariffState } from '../store/tariff.state';
-import { changeUserTariffAction, loadAllTariffListAction } from '../store/tariff.actions';
 import { Observable } from 'rxjs';
 import { Tariff } from '../../models/tariff';
-import { allTariffListSelector } from '../store/tariff.selectors';
-import { filterNil } from '../../core/filter-nil';
+import { TariffStoreService } from './tariff-store.service';
+import { TariffEffectsService } from './tariff-effects.service';
 
 @Injectable()
 export class TariffFacadeService {
 
-  public allTariffList$: Observable<Tariff[]> = this.store.select(allTariffListSelector).pipe(filterNil());
+  public allTariffList$: Observable<Tariff[]> = this.tariffStoreService.getAllTariffList();
 
-  constructor(private store: Store<TariffState>) {
+  constructor(
+    private tariffStoreService: TariffStoreService,
+    private tariffEffectsService: TariffEffectsService,
+  ) {
   }
 
   public loadAllTariffList(): void {
-    this.store.dispatch(loadAllTariffListAction());
+    this.tariffEffectsService.loadAllTariffList();
   }
 
   public changeUserTariff(id: string): void {
-    this.store.dispatch(changeUserTariffAction({ id }));
+    this.tariffEffectsService.changeUserTariff({ id });
   }
 }

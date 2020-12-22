@@ -1,29 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Subscription } from '../../models/subscription';
-import {
-  allSubscriptionListSelector,
-  userSubscriptionListSelector,
-} from '../store/subscription.selectors';
-import {
-  loadUserSubscriptionListAction,
-  loadAllSubscriptionListAction,
-  addUserSubscriptionAction,
-  deleteUserSubscriptionAction,
-} from '../store/subscription.actions';
-import { SubscriptionState } from '../store/subscription.state';
 import { NonUserSubscription } from '../../models/non-user-subscription';
-import { filterNil } from '../../core/filter-nil';
+import { SubscriptionStoreService } from './subscription-store.service';
+import { SubscriptionEffectsService } from './subscription-effects.service';
 
 @Injectable()
 export class SubscriptionFacadeService {
 
-  public userSubscriptionList$: Observable<Subscription[]> = this.store.select(userSubscriptionListSelector)
-    .pipe(filterNil());
-  public allSubscriptionList$: Observable<Subscription[]> = this.store.select(allSubscriptionListSelector)
-    .pipe(filterNil());
+  public userSubscriptionList$: Observable<Subscription[]> = this.subscriptionStoreService.getUserSubscriptionList();
+  public allSubscriptionList$: Observable<Subscription[]> = this.subscriptionStoreService.getAllSubscriptionList();
   public allSubscriptionListWithUserData$: Observable<NonUserSubscription[]> = combineLatest([
     this.allSubscriptionList$,
     this.userSubscriptionList$,
@@ -38,22 +25,25 @@ export class SubscriptionFacadeService {
     }),
   );
 
-  constructor(private store: Store<SubscriptionState>) {
+  constructor(
+    private subscriptionStoreService: SubscriptionStoreService,
+    private subscriptionEffectsService: SubscriptionEffectsService,
+  ) {
   }
 
   public loadUserSubscriptionList(): void {
-    this.store.dispatch(loadUserSubscriptionListAction());
+    this.subscriptionEffectsService.loadUserSubscriptionList();
   }
 
   public loadAllSubscriptionList(): void {
-    this.store.dispatch(loadAllSubscriptionListAction());
+    this.subscriptionEffectsService.loadAllSubscriptionList();
   }
 
   public addUserSubscription(id: string): void {
-    this.store.dispatch(addUserSubscriptionAction({ id }));
+    this.subscriptionEffectsService.addUserSubscription({ id });
   }
 
   public deleteUserSubscription(id: string): void {
-    this.store.dispatch(deleteUserSubscriptionAction({ id }));
+    this.subscriptionEffectsService.deleteUserSubscription({ id });
   }
 }
