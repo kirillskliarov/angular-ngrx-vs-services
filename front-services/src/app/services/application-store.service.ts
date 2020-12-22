@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { applicationInitialState, ApplicationState } from '../store/application.state';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
 import { StoreService } from '../core/store.service';
@@ -55,6 +55,7 @@ export class ApplicationStoreService extends StoreService<ApplicationState> {
     return this.store.asObservable().pipe(
       map((store: ApplicationState) => store.userActivePhone),
       filterNil(),
+      distinctUntilChanged(),
     );
   }
 

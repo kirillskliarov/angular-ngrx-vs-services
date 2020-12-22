@@ -19,6 +19,7 @@ export class SubscriptionEffectsService {
   }
 
   public loadUserSubscriptionList(): void {
+    // debugger;
     this.applicationStoreService.getUserActivePhone()
       .pipe(
         take(1),
