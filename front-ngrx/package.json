@@ -26,7 +26,8 @@
     "bootstrap": "^4.5.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "@ngrx/store-devtools": "^10.1.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.7",

@@ -10,6 +10,8 @@ import { applicationReducer } from './store/application.reducers';
 import { ApplicationEffects } from './store/application.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
       ApplicationEffects,
     ]),
     NgbDropdownModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],
