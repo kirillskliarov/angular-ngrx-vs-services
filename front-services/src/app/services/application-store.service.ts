@@ -1,75 +1,55 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { applicationInitialState, ApplicationState } from '../store/application.state';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Tariff } from '../models/tariff';
 import { TariffModifier } from '../models/tariff-modifier';
-import { StoreService } from '../core/store.service';
 import { filterNil } from '../core/filter-nil';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApplicationStoreService extends StoreService<ApplicationState> {
+export class ApplicationStoreService {
+
+  private readonly userPhoneList$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
+  private readonly userActivePhone$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  private readonly userTariff$: BehaviorSubject<Tariff> = new BehaviorSubject<Tariff>(null);
+  private readonly userTariffModifierList$: BehaviorSubject<TariffModifier[]> = new BehaviorSubject<TariffModifier[]>(null);
 
   constructor() {
-    super(applicationInitialState);
   }
 
-  public setUserPhoneList( payload: { userPhoneList: string[] }): void {
-    this.store.next({
-      ...this.store.getValue(),
-      userPhoneList: payload.userPhoneList,
-    });
+  public setUserPhoneList(userPhoneList: string[]): void {
+    this.userPhoneList$.next(userPhoneList);
   }
 
-  public setUserActivePhone(payload: { userActivePhone: string }): void {
-    this.store.next({
-      ...this.store.getValue(),
-      userActivePhone: payload.userActivePhone,
-    });
+  public setUserActivePhone(userActivePhone: string): void {
+    this.userActivePhone$.next(userActivePhone);
   }
 
-  public setUserTariff(payload: { userTariff: Tariff }): void {
-    this.store.next({
-      ...this.store.getValue(),
-      userTariff: payload.userTariff,
-    });
+  public setUserTariff(userTariff: Tariff): void {
+    this.userTariff$.next(userTariff);
   }
 
-  public setUserTariffModifierList(payload: { userTariffModifierList: TariffModifier[] }): void {
-    this.store.next({
-      ...this.store.getValue(),
-      userTariffModifierList: payload.userTariffModifierList,
-    });
+  public setUserTariffModifierList(userTariffModifierList: TariffModifier[]): void {
+    this.userTariffModifierList$.next(userTariffModifierList);
   }
 
   public getUserPhoneList(): Observable<string[]> {
-    return this.store.asObservable().pipe(
-      map((store: ApplicationState) => store.userPhoneList),
-      filterNil(),
-    );
+    return this.userPhoneList$.asObservable().pipe(filterNil());
   }
 
   public getUserActivePhone(): Observable<string> {
-    return this.store.asObservable().pipe(
-      map((store: ApplicationState) => store.userActivePhone),
-      filterNil(),
-      distinctUntilChanged(),
-    );
+    return this.userActivePhone$.asObservable().pipe(filterNil());
   }
 
   public getUserTariff(): Observable<Tariff> {
-    return this.store.asObservable().pipe(
-      map((store: ApplicationState) => store.userTariff),
-      filterNil(),
-    );
+    return this.userTariff$.asObservable().pipe(filterNil());
   }
 
   public getUserTariffModifierList(): Observable<TariffModifier[]> {
-    return this.store.asObservable().pipe(
-      map((store: ApplicationState) => store.userTariffModifierList),
-      filterNil(),
-    );
+    return this.userTariffModifierList$.asObservable().pipe(filterNil());
+  }
+
+  public getUserTariffModifierListSnapshot(): TariffModifier[] {
+    return this.userTariffModifierList$.getValue();
   }
 }

@@ -1,0 +1,26 @@
+Kirill_Sklyarov@EPRUMOSL8784 MINGW64 ~/Documents/projects/ngrx-vs-services/front-services (feature/services)
+$ ng build --prod
+
+chunk {} common.2cc42081274e4e2f9a77.js (common) 2.36 kB  [rendered]
+chunk {1} runtime.a0b6f0afdeb511bf68c3.js (runtime) 2.31 kB [entry] [rendered]
+chunk {2} main.a7cb5c92e0b60536c38f.js (main) 330 kB [initial] [rendered]
+chunk {3} polyfills.db9f1f457fdd943d13c4.js (polyfills) 36.7 kB [initial] [rendered]
+chunk {4} styles.4d9553ffc36347b97499.css (styles) 141 kB [initial] [rendered]
+chunk {5} 5.f7373e41ae0bfa0da651.js () 8.9 kB  [rendered]
+chunk {6} 6.c42f103d0f308025ee88.js () 8.8 kB  [rendered]
+chunk {7} 7.b2f4d8b0b762a1a51af6.js () 7.15 kB  [rendered]
+Date: 2020-12-22T12:02:03.228Z - Hash: d35b10f9173251f6a900 - Time: 54841ms
+
+
+Kirill_Sklyarov@EPRUMOSL8784 MINGW64 ~/Documents/projects/ngrx-vs-services/front-ngrx (feature/services)
+$ ng build --prod
+
+chunk {} common.2cc42081274e4e2f9a77.js (common) 2.36 kB  [rendered]
+chunk {1} runtime.234f345b9ddbc336e8b4.js (runtime) 2.31 kB [entry] [rendered]
+chunk {2} main.47e860c5be88cc5b45f0.js (main) 356 kB [initial] [rendered]
+chunk {3} polyfills.db9f1f457fdd943d13c4.js (polyfills) 36.7 kB [initial] [rendered]
+chunk {4} styles.4d9553ffc36347b97499.css (styles) 141 kB [initial] [rendered]
+chunk {5} 5.53ecf9888a035acfc720.js () 9.21 kB  [rendered]
+chunk {6} 6.3c363de11a83766c69d5.js () 8.54 kB  [rendered]
+chunk {7} 7.8eb7d6de9db162684149.js () 6.95 kB  [rendered]
+Date: 2020-12-22T12:04:49.435Z - Hash: 2b52f6536399d6803a35 - Time: 89491ms

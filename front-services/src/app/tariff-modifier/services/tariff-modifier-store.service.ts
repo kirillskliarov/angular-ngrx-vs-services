@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StoreService } from '../../core/store.service';
-import { tariffModifierInitialState, TariffModifierState } from '../store/tariff-modifier.state';
-import { combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { TariffModifier } from '../../models/tariff-modifier';
 import { map } from 'rxjs/operators';
 import { filterNil } from '../../core/filter-nil';
@@ -9,26 +7,21 @@ import { NonUserTariffModifier } from '../../models/non-user-tariff-modifier';
 import { ApplicationStoreService } from '../../services/application-store.service';
 
 @Injectable()
-export class TariffModifierStoreService extends StoreService<TariffModifierState> {
+export class TariffModifierStoreService {
+
+  private readonly allTariffModifierList$: BehaviorSubject<TariffModifier[]> = new BehaviorSubject<TariffModifier[]>(null);
 
   constructor(
     private applicationStoreService: ApplicationStoreService,
   ) {
-    super(tariffModifierInitialState);
   }
 
-  public setAllTariffModifierList(payload: { allTariffModifierList: TariffModifier[] }): void {
-    this.store.next({
-      ...this.store.getValue(),
-      allTariffModifierList: payload.allTariffModifierList,
-    });
+  public setAllTariffModifierList(allTariffModifierList: TariffModifier[]): void {
+    this.allTariffModifierList$.next(allTariffModifierList);
   }
 
   public getAllTariffModifierList(): Observable<TariffModifier[]> {
-    return this.store.asObservable().pipe(
-      map((store: TariffModifierState) => store.allTariffModifierList),
-      filterNil(),
-    );
+    return this.allTariffModifierList$.asObservable().pipe(filterNil());
   }
 
   public getAllTariffModifierListWithUserData(): Observable<NonUserTariffModifier[]> {

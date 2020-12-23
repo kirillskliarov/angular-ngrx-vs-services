@@ -20,12 +20,12 @@ export class UserFacadeService {
   }
 
   public setUserActivePhone(userActivePhone: string): void {
-    this.applicationStoreService.setUserActivePhone({ userActivePhone });
+    this.applicationStoreService.setUserActivePhone(userActivePhone);
     this.applicationEffectsService.setUserActivePhone();
   }
 
   public getConflictTariffModifierList(tariff: Tariff): TariffModifier[] {
-    const userTariffModifierList = this.getUserTariffModifierListSnapshot();
+    const userTariffModifierList = this.applicationStoreService.getUserTariffModifierListSnapshot();
 
     const conflictTariffModifiersList: TariffModifier[] = [];
 
@@ -36,9 +36,5 @@ export class UserFacadeService {
     });
 
     return conflictTariffModifiersList;
-  }
-
-  private getUserTariffModifierListSnapshot(): TariffModifier[] {
-    return this.applicationStoreService.getSnapshot().userTariffModifierList;
   }
 }

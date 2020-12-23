@@ -1,45 +1,33 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { subscriptionInitialState, SubscriptionState } from '../store/subscription.state';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { Subscription } from '../../models/subscription';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { StoreService } from '../../core/store.service';
+import { map } from 'rxjs/operators';
 import { filterNil } from '../../core/filter-nil';
 import { NonUserSubscription } from '../../models/non-user-subscription';
 
 @Injectable()
-export class SubscriptionStoreService extends StoreService<SubscriptionState> {
+export class SubscriptionStoreService {
+
+  private readonly userSubscriptionList$: BehaviorSubject<Subscription[]> = new BehaviorSubject<Subscription[]>(null);
+  private readonly allSubscriptionList$: BehaviorSubject<Subscription[]> = new BehaviorSubject<Subscription[]>(null);
 
   constructor() {
-    super(subscriptionInitialState);
   }
 
-  public setUserSubscriptionList(payload: { userSubscriptionList: Subscription[] }): void {
-    this.store.next({
-      ...this.store.getValue(),
-      userSubscriptionList: payload.userSubscriptionList,
-    });
+  public setUserSubscriptionList(userSubscriptionList: Subscription[]): void {
+    this.userSubscriptionList$.next(userSubscriptionList);
   }
 
-  public setAllSubscriptionList(payload: { allSubscriptionList: Subscription[] }): void {
-    this.store.next({
-      ...this.store.getValue(),
-      allSubscriptionList: payload.allSubscriptionList,
-    });
+  public setAllSubscriptionList(allSubscriptionList: Subscription[]): void {
+    this.allSubscriptionList$.next(allSubscriptionList);
   }
 
   public getUserSubscriptionList(): Observable<Subscription[] | null> {
-    return this.store.asObservable().pipe(
-      map((store: SubscriptionState) => store.userSubscriptionList),
-      filterNil(),
-    );
+    return this.userSubscriptionList$.asObservable().pipe(filterNil());
   }
 
   public getAllSubscriptionList(): Observable<Subscription[] | null> {
-    return this.store.asObservable().pipe(
-      map((store: SubscriptionState) => store.allSubscriptionList),
-      filterNil(),
-    );
+    return this.allSubscriptionList$.asObservable().pipe(filterNil());
   }
 
   public getAllSubscriptionListWithUserData(): Observable<NonUserSubscription[]> {

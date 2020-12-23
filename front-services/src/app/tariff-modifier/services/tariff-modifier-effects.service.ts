@@ -23,7 +23,7 @@ export class TariffModifierEffectsService {
     this.tariffModifierService.getAllTariffModifierList()
       .pipe(take(1))
       .subscribe((allTariffModifierList: TariffModifier[]) => {
-        this.tariffModifierStoreService.setAllTariffModifierList({ allTariffModifierList });
+        this.tariffModifierStoreService.setAllTariffModifierList(allTariffModifierList);
       });
   }
 

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ApplicationStoreService } from '../../services/application-store.service';
 import { switchMap, take } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
@@ -19,7 +18,6 @@ export class SubscriptionEffectsService {
   }
 
   public loadUserSubscriptionList(): void {
-    // debugger;
     this.applicationStoreService.getUserActivePhone()
       .pipe(
         take(1),
@@ -28,7 +26,7 @@ export class SubscriptionEffectsService {
         }),
       )
       .subscribe((userSubscriptionList: Subscription[]) => {
-        this.subscriptionStoreService.setUserSubscriptionList({ userSubscriptionList });
+        this.subscriptionStoreService.setUserSubscriptionList(userSubscriptionList);
       });
   }
 
@@ -36,7 +34,7 @@ export class SubscriptionEffectsService {
     this.subscriptionService.getAllSubscriptionList()
       .pipe(take(1))
       .subscribe((allSubscriptionList: Subscription[]) => {
-        this.subscriptionStoreService.setAllSubscriptionList({ allSubscriptionList });
+        this.subscriptionStoreService.setAllSubscriptionList(allSubscriptionList);
       });
   }
 

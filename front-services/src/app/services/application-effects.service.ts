@@ -19,8 +19,8 @@ export class ApplicationEffectsService {
   public loadUserPhoneList(): void {
     this.userService.getUserPhoneList()
       .subscribe((userPhoneList: string[]) => {
-        this.applicationStoreService.setUserPhoneList({ userPhoneList });
-        this.applicationStoreService.setUserActivePhone({ userActivePhone: userPhoneList[0] });
+        this.applicationStoreService.setUserPhoneList(userPhoneList);
+        this.applicationStoreService.setUserActivePhone(userPhoneList[0]);
         this.setUserActivePhone();
       });
   }
@@ -42,7 +42,7 @@ export class ApplicationEffectsService {
         switchMap((userActivePhone: string) => this.userService.getUserTariff(userActivePhone))
       )
       .subscribe((userTariff: Tariff) => {
-        this.applicationStoreService.setUserTariff({ userTariff });
+        this.applicationStoreService.setUserTariff(userTariff);
       });
   }
 
@@ -53,7 +53,7 @@ export class ApplicationEffectsService {
         switchMap((userActivePhone) => this.userService.getUserTariffModifierList(userActivePhone))
       )
       .subscribe((userTariffModifierList: TariffModifier[]) => {
-        this.applicationStoreService.setUserTariffModifierList({ userTariffModifierList });
+        this.applicationStoreService.setUserTariffModifierList(userTariffModifierList);
       });
   }
 
