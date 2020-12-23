@@ -27,16 +27,17 @@ export class TariffEffectsService {
       });
   }
 
-  public changeUserTariff(payload: { id: string }): void {
+  public changeUserTariff(id: string): void {
     this.applicationStoreService.getUserActivePhone()
       .pipe(
         take(1),
         switchMap((activePhone: string) => {
-          return this.userService.changeUserTariff(activePhone, payload.id)
+          return this.userService.changeUserTariff(activePhone, id);
         }),
       )
       .subscribe(() => {
-        this.applicationEffectsService.changeUserTariffSuccess();
+        this.applicationEffectsService.loadUserTariff();
+        this.applicationEffectsService.loadUserTariffModifierList();
       });
   }
 }

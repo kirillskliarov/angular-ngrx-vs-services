@@ -14,10 +14,10 @@ export class TariffModifierFacadeService {
   }
 
   public deleteTariffModifier(id: string): void {
-    this.tariffModifierEffectsService.deleteUserTariffModifier({ id });
+    this.tariffModifierEffectsService.deleteUserTariffModifier(id);
   }
 
   public addTariffModifier(id: string): void {
-    this.tariffModifierEffectsService.addUserTariffModifier({ id });
+    this.tariffModifierEffectsService.addUserTariffModifier(id);
   }
 }

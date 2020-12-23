@@ -27,12 +27,12 @@ export class TariffModifierEffectsService {
       });
   }
 
-  public deleteUserTariffModifier(payload: { id: string }): void {
+  public deleteUserTariffModifier(id: string): void {
     this.applicationStoreService.getUserActivePhone()
       .pipe(
         take(1),
         switchMap((activePhone: string) => {
-          return this.userService.deleteUserTariffModifier(activePhone, payload.id);
+          return this.userService.deleteUserTariffModifier(activePhone, id);
         }),
       )
       .subscribe(() => {
@@ -40,12 +40,12 @@ export class TariffModifierEffectsService {
       });
   }
 
-  public addUserTariffModifier(payload: { id: string }): void {
+  public addUserTariffModifier(id: string): void {
     this.applicationStoreService.getUserActivePhone()
       .pipe(
         take(1),
         switchMap((activePhone: string) => {
-          return this.userService.addUserTariffModifier(activePhone, payload.id);
+          return this.userService.addUserTariffModifier(activePhone, id);
         }),
       )
       .subscribe(() => {

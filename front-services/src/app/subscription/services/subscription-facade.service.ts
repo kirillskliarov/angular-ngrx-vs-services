@@ -18,10 +18,10 @@ export class SubscriptionFacadeService {
   }
 
   public addUserSubscription(id: string): void {
-    this.subscriptionEffectsService.addUserSubscription({ id });
+    this.subscriptionEffectsService.addUserSubscription(id);
   }
 
   public deleteUserSubscription(id: string): void {
-    this.subscriptionEffectsService.deleteUserSubscription({ id });
+    this.subscriptionEffectsService.deleteUserSubscription(id);
   }
 }

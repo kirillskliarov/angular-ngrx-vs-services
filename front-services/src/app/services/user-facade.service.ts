@@ -21,7 +21,8 @@ export class UserFacadeService {
 
   public setUserActivePhone(userActivePhone: string): void {
     this.applicationStoreService.setUserActivePhone(userActivePhone);
-    this.applicationEffectsService.setUserActivePhone();
+    this.applicationEffectsService.loadUserTariff();
+    this.applicationEffectsService.loadUserTariffModifierList();
   }
 
   public getConflictTariffModifierList(tariff: Tariff): TariffModifier[] {

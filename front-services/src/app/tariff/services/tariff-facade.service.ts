@@ -14,6 +14,6 @@ export class TariffFacadeService {
   }
 
   public changeUserTariff(id: string): void {
-    this.tariffEffectsService.changeUserTariff({ id });
+    this.tariffEffectsService.changeUserTariff(id);
   }
 }

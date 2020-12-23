@@ -38,12 +38,12 @@ export class SubscriptionEffectsService {
       });
   }
 
-  public addUserSubscription(payload: { id: string }): void {
+  public addUserSubscription(id: string): void {
     this.applicationStoreService.getUserActivePhone()
       .pipe(
         take(1),
         switchMap((activePhone: string) => {
-          return this.userService.addUserSubscription(activePhone, payload.id);
+          return this.userService.addUserSubscription(activePhone, id);
         }),
       )
       .subscribe(() => {
@@ -51,12 +51,12 @@ export class SubscriptionEffectsService {
       });
   }
 
-  public deleteUserSubscription(payload: { id: string }): void {
+  public deleteUserSubscription(id: string): void {
     this.applicationStoreService.getUserActivePhone()
       .pipe(
         take(1),
         switchMap((activePhone: string) => {
-          return this.userService.deleteUserSubscription(activePhone, payload.id);
+          return this.userService.deleteUserSubscription(activePhone, id);
         }),
       )
       .subscribe(() => {
